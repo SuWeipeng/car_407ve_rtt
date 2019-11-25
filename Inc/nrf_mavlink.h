@@ -14,12 +14,6 @@ typedef union{
   uint8_t value;
 }ap_t;
 
-typedef struct vel_target {
-  float vel_x; // m/s
-  float vel_y; // m/s
-  float rad_z; // rad/s
-} vel_target;
-
 void update_mavlink(void);
 
 #endif

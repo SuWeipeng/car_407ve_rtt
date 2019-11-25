@@ -2,7 +2,7 @@
 #include <rtdevice.h>
 #include <board.h>
 #include <stdlib.h>
-#include "nrf_mavlink.h"
+#include "rtt_interface.h"
 #include "AC_Base.h"
 #include "Logger.h"
 

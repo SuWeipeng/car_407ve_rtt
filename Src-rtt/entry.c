@@ -25,7 +25,6 @@
 /* USER CODE BEGIN Includes */
 #include "nrf_mavlink.h"
 #include "Logger.h"
-#include "MY_NRF24.h"
 #if defined(USE_RTTHREAD)
 #include "rtt_interface.h"
 #include <entry.h>
@@ -126,20 +125,7 @@ int main(void)
   MX_TIM8_Init();
   MX_USART2_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
-  /* USER CODE BEGIN 2 */
-  NRF24_begin(NRF_CE_GPIO_Port, NRF_CS_Pin, NRF_CE_Pin, hspi1);
-  printRadioSettings();
-  
-  //**** TRANSMIT - ACK ****//
-  NRF24_stopListening();
-  NRF24_openWritingPipe(TxpipeAddrs);
-  NRF24_setAutoAck(true);
-  NRF24_setChannel(52);
-  NRF24_setPayloadSize(32);
-  
-  NRF24_enableDynamicPayloads();
-  NRF24_enableAckPayload();
-  
+  /* USER CODE BEGIN 2 */  
   Log_Init();
   setup();
 #if defined(USE_RTTHREAD)
@@ -153,7 +139,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    update_mavlink();
     loop();
     /* USER CODE END WHILE */
 
