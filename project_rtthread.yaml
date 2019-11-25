@@ -22,11 +22,18 @@ common:
   - Libraries/rt-thread/board-F407xE
   - Libraries/rt-thread/components
   - Libraries/rt-thread/components/cplusplus
+  - Libraries/rt-thread/components/dfs/include
+  - Libraries/rt-thread/components/dfs/filesystems
+  - Libraries/rt-thread/components/dfs/filesystems/devfs
+  - Libraries/rt-thread/components/dfs/filesystems/elmfat
   - Libraries/rt-thread/components/drivers
   - Libraries/rt-thread/components/drivers/include
-  - Libraries/rt-thread/components/drivers/include/drivers/pin.h
-  - Libraries/rt-thread/components/drivers/include/drivers/serial.h
+  - Libraries/rt-thread/components/drivers/include/drivers
   - Libraries/rt-thread/components/finsh
+  - Libraries/rt-thread/components/libc
+  - Libraries/rt-thread/components/libc/compilers
+  - Libraries/rt-thread/components/libc/compilers/common
+  - Libraries/rt-thread/components/libc/compilers/common/sys
   - Libraries/rt-thread/HAL_Drivers
   - Libraries/rt-thread/HAL_Drivers/config
   - Libraries/rt-thread/HAL_Drivers/config/f4
@@ -35,22 +42,20 @@ common:
   - Libraries/Logger
   - Libraries/mavlink
   - Libraries/mavlink/car
-  - Middlewares
-  - Middlewares/ST
-  - Middlewares/ST/STM32_USB_Device_Library
-  - Middlewares/ST/STM32_USB_Device_Library/Class
-  - Middlewares/ST/STM32_USB_Device_Library/Class/CDC
-  - Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
-  - Middlewares/ST/STM32_USB_Device_Library/Core
-  - Middlewares/ST/STM32_USB_Device_Library/Core/Inc
-  - Middlewares/Third_Party
-  - Middlewares/Third_Party/FatFs
-  - Middlewares/Third_Party/FatFs/src
   sources:
     Drivers:
     - Drivers/STM32F4xx_HAL_Driver/Src
     - Drivers/ABPhase_Encoder_Driver/Src
     - Drivers/nRF24L01_Driver/Src
+    FileSystem:
+    - Libraries/rt-thread/components/dfs/src/dfs.c
+    - Libraries/rt-thread/components/dfs/src/dfs_file.c
+    - Libraries/rt-thread/components/dfs/src/dfs_fs.c
+    - Libraries/rt-thread/components/dfs/src/dfs_posix.c
+    - Libraries/rt-thread/components/dfs/filesystems/devfs/devfs.c
+    - Libraries/rt-thread/components/dfs/filesystems/elmfat/dfs_elm.c
+    - Libraries/rt-thread/components/dfs/filesystems/elmfat/ff.c
+    - Libraries/rt-thread/components/dfs/filesystems/elmfat/option/ccsbcs.c
     RTThread:
     - Libraries/rt-thread/board-F407xE
     - Libraries/rt-thread/components/cplusplus/MutexCPP.cpp
@@ -59,12 +64,12 @@ common:
     - Libraries/rt-thread/components/cplusplus/crt.cpp
     - Libraries/rt-thread/components/cplusplus/crt_init.c
     - Libraries/rt-thread/components/drivers/misc/pin.c
+    - Libraries/rt-thread/components/drivers/sdio
     - Libraries/rt-thread/components/drivers/serial/serial.c
     - Libraries/rt-thread/components/drivers/src/completion.c
     - Libraries/rt-thread/components/drivers/src/dataqueue.c
     - Libraries/rt-thread/components/finsh/cmd.c
     - Libraries/rt-thread/components/finsh/msh.c
-    - Libraries/rt-thread/components/finsh/msh_cmd.c
     - Libraries/rt-thread/components/finsh/msh_file.c
     - Libraries/rt-thread/components/finsh/shell.c
     - Libraries/rt-thread/components/finsh/symbol.c
@@ -75,16 +80,6 @@ common:
     - Libraries/AC_PID
     - Libraries/AP_Motors
     - Libraries/Logger
-    Middlewares:
-    - Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
-    - Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c
-    - Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
-    - Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
-    - Middlewares/Third_Party/FatFs/src/diskio.c
-    - Middlewares/Third_Party/FatFs/src/ff.c
-    - Middlewares/Third_Party/FatFs/src/ff_gen_drv.c
-    - Middlewares/Third_Party/FatFs/src/option/cc936.c
-    - Middlewares/Third_Party/FatFs/src/option/syscall.c
     Src:
     - Src-rtt
   target:

@@ -1,12 +1,11 @@
 #include "nrf_mavlink.h"
 #include "MY_NRF24.h"
-#include "usb_device.h"
 
 #define _ABS_(x) (((x)>0) ? x : -x)
 #define NRF_VCP_DEBUG 0
 
 ap_t       mav_data;
-vel_target vel;
+vel_target vel={0.0f, 0.0f, 0.0f};
 
 static uint32_t last_timestamp;
 

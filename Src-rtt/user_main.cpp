@@ -16,9 +16,7 @@ extern "C" {
 void setup(void)
 {
   base = new Mecanum_4wd();
-  for(uint8_t i=0;i<10;i++){
-    Write_Test((uint64_t)i,(uint16_t)i);
-  }
+  Write_Test();
 }
 
 void loop(void)

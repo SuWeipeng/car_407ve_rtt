@@ -19,14 +19,13 @@ References:				This library was written based on the Arduino NRF24 Open-Source l
 
 //List of header files
 #include "MY_NRF24.h"
-#include "usb_device.h"
-
+#include <stdio.h>
 //*** Variables declaration ***//
 //#define MAX(x, y) (((x) > (y)) ? (x) : (y))
-//#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #define _BOOL_(x) (((x)>0) ? 1:0)
 
-
+uint8_t VCPSend(uint8_t* Buf, uint16_t Len){return 0;}
 //*** Library variables ***//
 static uint64_t pipe0_reading_address;
 static bool ack_payload_available; /**< Whether there is an ack payload waiting */
