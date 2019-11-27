@@ -1,5 +1,6 @@
 #include <entry.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "nrf24l01.h"
 #include "mavlink.h"
 #include "sample.h"
@@ -14,11 +15,13 @@ extern rt_device_t vcom;
 #endif
 
 static rt_sem_t nrfirq_sem;
+static uint32_t last_timestamp;
 
 static void _irq_init(void);
 static void _waitirq(void);
 static void _nrf24_param_set();
 
+ap_t       mav_data;
 vel_target vel={.vel_x = 0.0f, .vel_y = 0.0f, .rad_z = 0.0f};
 
 void nrf24l01_mavlink_entry(void *param)
@@ -29,11 +32,8 @@ void nrf24l01_mavlink_entry(void *param)
   uint8_t rbuf[32];
   uint8_t tbuf[32] = "first\r\n";
   uint32_t cnt = 0;
-
+  uint32_t timestamp = 0;
   mavlink_message_t msg;
-
-  mavlink_msg_simple_pack(0,0,&msg,1);
-  mavlink_msg_to_send_buffer(tbuf, &msg);
   
   _irq_init();
 
@@ -45,7 +45,26 @@ void nrf24l01_mavlink_entry(void *param)
   cfg.use_irq = 1;        // True
   nrf24_init(&cfg);
 
-  while (1) {
+  while (1) {    
+    mav_data.mode = 0;
+    timestamp = HAL_GetTick();
+    if(abs(timestamp - last_timestamp) > 1000){
+      memset(&vel, 0, sizeof(vel_target));
+      mav_data.com = 1;
+      // re-config nRF24L01
+      _nrf24_param_set(&cfg);
+      halcfg.ce_pin = NRF24L01_CE_PIN;
+      halcfg.spi_device_name = NRF24L01_SPI_DEVICE;
+      cfg.role = ROLE_PTX;    // PTX
+      cfg.ud = &halcfg;
+      cfg.use_irq = 1;        // True
+      nrf24_init(&cfg);
+    } else {
+      mav_data.com = 0;
+    }
+    mavlink_msg_simple_pack(0,0,&msg,mav_data.value);
+    mavlink_msg_to_send_buffer(tbuf, &msg);
+    
     rlen = nrf24_irq_ptx_run(rbuf, tbuf, 32, _waitirq);
     if (rlen > 0) {         // sent successfully and received data
       uint8_t i;
@@ -53,13 +72,16 @@ void nrf24l01_mavlink_entry(void *param)
       mavlink_status_t mav_status;
       for(i=0; i<32; i++) {
         if(mavlink_parse_char(0, rbuf[i], &msg_receive, &mav_status)) {
+          last_timestamp = timestamp;
           switch (msg_receive.msgid) {
           case MAVLINK_MSG_ID_VELOCITY: {
             mavlink_velocity_t packet;
             mavlink_msg_velocity_decode(&msg_receive, &packet);
+            
+            vel.vel_x = packet.vel_x;
+            vel.vel_y = packet.vel_y;
+            vel.rad_z = packet.rad_z;
 
-            sprintf((char *)rbuf, "vel_x=%.3f, vel_y=%.3f, rad_z=%.3f\r\n", packet.vel_x, packet.vel_y, packet.rad_z);
-            rt_kputs((char *)rbuf);
             break;
           }
           }
