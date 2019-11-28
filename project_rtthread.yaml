@@ -109,7 +109,7 @@ tool_specific:
       StartUp:
       - IDE/MDK5
       libc:
-      - Libraries/rt-thread/components/libc/compilers/armlibc/libc.c
+      #- Libraries/rt-thread/components/libc/compilers/armlibc/libc.c
       - Libraries/rt-thread/components/libc/compilers/armlibc/mem_std.c
       - Libraries/rt-thread/components/libc/compilers/armlibc/stubs.c
       - Libraries/rt-thread/components/libc/compilers/common/time.c

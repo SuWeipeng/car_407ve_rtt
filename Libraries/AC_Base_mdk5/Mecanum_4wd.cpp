@@ -1,6 +1,5 @@
 #include <vectorN.h>
 #include "Mecanum_4wd.h"
-#include "usb_device.h"
 #include "Logger.h"
 
 typedef VectorN<float,3> Vector3f;

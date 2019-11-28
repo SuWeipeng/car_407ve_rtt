@@ -19,7 +19,7 @@ static uint32_t last_timestamp;
 
 static void _irq_init(void);
 static void _waitirq(void);
-static void _nrf24_param_set();
+static void _nrf24_param_set(nrf24_cfg_t *pt);
 
 ap_t       mav_data;
 vel_target vel={.vel_x = 0.0f, .vel_y = 0.0f, .rad_z = 0.0f};

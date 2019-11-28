@@ -4,6 +4,9 @@
 #include <entry.h>
 
 #define LED_PIN    GET_PIN(B, 12)
+#if defined(__CC_ARM) || defined(__CLANG_ARM)
+#pragma anon_unions
+#endif
 typedef union{
   struct{
     uint8_t key_value: 3;
