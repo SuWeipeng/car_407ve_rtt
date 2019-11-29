@@ -75,7 +75,7 @@ static void MX_TIM4_Init(void);
 static void MX_TIM5_Init(void);
 static void MX_TIM8_Init(void);
 static void MX_USART2_UART_Init(void);
-static void MX_USB_OTG_FS_PCD_Init(void);
+//static void MX_USB_OTG_FS_PCD_Init(void);
 /* USER CODE BEGIN PFP */
 void setup(void);
 void loop(void);
@@ -123,7 +123,7 @@ int main(void)
   MX_TIM5_Init();
   MX_TIM8_Init();
   MX_USART2_UART_Init();
-  MX_USB_OTG_FS_PCD_Init();
+//  MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */  
   Log_Init();
   setup();
@@ -567,35 +567,35 @@ static void MX_USART2_UART_Init(void)
   * @param None
   * @retval None
   */
-static void MX_USB_OTG_FS_PCD_Init(void)
-{
-
-  /* USER CODE BEGIN USB_OTG_FS_Init 0 */
-
-  /* USER CODE END USB_OTG_FS_Init 0 */
-
-  /* USER CODE BEGIN USB_OTG_FS_Init 1 */
-
-  /* USER CODE END USB_OTG_FS_Init 1 */
-  hpcd_USB_OTG_FS.Instance = USB_OTG_FS;
-  hpcd_USB_OTG_FS.Init.dev_endpoints = 4;
-  hpcd_USB_OTG_FS.Init.speed = PCD_SPEED_FULL;
-  hpcd_USB_OTG_FS.Init.dma_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
-  hpcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.low_power_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.lpm_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.vbus_sensing_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.use_dedicated_ep1 = DISABLE;
-  if (HAL_PCD_Init(&hpcd_USB_OTG_FS) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_OTG_FS_Init 2 */
-
-  /* USER CODE END USB_OTG_FS_Init 2 */
-
-}
+//static void MX_USB_OTG_FS_PCD_Init(void)
+//{
+//
+//  /* USER CODE BEGIN USB_OTG_FS_Init 0 */
+//
+//  /* USER CODE END USB_OTG_FS_Init 0 */
+//
+//  /* USER CODE BEGIN USB_OTG_FS_Init 1 */
+//
+//  /* USER CODE END USB_OTG_FS_Init 1 */
+//  hpcd_USB_OTG_FS.Instance = USB_OTG_FS;
+//  hpcd_USB_OTG_FS.Init.dev_endpoints = 4;
+//  hpcd_USB_OTG_FS.Init.speed = PCD_SPEED_FULL;
+//  hpcd_USB_OTG_FS.Init.dma_enable = DISABLE;
+//  hpcd_USB_OTG_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
+//  hpcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
+//  hpcd_USB_OTG_FS.Init.low_power_enable = DISABLE;
+//  hpcd_USB_OTG_FS.Init.lpm_enable = DISABLE;
+//  hpcd_USB_OTG_FS.Init.vbus_sensing_enable = DISABLE;
+//  hpcd_USB_OTG_FS.Init.use_dedicated_ep1 = DISABLE;
+//  if (HAL_PCD_Init(&hpcd_USB_OTG_FS) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN USB_OTG_FS_Init 2 */
+//
+//  /* USER CODE END USB_OTG_FS_Init 2 */
+//
+//}
 
 /**
   * @brief GPIO Initialization Function
