@@ -3,6 +3,11 @@
 #include <AC_PID.h>
 #include <stdio.h>
 #include <string.h>
+#include <entry.h>
+
+#if MOTORS_VCOM_DEBUG != 0
+extern rt_device_t vcom;
+#endif
 
 AP_Motors::AP_Motors(TIM_HandleTypeDef* enc_tim,  // encoder timer
                      int8_t             enc_dir,  // encoder direction
@@ -59,10 +64,10 @@ void AP_Motors::set_rpm(float rpm)
   /* spin */
   _spin(_pwm);
   
-#if MOTORS_VCP_DEBUG == 1
-  char TxBuf[100];
-  sprintf(TxBuf, "[p:%.2f | i:%.2f | d:%.2f | pwm:%d | trpm:%.2f | rpm: %.2f] \r\n", _pid->get_p(), _pid->get_i(), _pid->get_d(), _pwm, rpm, _rpm);
-  VCPSend((uint8_t *)TxBuf, strlen(TxBuf));
+#if MOTORS_VCOM_DEBUG == 1
+  char buf[100];
+  sprintf(buf, "[p:%.2f | i:%.2f | d:%.2f | pwm:%d | trpm:%.2f | rpm: %.2f] \r\n", _pid->get_p(), _pid->get_i(), _pid->get_d(), _pwm, rpm, _rpm);
+  rt_device_write(vcom, 0, buf, rt_strlen(buf));
 #endif
 }
 
@@ -128,10 +133,10 @@ int32_t AP_Motors::_get_delta_tick()
   
   delta_tick *= _enc_dir;
  
-#if MOTORS_VCP_DEBUG == 1
-  char TxBuf[100];
-  sprintf(TxBuf, "[%4d|%4d]\r\n", delta_tick, _tick);
-  VCPSend((uint8_t *)TxBuf, strlen(TxBuf));
+#if MOTORS_VCOM_DEBUG == 1
+  char buf[100];
+  sprintf(buf, "[%4d|%4d]\r\n", delta_tick, _tick);
+  rt_device_write(vcom, 0, buf, rt_strlen(buf));
 #endif
   
   return delta_tick;

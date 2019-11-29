@@ -61,7 +61,7 @@ UART_HandleTypeDef huart2;
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 /* USER CODE BEGIN PV */
-
+rt_device_t vcom = RT_NULL;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -131,6 +131,13 @@ int main(void)
   rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
   RTT_CREATE(led,led_thread_entry,RT_NULL,1024,RT_THREAD_PRIORITY_MAX-2,20);
   RTT_CREATE(log,log_thread_entry,RT_NULL,2048,2,20);
+  
+  vcom = rt_device_find("vcom");
+  
+  if (vcom)
+    rt_device_open(vcom, RT_DEVICE_FLAG_RDWR);
+  else
+    return -RT_ERROR;
 #endif
   /* USER CODE END 2 */
 

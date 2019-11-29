@@ -28,6 +28,7 @@ common:
   - Libraries/rt-thread/components/drivers
   - Libraries/rt-thread/components/drivers/include
   - Libraries/rt-thread/components/drivers/include/drivers
+  - Libraries/rt-thread/components/drivers/include/ipc
   - Libraries/rt-thread/components/finsh
   - Libraries/rt-thread/components/libc
   - Libraries/rt-thread/components/libc/compilers
@@ -70,6 +71,7 @@ common:
     - Libraries/rt-thread/components/drivers/serial/serial.c
     - Libraries/rt-thread/components/drivers/src/completion.c
     - Libraries/rt-thread/components/drivers/src/dataqueue.c
+    - Libraries/rt-thread/components/drivers/src/ringbuffer.c
     - Libraries/rt-thread/components/finsh/cmd.c
     - Libraries/rt-thread/components/finsh/msh.c
     - Libraries/rt-thread/components/finsh/msh_file.c
@@ -82,6 +84,10 @@ common:
     - Libraries/AC_PID
     - Libraries/AP_Motors
     - Libraries/Logger
+    VCom:
+    - Libraries/rt-thread/components/drivers/usb/usbdevice/core/core.c
+    - Libraries/rt-thread/components/drivers/usb/usbdevice/core/usbdevice.c
+    - Libraries/rt-thread/components/drivers/usb/usbdevice/class/cdc_vcom.c
     Src:
     - packages/nrf24l01-latest/src
     - Src-rtt
