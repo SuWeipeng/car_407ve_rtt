@@ -10,11 +10,49 @@
 using namespace rtthread;
 #endif
 
+#define BASE_TYPE           1 // 0-Small, 1-Middle, 2-Test
+#if BASE_TYPE == 0
 #define HALF_BASE_LENGTH_M  0.075f
-#define HALF_BASE_WIDTH_M   0.070f
+#define HALF_BASE_WIDTH_M   0.080f
+#define P                   0.7f
+#define I                   3.9f
+#define D                   0.0f
+#define FF                  0.0f
+#define IMAX                200.0f
+#define FLTT                20.0f
+#define FLTE                20.0f
+#define FLTD                0.85f
+#define DT                  0.02f
+#elif BASE_TYPE == 1
+#define HALF_BASE_LENGTH_M  0.122f
+#define HALF_BASE_WIDTH_M   0.120f
+#define P                   0.3f
+#define I                   5.0f
+#define D                   0.0f
+#define FF                  0.0f
+#define IMAX                200.0f
+#define FLTT                0.0f
+#define FLTE                0.0f
+#define FLTD                0.85f
+#define DT                  0.02f
+#elif BASE_TYPE == 2
+#define HALF_BASE_LENGTH_M  0.122f
+#define HALF_BASE_WIDTH_M   0.120f
+#define P                   0.05f
+#define I                   5.0f
+#define D                   0.0f
+#define FF                  0.0f
+#define IMAX                200.0f
+#define FLTT                0.0f
+#define FLTE                0.0f
+#define FLTD                0.85f
+#define DT                  0.02f
+#endif
+
 #define WHEEL_DIAMETER_M    0.096f   
 #define WHEEL_RADIUS_M      (WHEEL_DIAMETER_M / 2.0f)
 #define MECANUM_VCP_DEBUG   0
+#define PWM_RPM_TEST_ENABLE 0
 
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim3;
@@ -50,6 +88,11 @@ private:
   
 #if defined(USE_RTTHREAD)
   Semaphore _log_sem;
+#endif
+ 
+#if PWM_RPM_TEST_ENABLE == 1
+private:
+  void      _pwm_rpm_test();
 #endif
 };
 #endif /*__MECANUM_4WD_H__*/

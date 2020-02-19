@@ -51,7 +51,7 @@ using namespace rtthread;
 
 #define WHEEL_DIAMETER_M    0.096f   
 #define WHEEL_RADIUS_M      (WHEEL_DIAMETER_M / 2.0f)
-#define MECANUM_VCOM_DEBUG   0
+#define MECANUM_VCOM_DEBUG  0
 #define PWM_RPM_TEST_ENABLE 0
 
 extern TIM_HandleTypeDef htim1;

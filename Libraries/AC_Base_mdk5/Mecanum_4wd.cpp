@@ -1,6 +1,12 @@
 #include <vectorN.h>
 #include "Mecanum_4wd.h"
 #include "Logger.h"
+#if PWM_RPM_TEST_ENABLE == 1
+#include <stm32f4xx_hal.h>
+#include "mavlink.h"
+
+extern UART_HandleTypeDef huart1;
+#endif
 
 typedef VectorN<float,3> Vector3f;
 
@@ -16,10 +22,10 @@ Mecanum_4wd::Mecanum_4wd()
 , _motor2_fl(&htim1, 1, GPIOE, GPIO_PIN_2, GPIO_PIN_4, &htim5, TIM_CHANNEL_1, 99, &_pid_2)
 , _motor3_bl(&htim4, 1, GPIOE, GPIO_PIN_3, GPIO_PIN_5, &htim5, TIM_CHANNEL_2, 99, &_pid_3)
 , _motor4_br(&htim8, 1, GPIOC, GPIO_PIN_0, GPIO_PIN_2, &htim5, TIM_CHANNEL_3, 99, &_pid_4)
-, _pid_1(1.2f, 5.0f, 0.3f, 0.1f, 200.0f, 1.0f, 1.0f, 0.85f, 0.02f)
-, _pid_2(1.2f, 5.0f, 0.3f, 0.1f, 200.0f, 1.0f, 1.0f, 0.85f, 0.02f)
-, _pid_3(1.2f, 5.0f, 0.3f, 0.1f, 200.0f, 1.0f, 1.0f, 0.85f, 0.02f)
-, _pid_4(1.2f, 5.0f, 0.3f, 0.1f, 200.0f, 1.0f, 1.0f, 0.85f, 0.02f)
+, _pid_1(P, I, D, FF, IMAX, FLTT, FLTE, FLTD, DT)
+, _pid_2(P, I, D, FF, IMAX, FLTT, FLTE, FLTD, DT)
+, _pid_3(P, I, D, FF, IMAX, FLTT, FLTE, FLTD, DT)
+, _pid_4(P, I, D, FF, IMAX, FLTT, FLTE, FLTD, DT)
 , _motor1_fr_rpm(0)
 , _motor2_fl_rpm(0)
 , _motor3_bl_rpm(0)
@@ -68,6 +74,9 @@ void Mecanum_4wd::run()
 #if defined(USE_RTTHREAD)
   _log_sem.release();
 #endif
+#if PWM_RPM_TEST_ENABLE == 1
+  _pwm_rpm_test();
+#endif
 }
 
 void Mecanum_4wd::stop()
@@ -94,5 +103,18 @@ void Mecanum_4wd::log_write_base()
   Write_Encoder(LOG_ENC4_MSG, _motor4_br.get_delta_tick(), _motor4_br.get_tick(), _motor4_br.get_delta_min(), _motor4_br.get_delta_ms());
   
   Write_PWM(_motor1_fr.get_pwm(), _motor2_fl.get_pwm(), _motor3_bl.get_pwm(), _motor4_br.get_pwm());
+}
+#endif
+
+#if PWM_RPM_TEST_ENABLE == 1
+void Mecanum_4wd::_pwm_rpm_test()
+{
+  mavlink_message_t msg;
+  int len = 0;
+  uint8_t myTxData[32];
+  
+  mavlink_msg_pwm_rpm_pack(0, 0, &msg, _motor1_fr.get_pwm(), _motor1_fr.get_rpm());
+  len = mavlink_msg_to_send_buffer( myTxData, &msg );
+  HAL_UART_Transmit(&huart1,myTxData,len,10);
 }
 #endif
