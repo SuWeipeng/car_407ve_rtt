@@ -138,6 +138,9 @@ int main(void)
     rt_device_open(vcom, RT_DEVICE_FLAG_RDWR);
   else
     return -RT_ERROR;
+  
+  loop_start();
+  
 #endif
   /* USER CODE END 2 */
 
@@ -145,11 +148,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    loop();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    rt_thread_delay(100);
+    return 0;
   }
   /* USER CODE END 3 */
 }
