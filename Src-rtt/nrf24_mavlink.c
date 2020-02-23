@@ -1,6 +1,7 @@
 #include <entry.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stm32f4xx_hal.h>
 #include "nrf24l01.h"
 #include "mavlink.h"
 #include "sample.h"
@@ -9,6 +10,7 @@
 #define MAVLINK_VCOM_DEBUG 0
 #define GET_BIT(value, i) ((value)>>i)
 
+extern UART_HandleTypeDef huart1;
 
 #if MAVLINK_VCOM_DEBUG == 1
 extern rt_device_t vcom;
@@ -83,6 +85,11 @@ void nrf24l01_mavlink_entry(void *param)
             vel.rad_z = packet.rad_z;
 
             break;
+          }
+          case MAVLINK_MSG_ID_CMD: {
+            uint8_t myTxData[32];
+            uint8_t len = mavlink_msg_to_send_buffer( myTxData, &msg_receive );
+            HAL_UART_Transmit(&huart1,myTxData,len,10);
           }
           }
         }
