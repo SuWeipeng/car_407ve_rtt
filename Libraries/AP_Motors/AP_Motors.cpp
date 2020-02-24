@@ -23,8 +23,9 @@ AP_Motors::AP_Motors(TIM_HandleTypeDef* enc_tim,  // encoder timer
 , _tick(0)
 , _tick_last(0)
 , _last_millisecond(0)
-, _rpm(0)
-, _rpm_last(0)
+, _rpm(0.0f)
+, _rpm_last(0.0f)
+, _rpm_encoder(0.0f)
 , _delta_tick(0)
 , _delta_min(0.0)
 , _delta_ms(0)
@@ -55,7 +56,8 @@ void AP_Motors::set_rpm(float rpm)
     _rpm_last = rpm;
   }
 
-  _rpm = _read_rpm() / MOTORS_REDUCTION_RATIO;
+  _rpm_encoder = _read_rpm();
+  _rpm = _rpm_encoder / MOTORS_REDUCTION_RATIO;
   _pwm = constrain_int16((int16_t)(_pid->update_all(rpm, _rpm, false)+0.5f)+(int16_t)(_pid->get_ff()+0.5f), -_pwm_max, _pwm_max);
   
   /* The motor does not rotate when pwm lower than MOTORS_PWM_MIN*/

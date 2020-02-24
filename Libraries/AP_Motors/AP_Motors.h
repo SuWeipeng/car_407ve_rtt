@@ -53,6 +53,7 @@ public:
   int16_t  get_pwm()        { return _pwm; }
   uint16_t get_delta_ms()   { return _delta_ms; }
   float    get_rpm()        { return _rpm; }
+  float    get_rpm_encoder(){ return _rpm_encoder; }
 
 private:
   /* encoder */
@@ -63,6 +64,7 @@ private:
   uint32_t           _last_millisecond;
   float              _rpm;
   float              _rpm_last;
+  float              _rpm_encoder;
   int32_t            _delta_tick;
   double             _delta_min;
   uint16_t           _delta_ms;
