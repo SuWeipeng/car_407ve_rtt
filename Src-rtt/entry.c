@@ -134,12 +134,12 @@ int main(void)
   RTT_CREATE(led,led_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-2,20);
   RTT_CREATE(log,log_thread_entry,RT_NULL,1024,2,20);
   
-  vcom = rt_device_find("vcom");
-  
-  if (vcom)
-    rt_device_open(vcom, RT_DEVICE_FLAG_RDWR);
-  else
-    return -RT_ERROR;
+//  vcom = rt_device_find("vcom");
+//  
+//  if (vcom)
+//    rt_device_open(vcom, RT_DEVICE_FLAG_RDWR);
+//  else
+//    return -RT_ERROR;
   
   file_start();
   loop_start();
