@@ -8,8 +8,9 @@ public:
   AP_Buffer_Backend(AP_Buffer &instance);
   ~AP_Buffer_Backend(){};
   
-  virtual void write(const void *pBuffer, uint16_t size) = 0;
-  virtual void read(const void *pBuffer, void* to, uint16_t size) = 0;
+  virtual void       write(const void *pBuffer, uint16_t size) = 0;
+  virtual uint16_t   read(void) = 0;
+  virtual void*      read_buf_addr(void) = 0;
   
 protected:
   AP_Buffer &_frontend;

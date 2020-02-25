@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define AP_BUFFER_MAX_SIZE  (1024 + 1)
+#define AP_BUFFER_MAX_SIZE  (1024)
 
 class AP_Buffer_Backend;
 
@@ -25,13 +25,13 @@ public:
     FIFO
   } buffer_type_t;
   
-  void init(buffer_type_t type);
-  void write(const void *pBuffer, uint16_t size);
-  void read(const void *pBuffer, void* to, uint16_t size);
+  void       init(buffer_type_t type);
+  void       write(const void *pBuffer, uint16_t size);
+  uint16_t   read(void);
   
 private:  
   typedef struct Buffer {
-    uint8_t  _buffer[AP_BUFFER_MAX_SIZE];
+    uint8_t*  _buffer;
     uint16_t count;
   } _ap_buffer;  
   

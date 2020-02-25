@@ -5,15 +5,17 @@
 
 class AP_Buffer_Ring : public AP_Buffer_Backend{
 public:
-  AP_Buffer_Ring(AP_Buffer &instance, const void* buffer);
+  AP_Buffer_Ring(AP_Buffer &instance, void* buffer);
   ~AP_Buffer_Ring(){};
   
-  virtual void write(const void *pBuffer, uint16_t size);
-  virtual void read(const void *pBuffer, void* to, uint16_t size);
+  virtual void       write(const void *pBuffer, uint16_t size);
+  virtual uint16_t   read(void);
+  virtual void*      read_buf_addr(void);
   
 private:
-  const void* _head;
-  const void* _tail;
+  void* _head;
+  void* _tail;
+  const void* _copy_tail;
 };
 
 #endif /* __AP_BUFFER_RING_H__ */

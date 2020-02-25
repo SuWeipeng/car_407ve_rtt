@@ -4,12 +4,15 @@
 
 using namespace rtthread;
 
+static uint8_t ap_buffer[AP_BUFFER_MAX_SIZE];
+
 AP_Buffer *AP_Buffer::_instance;
 
 AP_Buffer::AP_Buffer()
 : _backend(NULL)
-, _buf()
 {
+  _buf._buffer = ap_buffer;
+  _buf.count = 0;
   _instance = this;
 }
 
@@ -35,10 +38,12 @@ AP_Buffer::write(const void *pBuffer, uint16_t size)
   }
 }
 
-void
-AP_Buffer::read(const void *pBuffer, void* to, uint16_t size)
+uint16_t
+AP_Buffer::read(void)
 {
+  uint16_t ret = 0;
   if(_backend != NULL){
-    _backend -> read(pBuffer, to, size);
+    ret = _backend -> read();
   }
+  return ret;
 }
