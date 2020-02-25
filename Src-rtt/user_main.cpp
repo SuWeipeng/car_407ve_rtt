@@ -26,6 +26,8 @@ void setup(void)
 
 void loop(void* parameter)
 {
+  uint32_t cnt = 0;
+  
   while(1)
   {
     float vel_x = vel.vel_x;  // x max 0.104f
@@ -34,8 +36,12 @@ void loop(void* parameter)
     
     base->vel2rpm(vel_x, vel_y, rad_z);
     
-    buffer->write("123456789",9);
-    if(buffer->read()>0){
+    char c[1];
+    uint8_t i;
+    sprintf(c, "%d", cnt++ % 10);
+    buffer->write(c,sizeof(c));
+    i = buffer->read();
+    if(i>0){
       char buf[100];
       sprintf(buf, "buf:%s \r\n", buffer->read_buf_addr());
       rt_device_write(vcom, 0, buf, rt_strlen(buf));
