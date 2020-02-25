@@ -26,7 +26,7 @@ using namespace rtthread;
 #elif BASE_TYPE == 1
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.120f
-#define P                   0.3f
+#define P                   1.9f
 #define I                   5.0f
 #define D                   0.0f
 #define FF                  0.0f
