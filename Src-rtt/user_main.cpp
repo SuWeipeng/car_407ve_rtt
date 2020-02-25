@@ -40,10 +40,12 @@ void loop(void* parameter)
     uint8_t i;
     sprintf(c, "%d", cnt++ % 10);
     buffer->write(c,sizeof(c));
-    i = buffer->read();
+    if(cnt%2 == 0){
+      i = buffer->read();
+    }
     if(i>0){
       char buf[100];
-      sprintf(buf, "buf:%s \r\n", buffer->read_buf_addr());
+      sprintf(buf, "buf:%s ,len:%d\r\n", buffer->read_buf_addr(), buffer->buf_len());
       rt_device_write(vcom, 0, buf, rt_strlen(buf));
     }
   

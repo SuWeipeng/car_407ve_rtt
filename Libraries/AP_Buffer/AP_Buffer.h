@@ -29,6 +29,7 @@ public:
   void       write(const void *pBuffer, uint16_t size);
   uint16_t   read(void);
   void*      read_buf_addr(void);
+  uint16_t   buf_len(void) { return _buf.count; }
   
 private:  
   typedef struct Buffer {
