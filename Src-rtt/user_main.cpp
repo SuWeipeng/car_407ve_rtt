@@ -34,7 +34,7 @@ void loop(void* parameter)
     
     base->vel2rpm(vel_x, vel_y, rad_z);
   
-    rt_thread_delay(5);
+    rt_thread_delay(50);
   }
 }
 
