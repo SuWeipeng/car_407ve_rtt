@@ -1,6 +1,8 @@
-#include <stdio.h>
+#include <entry.h>
 #include "AP_Buffer.h"
 #include "AP_Buffer_Ring.h"
+
+using namespace rtthread;
 
 AP_Buffer *AP_Buffer::_instance;
 
