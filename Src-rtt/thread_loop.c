@@ -7,7 +7,8 @@ void loop (void* parameter);
 
 int loop_start(void)
 {
-  RTT_CREATE(loop,loop,RT_NULL,2048,5,20);
+  rt_thread_mdelay(500);
+  RTT_CREATE(loop,loop,RT_NULL,1024,5,20);
   return 0;
 }
 

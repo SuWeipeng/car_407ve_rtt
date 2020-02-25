@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define AP_BUFFER_MAX_SIZE  (5)
+#define AP_BUFFER_MAX_SIZE  (1024 * 10)
 
 class AP_Buffer_Backend;
 

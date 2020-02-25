@@ -54,27 +54,28 @@ AP_Buffer_Ring::read(void)
   uint8_t* tmp_ph     = (uint8_t*)_head;
   uint8_t* to_buf     = read_buf;
   uint16_t check      = &_frontend._buf._buffer[RING_BUFFER_MAX_INDEX] - tmp_ph;
-  uint16_t read_size, read_1st, read_2nd;
+  uint16_t read_1st   = 0;
+  uint16_t read_2nd   = 0;
   
   if(_frontend._buf.count == 0) return 0;
   
   if(_frontend._buf.count >= AP_BUFFER_MAX_SIZE){
-    read_size = check + 1;
-    rt_memcpy(to_buf, tmp_ph, read_size);
+    read_1st = check + 1;
+    rt_memcpy(to_buf, tmp_ph, read_1st);
     tmp_ph = _frontend._buf._buffer;
-    _frontend._buf.count -= read_size;
-    read_size = AP_BUFFER_MAX_SIZE-read_size;
-    if(read_size > 0){
-      rt_memcpy(to_buf+check+1, tmp_ph, read_size);
-      tmp_ph += read_size;
-      _frontend._buf.count -= read_size;
+    _frontend._buf.count -= read_1st;
+    read_2nd = AP_BUFFER_MAX_SIZE-read_1st;
+    if(read_2nd > 0){
+      rt_memcpy(to_buf+check+1, tmp_ph, read_2nd);
+      tmp_ph += read_2nd;
+      _frontend._buf.count -= read_2nd;
     }
   } else {
     if(_head < _tail){
-      read_size = (uint8_t*)_tail - (uint8_t*)_head;
-      rt_memcpy(to_buf, tmp_ph, read_size);
+      read_1st = (uint8_t*)_tail - (uint8_t*)_head;
+      rt_memcpy(to_buf, tmp_ph, read_1st);
       tmp_ph = (uint8_t*)_tail;
-      _frontend._buf.count -= read_size;
+      _frontend._buf.count -= read_1st;
     } else {
       read_1st = check + 1;
       rt_memcpy(to_buf, tmp_ph, read_1st);
@@ -86,12 +87,11 @@ AP_Buffer_Ring::read(void)
         tmp_ph += read_2nd;
         _frontend._buf.count -= read_2nd;
       }
-      read_size = read_1st + read_2nd;
     }
   }
   _head = tmp_ph;
   
-  return read_size;
+  return read_1st + read_2nd;
 }
 
 void*      

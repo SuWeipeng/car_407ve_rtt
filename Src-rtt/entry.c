@@ -128,12 +128,11 @@ int main(void)
 //  MX_USB_OTG_FS_PCD_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */  
-  Log_Init();
   setup();
 #if defined(USE_RTTHREAD)
   rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
-  RTT_CREATE(led,led_thread_entry,RT_NULL,1024,RT_THREAD_PRIORITY_MAX-2,20);
-  RTT_CREATE(log,log_thread_entry,RT_NULL,2048,2,20);
+  RTT_CREATE(led,led_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-2,20);
+  RTT_CREATE(log,log_thread_entry,RT_NULL,1024,2,20);
   
   vcom = rt_device_find("vcom");
   
@@ -142,6 +141,7 @@ int main(void)
   else
     return -RT_ERROR;
   
+  file_start();
   loop_start();
   
 #endif
