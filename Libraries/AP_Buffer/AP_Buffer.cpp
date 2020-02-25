@@ -47,3 +47,13 @@ AP_Buffer::read(void)
   }
   return ret;
 }
+
+void*      
+AP_Buffer::read_buf_addr(void)
+{
+  void* ret = NULL;
+  if(_backend != NULL){
+    ret = _backend -> read_buf_addr();
+  }
+  return ret;
+}
