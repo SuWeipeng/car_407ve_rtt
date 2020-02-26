@@ -91,7 +91,7 @@ common:
     - Libraries/AP_Buffer
     - Libraries/AP_Motors
     - Libraries/Logger
-    #VCom:
+    VCom:
     - Libraries/rt-thread/components/drivers/usb/usbdevice/core/core.c
     - Libraries/rt-thread/components/drivers/usb/usbdevice/core/usbdevice.c
     - Libraries/rt-thread/components/drivers/usb/usbdevice/class/cdc_vcom.c
