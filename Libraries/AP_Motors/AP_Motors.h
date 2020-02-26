@@ -27,7 +27,7 @@
 #define ENCODER_DELTA_MAX      5000.0f
 #endif
 
-#define MOTORS_VCOM_DEBUG      0
+#define MOTORS_VCOM_DEBUG      1
 
 class AC_PID;
 

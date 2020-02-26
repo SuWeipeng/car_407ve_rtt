@@ -134,12 +134,12 @@ int main(void)
   RTT_CREATE(led,led_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-2,20);
   RTT_CREATE(log,log_thread_entry,RT_NULL,1024,2,20);
   
-//  vcom = rt_device_find("vcom");
-//  
-//  if (vcom)
-//    rt_device_open(vcom, RT_DEVICE_FLAG_RDWR);
-//  else
-//    return -RT_ERROR;
+  vcom = rt_device_find("vcom");
+
+  if (vcom)
+    rt_device_open(vcom, RT_DEVICE_FLAG_RDWR);
+  else
+    return -RT_ERROR;
   
   file_start();
   loop_start();
@@ -698,13 +698,13 @@ static void MX_GPIO_Init(void)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-//void Error_Handler(void)
-//{
-//  /* USER CODE BEGIN Error_Handler_Debug */
-//  /* User can add his own implementation to report the HAL error return state */
-//
-//  /* USER CODE END Error_Handler_Debug */
-//}
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
+
+  /* USER CODE END Error_Handler_Debug */
+}
 
 #ifdef  USE_FULL_ASSERT
 /**
