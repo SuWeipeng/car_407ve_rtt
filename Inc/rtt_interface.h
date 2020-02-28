@@ -1,6 +1,10 @@
 #ifndef __RTT_INTERFACE_H
 #define __RTT_INTERFACE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <entry.h>
 
 #define LED_PIN             GET_PIN(B, 12)
@@ -33,5 +37,9 @@ void log_thread_entry(void* parameter);
 
 int loop_start(void);
 int file_start(void);
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 #endif
