@@ -3,7 +3,9 @@
 
 #include <entry.h>
 
-#define LED_PIN    GET_PIN(B, 12)
+#define LED_PIN             GET_PIN(B, 12)
+#define AP_BUFFER_MAX_SIZE  (1024 * 10)
+
 #if defined(__CC_ARM) || defined(__CLANG_ARM)
 #pragma anon_unions
 #endif

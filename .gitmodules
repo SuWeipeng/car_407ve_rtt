@@ -7,3 +7,6 @@
 [submodule "Libraries/mavlink"]
 	path = Libraries/mavlink
 	url = https://github.com/SuWeipeng/car_mavlink.git
+[submodule "Libraries/AP_Buffer"]
+	path = Libraries/AP_Buffer
+	url = https://github.com/SuWeipeng/AP_Buffer.git
