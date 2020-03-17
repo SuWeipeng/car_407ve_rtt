@@ -6,7 +6,9 @@ extern "C" {
 #endif
 
 #include <entry.h>
-
+  
+#define I2C2_SCL_PIN        GET_PIN(B, 10)
+#define I2C2_SDA_PIN        GET_PIN(B, 11)
 #define LED_PIN             GET_PIN(B, 12)
 #define AP_BUFFER_MAX_SIZE  (1024 * 10)
 

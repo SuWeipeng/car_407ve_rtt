@@ -74,11 +74,11 @@ common:
     - Libraries/rt-thread/components/drivers/src/completion.c
     - Libraries/rt-thread/components/drivers/src/dataqueue.c
     - Libraries/rt-thread/components/drivers/src/ringbuffer.c
-    #- Libraries/rt-thread/components/finsh/cmd.c
-    #- Libraries/rt-thread/components/finsh/msh.c
-    #- Libraries/rt-thread/components/finsh/msh_file.c
-    #- Libraries/rt-thread/components/finsh/shell.c
-    #- Libraries/rt-thread/components/finsh/symbol.c
+    - Libraries/rt-thread/components/finsh/cmd.c
+    - Libraries/rt-thread/components/finsh/msh.c
+    - Libraries/rt-thread/components/finsh/msh_file.c
+    - Libraries/rt-thread/components/finsh/shell.c
+    - Libraries/rt-thread/components/finsh/symbol.c
     - Libraries/rt-thread/HAL_Drivers/drv_common.c
     - Libraries/rt-thread/HAL_Drivers/drv_gpio.c
     - Libraries/rt-thread/HAL_Drivers/drv_sdio.c
@@ -124,7 +124,6 @@ tool_specific:
       StartUp:
       - IDE/MDK5
       libc:
-      #- Libraries/rt-thread/components/libc/compilers/armlibc/libc.c
       - Libraries/rt-thread/components/libc/compilers/armlibc/mem_std.c
       - Libraries/rt-thread/components/libc/compilers/armlibc/stubs.c
       - Libraries/rt-thread/components/libc/compilers/common/time.c
@@ -136,9 +135,11 @@ tool_specific:
     includes:
     - Libraries/AC_Base
     - Libraries/AP_Math
+    - Libraries/AP_RangeFinder
     - Libraries/rt-thread/components/libc
     - Libraries/rt-thread/components/libc/compilers
     - Libraries/rt-thread/components/libc/compilers/armlibc
+    - Libraries/utility
     macros:
     - USE_HAL_DRIVER
     - STM32F407xx    
@@ -146,6 +147,7 @@ tool_specific:
       IAR:
       - Libraries/AC_Base
       - Libraries/AP_Math
+      - Libraries/AP_RangeFinder
       StartUp:
       - IDE/IAR
       dlib:
@@ -160,7 +162,6 @@ tool_specific:
       - Libraries/rt-thread/components/libc/compilers/dlib/syscall_remove.c
       - Libraries/rt-thread/components/libc/compilers/dlib/syscall_write.c
       libc:
-      #- Libraries/rt-thread/components/libc/compilers/armlibc/libc.c
       - Libraries/rt-thread/components/libc/compilers/common/time.c
       RTThread:
       - Libraries/rt-thread/libcpu/arm/cortex-m4/context_iar.S
@@ -173,6 +174,7 @@ tool_specific:
     - Libraries/rt-thread/components/libc
     - Libraries/rt-thread/components/libc/compilers
     - Libraries/rt-thread/components/libc/compilers/newlib
+    - Libraries/utility
     macros:
     - USE_HAL_DRIVER
     - STM32F407xx    

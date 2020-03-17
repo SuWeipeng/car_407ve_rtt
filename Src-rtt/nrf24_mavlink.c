@@ -97,7 +97,7 @@ void nrf24l01_mavlink_entry(void *param)
     } else if (rlen == 0) { // sent successfully but no data received
       cnt++;
     } else { // sent failed
-      rt_kputs("send failed\r\n");
+      //rt_kputs("send failed\r\n");
     }
   }
 }
