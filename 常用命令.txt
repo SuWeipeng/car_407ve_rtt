@@ -16,3 +16,5 @@ git submodule add https://github.com/SuWeipeng/rt-thread.git Libraries/rt-thread
 加入 Logger
 git submodule add https://github.com/SuWeipeng/Logger.git Libraries/Logger
 
+dfu 烧写
+dfu-util -a 0 -s 0x08000000:leave -D stm32f407ve-rtt.bin
