@@ -30,15 +30,16 @@ RangeFinder::RangeFinder()
 void RangeFinder::init(Type type)
 {
     switch (type) {
-    case Type::VL53L0X:{
-        _add_backend(AP_RangeFinder_VL53L0X::detect(state));
-        break;
-    }
+    case Type::VL53L0X:
     case Type::VL53L1X_Short:
+      if(_add_backend(AP_RangeFinder_VL53L0X::detect(state)))
       {
-        _add_backend(AP_RangeFinder_VL53L1X::detect(state,
-                                                    type == Type::VL53L1X_Short ?  AP_RangeFinder_VL53L1X::DistanceMode::Short :
-                                                    AP_RangeFinder_VL53L1X::DistanceMode::Long));
+        break;
+      }
+      if(_add_backend(AP_RangeFinder_VL53L1X::detect(state,
+                                                     type == Type::VL53L1X_Short ?  AP_RangeFinder_VL53L1X::DistanceMode::Short :
+                                                     AP_RangeFinder_VL53L1X::DistanceMode::Long)))
+      {
         break;
       }
     default:
