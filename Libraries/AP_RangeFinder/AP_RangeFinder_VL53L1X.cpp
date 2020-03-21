@@ -26,6 +26,8 @@ static struct rt_i2c_bus_device *i2c_bus;
 
 static bool transfer(uint8_t* send, uint32_t send_len, uint8_t* recv, uint32_t recv_len)
 {
+  if (!i2c_bus) return false;
+  
   struct rt_i2c_msg msgs[2];
   
   msgs[0].addr  = VL53L1X_ADDR;

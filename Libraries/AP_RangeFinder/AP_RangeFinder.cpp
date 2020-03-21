@@ -18,6 +18,7 @@
 #include "AP_RangeFinder_VL53L1X.h"
 
 RangeFinder::RangeFinder()
+: drivers(nullptr)
 {
     _singleton = this;
 }
@@ -70,7 +71,12 @@ bool RangeFinder::_add_backend(AP_RangeFinder_Backend *backend)
 
 uint16_t RangeFinder::distance_cm(void) const
 {
-  return drivers->distance_cm();
+  if (drivers != nullptr) 
+  {
+    return drivers->distance_cm();
+  } else {
+    return 0;
+  }
 }
 
 RangeFinder *RangeFinder::_singleton;
