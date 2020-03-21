@@ -10,3 +10,6 @@
 [submodule "Libraries/AP_Buffer"]
 	path = Libraries/AP_Buffer
 	url = https://github.com/SuWeipeng/AP_Buffer.git
+[submodule "Libraries/AP_RangeFinder"]
+	path = Libraries/AP_RangeFinder
+	url = https://github.com/SuWeipeng/AP_RangeFinder.git
