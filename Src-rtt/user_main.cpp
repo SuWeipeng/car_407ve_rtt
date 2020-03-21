@@ -24,7 +24,7 @@ void setup(void)
   buffer = new AP_Buffer();
   buffer->init(AP_Buffer::RING);
   range_finder =  new RangeFinder();
-  range_finder->init(RangeFinder::Type::VL53L0X);
+  range_finder->init(RangeFinder::Type::VL53L1X_Short);
   Log_Init();
 }
 

@@ -33,19 +33,24 @@ static bool transfer(uint8_t* send, uint32_t send_len, uint8_t* recv, uint32_t r
   msgs[0].buf   = send;
   msgs[0].len   = send_len;
   
-  msgs[1].addr  = VL53L1X_ADDR;
-  msgs[1].flags = RT_I2C_RD;
-  msgs[1].buf   = recv;
-  msgs[1].len   = recv_len;
-  
-  if (rt_i2c_transfer(i2c_bus, msgs, 2) == 2)
-  {
-    return true;
-  }
-  else
+  if (rt_i2c_transfer(i2c_bus, &msgs[0], 1) != 1)
   {
     return false;
   }
+  
+  if(recv != nullptr){
+    msgs[1].addr  = VL53L1X_ADDR;
+    msgs[1].flags = RT_I2C_RD;
+    msgs[1].buf   = recv;
+    msgs[1].len   = recv_len;
+    
+    if (rt_i2c_transfer(i2c_bus, &msgs[1], 1) != 1)
+    {
+      return false;
+    }
+  }
+  
+  return true;
 }
 
 AP_RangeFinder_VL53L1X::AP_RangeFinder_VL53L1X(RangeFinder::RangeFinder_State &_state)
