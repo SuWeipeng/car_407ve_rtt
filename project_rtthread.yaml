@@ -171,6 +171,7 @@ tool_specific:
     includes:
     - Libraries/AC_Base
     - Libraries/AP_Math
+    - Libraries/AP_RangeFinder
     - Libraries/rt-thread/components/libc
     - Libraries/rt-thread/components/libc/compilers
     - Libraries/rt-thread/components/libc/compilers/newlib
@@ -182,6 +183,7 @@ tool_specific:
       GCC:
       - Libraries/AC_Base
       - Libraries/AP_Math
+      - Libraries/AP_RangeFinder
       StartUp:
       - IDE/GCC/startup_stm32f407xx-rtt.S
       libc:
