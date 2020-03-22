@@ -6,31 +6,42 @@
 #include "AC_Base.h"
 #include "Logger.h"
 #include "AP_Buffer.h"
+#if defined(__ICCARM__) || defined(__GNUC__)
 #include "AP_RangeFinder.h"
+#endif
 
 using namespace rtthread;
 
+#if defined(__ICCARM__) || defined(__GNUC__)
 static rt_timer_t vl53lxx_timer;
+#endif
 
 extern vel_target vel;
 extern rt_device_t vcom;
 
 Mecanum_4wd *base;
 AP_Buffer *buffer;
+
+#if defined(__ICCARM__) || defined(__GNUC__)
 RangeFinder *range_finder;
+#endif
 
 extern "C" {
+#if defined(__ICCARM__) || defined(__GNUC__)
 static int sensor_timer_create();
 static void vl53lxx_timeout(void *parameter);
+#endif
 
 void setup(void)
 {
   base = new Mecanum_4wd();
   buffer = new AP_Buffer();
   buffer->init(AP_Buffer::RING);
+#if defined(__ICCARM__) || defined(__GNUC__)
   range_finder =  new RangeFinder();
   range_finder->init(RangeFinder::Type::VL53L0X);
   sensor_timer_create();
+#endif
   Log_Init();
 }
 
@@ -48,6 +59,7 @@ void loop(void* parameter)
   }
 }
 
+#if defined(__ICCARM__) || defined(__GNUC__)
 static int sensor_timer_create()
 {
   RTT_TIMER_CREATE(vl53lxx,vl53lxx_timeout,RT_NULL,33,RT_TIMER_FLAG_SOFT_TIMER | RT_TIMER_CTRL_SET_PERIODIC);
@@ -62,9 +74,9 @@ static void vl53lxx_timeout(void *parameter)
   // updae data
   range_finder->update();
   
-//  char buf[100];
-//  sprintf(buf, "dist_cm: %d\r\n", range_finder->distance_cm());
-//  rt_kputs(buf);
+  char buf[100];
+  sprintf(buf, "dist_cm: %d\r\n", range_finder->distance_cm());
+  rt_kputs(buf);
 }
-
+#endif //#if defined(__ICCARM__) || defined(__GNUC__)
 } // extern "C"
