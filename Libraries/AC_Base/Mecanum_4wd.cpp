@@ -1,11 +1,16 @@
+#include <stdio.h>
 #include <vectorN.h>
 #include "Mecanum_4wd.h"
 #include "Logger.h"
-#if PWM_RPM_TEST_ENABLE == 1
+#if (PWM_RPM_TEST_ENABLE == 1) || (MOTORS_VCOM_DEBUG == 2)
 #include <stm32f4xx_hal.h>
 #include "mavlink.h"
 
 extern UART_HandleTypeDef huart1;
+#endif
+
+#if MOTORS_VCOM_DEBUG == 2
+extern rt_device_t vcom;
 #endif
 
 typedef VectorN<float,3> Vector3f;
@@ -69,6 +74,11 @@ void Mecanum_4wd::run()
 #if PWM_RPM_TEST_ENABLE == 1
   _pwm_rpm_test();
 #endif
+#if MOTORS_VCOM_DEBUG == 2
+  char buf[100];
+  sprintf(buf, "[rpm: %.1f]\r\n", _motor2_fl.get_rpm());
+  rt_device_write(vcom, 0, buf, rt_strlen(buf));
+#endif
 }
 
 void Mecanum_4wd::stop()
@@ -105,6 +115,19 @@ void Mecanum_4wd::_pwm_rpm_test()
   int len = 0;
   uint8_t myTxData[32];
   
+  mavlink_msg_pwm_rpm_pack(0, 0, &msg, _motor1_fr.get_pwm(), _motor1_fr.get_rpm_encoder());
+  len = mavlink_msg_to_send_buffer( myTxData, &msg );
+  HAL_UART_Transmit(&huart1,myTxData,len,10);
+}
+#endif
+
+#if MOTORS_VCOM_DEBUG == 2
+void Mecanum_4wd::_rpm_test()
+{
+  mavlink_message_t msg;
+  int len = 0;
+  uint8_t myTxData[32];
+
   mavlink_msg_pwm_rpm_pack(0, 0, &msg, _motor1_fr.get_pwm(), _motor1_fr.get_rpm_encoder());
   len = mavlink_msg_to_send_buffer( myTxData, &msg );
   HAL_UART_Transmit(&huart1,myTxData,len,10);

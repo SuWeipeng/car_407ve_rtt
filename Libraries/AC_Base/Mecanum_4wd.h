@@ -94,5 +94,9 @@ private:
 private:
   void      _pwm_rpm_test();
 #endif
+
+#if MOTORS_VCOM_DEBUG == 2
+  void      _rpm_test();
+#endif
 };
 #endif /*__MECANUM_4WD_H__*/

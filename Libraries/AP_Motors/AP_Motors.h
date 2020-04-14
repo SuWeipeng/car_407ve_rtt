@@ -27,7 +27,7 @@
 #define ENCODER_DELTA_MAX      5000.0f
 #endif
 
-#define MOTORS_VCOM_DEBUG      1
+#define MOTORS_VCOM_DEBUG      2
 
 class AC_PID;
 
@@ -53,6 +53,7 @@ public:
   int16_t  get_pwm()        { return _pwm; }
   uint16_t get_delta_ms()   { return _delta_ms; }
   float    get_rpm()        { return _rpm; }
+  float    get_rpm_target() { return _rpm_target; }
   float    get_rpm_encoder(){ return _rpm_encoder; }
 
 private:
@@ -63,6 +64,7 @@ private:
   int32_t            _tick_last;
   uint32_t           _last_millisecond;
   float              _rpm;
+  float              _rpm_target;
   float              _rpm_last;
   float              _rpm_encoder;
   int32_t            _delta_tick;
