@@ -14,13 +14,13 @@ using namespace rtthread;
 #if BASE_TYPE == 0
 #define HALF_BASE_LENGTH_M  0.075f
 #define HALF_BASE_WIDTH_M   0.080f
-#define P                   0.5f
-#define I                   5.0f
+#define P                   0.23f
+#define I                   3.3f
 #define D                   0.0f
 #define FF                  0.0f
 #define IMAX                200.0f
-#define FLTT                20.0f
-#define FLTE                20.0f
+#define FLTT                10.0f
+#define FLTE                10.0f
 #define FLTD                0.85f
 #define DT                  0.02f
 #elif BASE_TYPE == 1

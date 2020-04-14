@@ -55,7 +55,7 @@ void loop(void* parameter)
     
     base->vel2rpm(vel_x, vel_y, rad_z);
   
-    rt_thread_delay(50);
+    rt_thread_delay(33);
   }
 }
 
@@ -74,9 +74,9 @@ static void vl53lxx_timeout(void *parameter)
   // updae data
   range_finder->update();
   
-  char buf[100];
-  sprintf(buf, "dist_cm: %d\r\n", range_finder->distance_cm());
-  rt_kputs(buf);
+  //char buf[100];
+  //sprintf(buf, "dist_cm: %d\r\n", range_finder->distance_cm());
+  //rt_kputs(buf);
 }
 #endif //#if defined(__ICCARM__) || defined(__GNUC__)
 } // extern "C"

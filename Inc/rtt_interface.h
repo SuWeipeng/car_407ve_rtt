@@ -10,7 +10,7 @@ extern "C" {
 #define I2C2_SCL_PIN        GET_PIN(B, 10)
 #define I2C2_SDA_PIN        GET_PIN(B, 11)
 #define LED_PIN             GET_PIN(B, 12)
-#define AP_BUFFER_MAX_SIZE  (1024 * 10)
+#define AP_BUFFER_MAX_SIZE  (1024 * 15)
 
 #if defined(__CC_ARM) || defined(__CLANG_ARM)
 #pragma anon_unions
