@@ -74,7 +74,9 @@ void Mecanum_4wd::run()
 #if PWM_RPM_TEST_ENABLE == 1
   _pwm_rpm_test();
 #endif
+
 #if MOTORS_VCOM_DEBUG == 2
+  _rpm_test();
   char buf[100];
   sprintf(buf, "[rpm: %.1f]\r\n", _motor2_fl.get_rpm());
   rt_device_write(vcom, 0, buf, rt_strlen(buf));
