@@ -128,7 +128,7 @@ void Mecanum_4wd::_rpm_test()
   int len = 0;
   uint8_t myTxData[32];
 
-  mavlink_msg_pwm_rpm_pack(0, 0, &msg, _motor1_fr.get_pwm(), _motor1_fr.get_rpm_encoder());
+  mavlink_msg_rpm_pack(0, 0, &msg,  HAL_GetTick(), _motor2_fl.get_rpm_target(), _motor2_fl.get_rpm());
   len = mavlink_msg_to_send_buffer( myTxData, &msg );
   HAL_UART_Transmit(&huart1,myTxData,len,10);
 }
