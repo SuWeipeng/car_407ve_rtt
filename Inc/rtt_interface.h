@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 #include <entry.h>
+#include <mpu6xxx.h>
   
 #define I2C2_SCL_PIN        GET_PIN(B, 10)
 #define I2C2_SDA_PIN        GET_PIN(B, 11)
@@ -31,14 +32,20 @@ typedef struct vel_target {
   float rad_z; // rad/s
 } vel_target;
 
+extern struct mpu6xxx_3axes accel, gyro;
+
 extern rt_thread_t led_thread;
 extern rt_thread_t log_thread;
+extern rt_thread_t mpu_thread;
 
 void led_thread_entry(void* parameter);
 void log_thread_entry(void* parameter);
+int mpu6xxx_thread_entry(void* parameter);
 
 int loop_start(void);
 int file_start(void);
+
+int mpu6xxx_initialize();
 
 #ifdef __cplusplus
 } // extern "C"

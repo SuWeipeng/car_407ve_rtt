@@ -133,8 +133,11 @@ int main(void)
   setup();
 #if defined(USE_RTTHREAD)
   rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
+  mpu6xxx_initialize();
+
   RTT_CREATE(led,led_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-2,20);
   RTT_CREATE(log,log_thread_entry,RT_NULL,1024,2,20);
+  RTT_CREATE(mpu,mpu6xxx_thread_entry,RT_NULL,1024,2,20);
   
   vcom = rt_device_find("vcom");
 
