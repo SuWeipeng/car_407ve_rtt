@@ -473,7 +473,7 @@ rt_err_t mpu6xxx_get_accel(struct mpu6xxx_device *dev, struct mpu6xxx_3axes *acc
 }
 
 /**
-* This function gets the data of the gyroscope, unit: deg/10s
+* This function gets the data of the gyroscope, unit: deg/10ms
  *
  * @param dev the pointer of device driver structure
  * @param gyro the pointer of 3axes structure for receive data

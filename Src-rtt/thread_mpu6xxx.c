@@ -43,8 +43,8 @@ int mpu6xxx_thread_entry(void* parameter)
         mpu6xxx_get_accel(mpu6xxx_dev, &accel);
         mpu6xxx_get_gyro(mpu6xxx_dev, &gyro);
 
-        rt_kprintf("accel.x = %3d, accel.y = %3d, accel.z = %3d \r\n", accel.x, accel.y, accel.z);
-        rt_kprintf("gyro.x = %3d gyro.y = %3d, gyro.z = %3d\r\n", gyro.x, gyro.y, gyro.z);
+        //rt_kprintf("accel.x = %3d, accel.y = %3d, accel.z = %3d \r\n", accel.x, accel.y, accel.z);
+        //rt_kprintf("gyro.x = %3d gyro.y = %3d, gyro.z = %3d\r\n", gyro.x, gyro.y, gyro.z);
 
         rt_thread_mdelay(100);
     }
