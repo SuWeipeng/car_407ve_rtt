@@ -3,7 +3,9 @@
 #include <math.h>
 #include <limits>
 #include <stdint.h>
+#include <type_traits>
 #include "definitions.h"
+#include "rotations.h"
 
 #ifdef __GNUC__
 #include <float.h>
@@ -11,6 +13,17 @@
 #else
  #define WARN_IF_UNUSED
 #endif
+
+/*
+ * Check whether two floats are equal
+ */
+template <typename Arithmetic1, typename Arithmetic2>
+typename std::enable_if<std::is_integral<typename std::common_type<Arithmetic1, Arithmetic2>::type>::value ,bool>::type
+is_equal(const Arithmetic1 v_1, const Arithmetic2 v_2);
+
+template <typename Arithmetic1, typename Arithmetic2>
+typename std::enable_if<std::is_floating_point<typename std::common_type<Arithmetic1, Arithmetic2>::type>::value, bool>::type
+is_equal(const Arithmetic1 v_1, const Arithmetic2 v_2);
 
 /* 
  * @brief: Check whether a float is zero

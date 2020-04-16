@@ -40,7 +40,7 @@ extern rt_thread_t mpu_thread;
 
 void led_thread_entry(void* parameter);
 void log_thread_entry(void* parameter);
-int mpu6xxx_thread_entry(void* parameter);
+void mpu6xxx_thread_entry(void* parameter);
 
 int loop_start(void);
 int file_start(void);
