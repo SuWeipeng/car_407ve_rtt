@@ -77,6 +77,7 @@ static void MX_TIM5_Init(void);
 static void MX_TIM8_Init(void);
 static void MX_USART2_UART_Init(void);
 //static void MX_USB_OTG_FS_PCD_Init(void);
+//static void MX_I2C2_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void setup(void);
@@ -126,6 +127,7 @@ int main(void)
   MX_TIM8_Init();
   MX_USART2_UART_Init();
 //  MX_USB_OTG_FS_PCD_Init();
+//  MX_I2C2_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */  
   setup();
@@ -200,6 +202,40 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
+
+/**
+  * @brief I2C2 Initialization Function
+  * @param None
+  * @retval None
+  */
+//static void MX_I2C2_Init(void)
+//{
+//
+//  /* USER CODE BEGIN I2C2_Init 0 */
+//
+//  /* USER CODE END I2C2_Init 0 */
+//
+//  /* USER CODE BEGIN I2C2_Init 1 */
+//
+//  /* USER CODE END I2C2_Init 1 */
+//  hi2c2.Instance = I2C2;
+//  hi2c2.Init.ClockSpeed = 400000;
+//  hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
+//  hi2c2.Init.OwnAddress1 = 0;
+//  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+//  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+//  hi2c2.Init.OwnAddress2 = 0;
+//  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+//  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+//  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN I2C2_Init 2 */
+//
+//  /* USER CODE END I2C2_Init 2 */
+//
+//}
 
 /**
   * @brief SDIO Initialization Function
@@ -649,8 +685,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
