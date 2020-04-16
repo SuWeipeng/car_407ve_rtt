@@ -3,7 +3,7 @@
 
 #include <stm32f4xx_hal.h>
 
-#define MOTOR_TYPE             1 // 0-TT, 1-520, 2-DC130
+#define MOTOR_TYPE             0 // 0-TT, 1-520, 2-DC130
 #if MOTOR_TYPE == 0
 #define MOTORS_PWM_MIN         50
 #define ENCODER_CNT_MAX        65535
@@ -27,7 +27,7 @@
 #define ENCODER_DELTA_MAX      5000.0f
 #endif
 
-#define MOTORS_VCOM_DEBUG      2
+#define MOTORS_VCOM_DEBUG      1
 
 class AC_PID;
 

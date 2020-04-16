@@ -59,7 +59,7 @@ void mpu6xxx_thread_entry(void* parameter)
         len = mavlink_msg_to_send_buffer( myTxData, &msg );
         HAL_UART_Transmit(&huart1,myTxData,len,10);
 
-        rt_thread_mdelay(100);
+        rt_thread_mdelay(33);
     }
 }
 

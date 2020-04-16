@@ -10,7 +10,7 @@
 using namespace rtthread;
 #endif
 
-#define BASE_TYPE           1 // 0-Small, 1-Middle, 2-Test
+#define BASE_TYPE           0 // 0-Small, 1-Middle, 2-Test
 #if BASE_TYPE == 0
 #define HALF_BASE_LENGTH_M  0.075f
 #define HALF_BASE_WIDTH_M   0.080f
