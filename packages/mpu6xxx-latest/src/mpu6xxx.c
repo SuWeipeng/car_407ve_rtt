@@ -465,9 +465,9 @@ rt_err_t mpu6xxx_get_accel(struct mpu6xxx_device *dev, struct mpu6xxx_3axes *acc
 
     sen = MPU6XXX_ACCEL_SEN >> dev->config.accel_range;
 
-    accel->x = (rt_int32_t)(tmp.x * 1000 / sen);
-    accel->y = (rt_int32_t)(tmp.y * 1000 / sen);
-    accel->z = (rt_int32_t)(tmp.z * 1000 / sen);
+    accel->x = (rt_int32_t)tmp.x * 1000 / sen;
+    accel->y = (rt_int32_t)tmp.y * 1000 / sen;
+    accel->z = (rt_int32_t)tmp.z * 1000 / sen;
 
     return RT_EOK;
 }
@@ -494,9 +494,9 @@ rt_err_t mpu6xxx_get_gyro(struct mpu6xxx_device *dev, struct mpu6xxx_3axes *gyro
 
     sen = MPU6XXX_GYRO_SEN >> dev->config.gyro_range;
 
-    gyro->x = (rt_int32_t)(tmp.x * 1000 / sen);
-    gyro->y = (rt_int32_t)(tmp.y * 1000 / sen);
-    gyro->z = (rt_int32_t)(tmp.z * 1000 / sen);
+    gyro->x = (rt_int32_t)tmp.x * 100 / sen;
+    gyro->y = (rt_int32_t)tmp.y * 100 / sen;
+    gyro->z = (rt_int32_t)tmp.z * 100 / sen;
 
     return RT_EOK;
 }
