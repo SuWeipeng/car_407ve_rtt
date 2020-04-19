@@ -22,7 +22,7 @@
 #include "mpu6xxx_reg.h"
 
 #define MPU6XXX_ACCEL_SEN     (16384)
-#define MPU6XXX_GYRO_SEN      (1310)
+#define MPU6XXX_GYRO_SEN      (131)
 
 #define MPU60X0_SPI_MAX_SPEED (1000 * 1000)
 #define MPU60X0_TEMP_SEN      (340)
@@ -444,7 +444,7 @@ rt_err_t mpu6xxx_set_param(struct mpu6xxx_device *dev, enum mpu6xxx_cmd cmd, rt_
 }
 
 /**
-* This function gets the data of the accelerometer, unit: mg
+* This function gets the data of the accelerometer, unit: g
  *
  * @param dev the pointer of device driver structure
  * @param accel the pointer of 3axes structure for receive data
@@ -465,15 +465,15 @@ rt_err_t mpu6xxx_get_accel(struct mpu6xxx_device *dev, struct mpu6xxx_3axes *acc
 
     sen = MPU6XXX_ACCEL_SEN >> dev->config.accel_range;
 
-    accel->x = (rt_int32_t)tmp.x * 1000 / sen;
-    accel->y = (rt_int32_t)tmp.y * 1000 / sen;
-    accel->z = (rt_int32_t)tmp.z * 1000 / sen;
+    accel->x = (rt_int32_t)(tmp.x * 1000 / sen);
+    accel->y = (rt_int32_t)(tmp.y * 1000 / sen);
+    accel->z = (rt_int32_t)(tmp.z * 1000 / sen);
 
     return RT_EOK;
 }
 
 /**
-* This function gets the data of the gyroscope, unit: deg/10ms
+* This function gets the data of the gyroscope, unit: deg/s
  *
  * @param dev the pointer of device driver structure
  * @param gyro the pointer of 3axes structure for receive data
@@ -483,7 +483,7 @@ rt_err_t mpu6xxx_get_accel(struct mpu6xxx_device *dev, struct mpu6xxx_3axes *acc
 rt_err_t mpu6xxx_get_gyro(struct mpu6xxx_device *dev, struct mpu6xxx_3axes *gyro)
 {
     struct mpu6xxx_3axes tmp;
-    rt_uint16_t sen;
+    float sen;
     rt_err_t res;
 
     res = mpu6xxx_get_gyro_raw(dev, &tmp);
@@ -494,9 +494,9 @@ rt_err_t mpu6xxx_get_gyro(struct mpu6xxx_device *dev, struct mpu6xxx_3axes *gyro
 
     sen = MPU6XXX_GYRO_SEN >> dev->config.gyro_range;
 
-    gyro->x = (rt_int32_t)tmp.x * 100 / sen;
-    gyro->y = (rt_int32_t)tmp.y * 100 / sen;
-    gyro->z = (rt_int32_t)tmp.z * 100 / sen;
+    gyro->x = (rt_int32_t)(tmp.x * 1000 / sen);
+    gyro->y = (rt_int32_t)(tmp.y * 1000 / sen);
+    gyro->z = (rt_int32_t)(tmp.z * 1000 / sen);
 
     return RT_EOK;
 }
