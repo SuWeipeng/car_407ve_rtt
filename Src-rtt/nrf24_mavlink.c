@@ -140,7 +140,7 @@ static int nrf24l01_mavlink_init(void)
 {
   rt_thread_t nrf_mav_thread;
 
-  RTT_CREATE(nrf_mav, nrf24l01_mavlink_entry, RT_NULL, 1536 , 3, 20)
+  RTT_CREATE(nrf_mav, nrf24l01_mavlink_entry, RT_NULL, 1792 , 3, 20)
 
   return RT_EOK;
 }
