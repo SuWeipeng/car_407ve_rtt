@@ -15,8 +15,7 @@ extern "C"
 int file_start(void)
 {
   int     fd;
- 
-  rt_thread_mdelay(300);
+
   if (dfs_mount("sd0", "/", "elm", 0, 0) != RT_EOK)
   {
     return 1;
