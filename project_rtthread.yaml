@@ -74,22 +74,22 @@ common:
     - Libraries/rt-thread/components/drivers/spi/spi_core.c
     - Libraries/rt-thread/components/drivers/spi/spi_dev.c
     - Libraries/rt-thread/components/drivers/sdio
-    - Libraries/rt-thread/components/drivers/serial/serial.c
+    #- Libraries/rt-thread/components/drivers/serial/serial.c
     - Libraries/rt-thread/components/drivers/src/completion.c
     - Libraries/rt-thread/components/drivers/src/dataqueue.c
     - Libraries/rt-thread/components/drivers/src/ringbuffer.c
-    - Libraries/rt-thread/components/finsh/cmd.c
-    - Libraries/rt-thread/components/finsh/msh.c
-    - Libraries/rt-thread/components/finsh/msh_file.c
-    - Libraries/rt-thread/components/finsh/shell.c
-    - Libraries/rt-thread/components/finsh/symbol.c
+    #- Libraries/rt-thread/components/finsh/cmd.c
+    #- Libraries/rt-thread/components/finsh/msh.c
+    #- Libraries/rt-thread/components/finsh/msh_file.c
+    #- Libraries/rt-thread/components/finsh/shell.c
+    #- Libraries/rt-thread/components/finsh/symbol.c
     - Libraries/rt-thread/HAL_Drivers/drv_common.c
     - Libraries/rt-thread/HAL_Drivers/drv_gpio.c
     - Libraries/rt-thread/HAL_Drivers/drv_sdio.c
     - Libraries/rt-thread/HAL_Drivers/drv_soft_i2c.c
     - Libraries/rt-thread/HAL_Drivers/drv_spi.c
-    - Libraries/rt-thread/HAL_Drivers/drv_usart.c
-    - Libraries/rt-thread/HAL_Drivers/drv_usbd.c
+    #- Libraries/rt-thread/HAL_Drivers/drv_usart.c
+    #- Libraries/rt-thread/HAL_Drivers/drv_usbd.c
     - Libraries/rt-thread/libcpu/arm/cortex-m4/cpuport.c
     - Libraries/rt-thread/src
     Libraries:
@@ -97,10 +97,10 @@ common:
     - Libraries/AP_Buffer
     - Libraries/AP_Motors
     - Libraries/Logger
-    VCom:
-    - Libraries/rt-thread/components/drivers/usb/usbdevice/core/core.c
-    - Libraries/rt-thread/components/drivers/usb/usbdevice/core/usbdevice.c
-    - Libraries/rt-thread/components/drivers/usb/usbdevice/class/cdc_vcom.c
+    #VCom:
+    #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/core.c
+    #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/usbdevice.c
+    #- Libraries/rt-thread/components/drivers/usb/usbdevice/class/cdc_vcom.c
     Src:
     - packages/nrf24l01-latest/src
     - packages/mpu6xxx-latest/src
