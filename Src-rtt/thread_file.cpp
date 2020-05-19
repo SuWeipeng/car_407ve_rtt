@@ -14,12 +14,11 @@ void file_log_entry (void* parameter);
 extern "C"
 int file_start(void)
 {
-  int     fd;
+  int     fd, mout_result;
 
-  if (dfs_mount("sd0", "/", "elm", 0, 0) != RT_EOK)
-  {
-    return 1;
-  }
+  do {
+    mout_result = dfs_mount("sd0", "/", "elm", 0, 0);
+  } while(mout_result != RT_EOK);
   
   fd = open(LOG_FILE_NAME, O_RDONLY | O_BINARY);
   if (fd>=0)
@@ -35,7 +34,7 @@ int file_start(void)
     close(fd);
   }
   
-  RTT_CREATE(file,file_log_entry,RT_NULL,4096,2,20);
+  RTT_CREATE(file,file_log_entry,RT_NULL,4096,RT_THREAD_PRIORITY_MAX-2,20);
   return 0;
 }
 
