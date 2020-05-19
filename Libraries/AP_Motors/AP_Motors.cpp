@@ -70,9 +70,11 @@ void AP_Motors::set_rpm(float rpm)
   _spin(_pwm);
   
 #if MOTORS_VCOM_DEBUG == 1
-  char buf[100];
-  sprintf(buf, "[p:%.2f | i:%.2f | d:%.2f | pwm:%d | trpm:%.2f | rpm: %.2f] \r\n", _pid->get_p(), _pid->get_i(), _pid->get_d(), _pwm, rpm, _rpm);
-  rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  if(vcom != RT_NULL){
+    char buf[100];
+    sprintf(buf, "[p:%.2f | i:%.2f | d:%.2f | pwm:%d | trpm:%.2f | rpm: %.2f] \r\n", _pid->get_p(), _pid->get_i(), _pid->get_d(), _pwm, rpm, _rpm);
+    rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  }
 #endif
 }
 
@@ -139,9 +141,11 @@ int32_t AP_Motors::_get_delta_tick()
   delta_tick *= _enc_dir;
  
 #if MOTORS_VCOM_DEBUG == 1
-  char buf[100];
-  sprintf(buf, "[%4d|%4d]\r\n", delta_tick, _tick);
-  rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  if(vcom != RT_NULL){
+    char buf[100];
+    sprintf(buf, "[%4d|%4d]\r\n", delta_tick, _tick);
+    rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  }
 #endif
   
   return delta_tick;

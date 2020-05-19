@@ -139,15 +139,15 @@ int main(void)
   RTT_CREATE(log,log_thread_entry,RT_NULL,1024,7,20);
   RTT_CREATE(mpu,mpu6xxx_thread_entry,RT_NULL,1280,6,20);
   
+  file_start();
+  loop_start();
+
   vcom = rt_device_find("vcom");
 
   if (vcom)
     rt_device_open(vcom, RT_DEVICE_FLAG_RDWR);
   else
-    return -RT_ERROR;
-  
-  file_start();
-  loop_start();
+    vcom = RT_NULL;
   
 #endif
   /* USER CODE END 2 */
