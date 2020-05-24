@@ -15,10 +15,12 @@ extern "C"
 int file_start(void)
 {
   int     fd, mout_result;
-
-  do {
+    
+  if(rt_device_find("sd0") != RT_NULL){
     mout_result = dfs_mount("sd0", "/", "elm", 0, 0);
-  } while(mout_result != RT_EOK);
+  } else {
+    return mout_result;
+  }
   
   fd = open(LOG_FILE_NAME, O_RDONLY | O_BINARY);
   if (fd>=0)
