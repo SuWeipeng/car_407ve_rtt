@@ -31,6 +31,7 @@ common:
   - Libraries/rt-thread/components/drivers/include/drivers
   - Libraries/rt-thread/components/drivers/include/ipc
   - Libraries/rt-thread/components/drivers/sensors
+  - Libraries/rt-thread/components/drivers/spi
   - Libraries/rt-thread/components/finsh
   - Libraries/rt-thread/components/libc
   - Libraries/rt-thread/components/libc/compilers
@@ -73,6 +74,7 @@ common:
     - Libraries/rt-thread/components/drivers/sensors/sensor_cmd.c
     - Libraries/rt-thread/components/drivers/spi/spi_core.c
     - Libraries/rt-thread/components/drivers/spi/spi_dev.c
+    - Libraries/rt-thread/components/drivers/spi/spi_msd.c
     - Libraries/rt-thread/components/drivers/sdio
     - Libraries/rt-thread/components/drivers/serial/serial.c
     - Libraries/rt-thread/components/drivers/src/completion.c
