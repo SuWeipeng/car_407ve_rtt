@@ -6,6 +6,10 @@ void led_thread_entry(void* parameter)
 {
   while(1) {
     rt_pin_write(LED_PIN, !rt_pin_read(LED_PIN));
-    rt_thread_delay(200);
+    if(mount_success){
+      rt_thread_delay(500);
+    } else {
+      rt_thread_delay(200);
+    }
   }
 }

@@ -494,9 +494,9 @@ rt_err_t mpu6xxx_get_gyro(struct mpu6xxx_device *dev, struct mpu6xxx_3axes *gyro
 
     sen = MPU6XXX_GYRO_SEN >> dev->config.gyro_range;
 
-    gyro->x = (rt_int32_t)tmp.x * 100 / sen;
-    gyro->y = (rt_int32_t)tmp.y * 100 / sen;
-    gyro->z = (rt_int32_t)tmp.z * 100 / sen;
+    gyro->x = (rt_int16_t)((rt_int32_t)tmp.x * 100 / sen);
+    gyro->y = (rt_int16_t)((rt_int32_t)tmp.y * 100 / sen);
+    gyro->z = (rt_int16_t)((rt_int32_t)tmp.z * 100 / sen);
 
     return RT_EOK;
 }
