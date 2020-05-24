@@ -58,11 +58,14 @@ void file_log_entry (void* parameter){
       do{
         if(rt_device_find("sd1") != RT_NULL){
           mout_result = dfs_mount("sd1", "/", "elm", 0, 0);
-        } else if (rt_device_find("sd0") != RT_NULL){
-          mout_result = dfs_mount("sd0", "/", "elm", 0, 0);
-        } 
-        rt_thread_delay(300);
-        rt_hw_sdio_init();
+          if(mout_result != RT_EOK && rt_device_find("sd0") != RT_NULL){
+            mout_result = dfs_mount("sd0", "/", "elm", 0, 0);
+            if(mout_result != RT_EOK){
+              rt_thread_delay(300);
+              rt_hw_sdio_init();
+            }
+          }
+        }
       } while(mout_result != RT_EOK);
       
       mount_success = 1;
