@@ -31,6 +31,8 @@ public:
         }
     }
 
+    void eye_mult(const float d[N]);
+    
     // multiply two vectors to give a matrix, in-place
     void mult(const VectorN<T,N> &A, const VectorN<T,N> &B);
 
