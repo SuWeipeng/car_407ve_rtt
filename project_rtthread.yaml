@@ -141,6 +141,7 @@ tool_specific:
   iar_arm:
     includes:
     - Libraries/AC_Base
+    - Libraries/AP_KF
     - Libraries/AP_Math
     - Libraries/AP_RangeFinder
     - Libraries/rt-thread/components/libc
@@ -153,6 +154,7 @@ tool_specific:
     sources:
       IAR:
       - Libraries/AC_Base
+      - Libraries/AP_KF
       - Libraries/AP_Math
       - Libraries/AP_RangeFinder
       StartUp:
@@ -177,6 +179,7 @@ tool_specific:
   make_gcc_arm:
     includes:
     - Libraries/AC_Base
+    - Libraries/AP_KF
     - Libraries/AP_Math
     - Libraries/AP_RangeFinder
     - Libraries/rt-thread/components/libc
@@ -189,6 +192,7 @@ tool_specific:
     sources:
       GCC:
       - Libraries/AC_Base
+      - Libraries/AP_KF
       - Libraries/AP_Math
       - Libraries/AP_RangeFinder
       StartUp:
