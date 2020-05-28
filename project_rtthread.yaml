@@ -144,6 +144,7 @@ tool_specific:
     - Libraries/AP_KF
     - Libraries/AP_Math
     - Libraries/AP_RangeFinder
+    - Libraries/Filter
     - Libraries/rt-thread/components/libc
     - Libraries/rt-thread/components/libc/compilers
     - Libraries/rt-thread/components/libc/compilers/armlibc
@@ -157,6 +158,7 @@ tool_specific:
       - Libraries/AP_KF
       - Libraries/AP_Math
       - Libraries/AP_RangeFinder
+      - Libraries/Filter
       StartUp:
       - IDE/IAR
       dlib:
@@ -182,6 +184,7 @@ tool_specific:
     - Libraries/AP_KF
     - Libraries/AP_Math
     - Libraries/AP_RangeFinder
+    - Libraries/Filter
     - Libraries/rt-thread/components/libc
     - Libraries/rt-thread/components/libc/compilers
     - Libraries/rt-thread/components/libc/compilers/newlib
@@ -195,6 +198,7 @@ tool_specific:
       - Libraries/AP_KF
       - Libraries/AP_Math
       - Libraries/AP_RangeFinder
+      - Libraries/Filter
       StartUp:
       - IDE/GCC/startup_stm32f407xx-rtt.S
       libc:
