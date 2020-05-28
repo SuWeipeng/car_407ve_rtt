@@ -43,6 +43,19 @@ MatrixN<T,N> &MatrixN<T,N>::operator +=(const MatrixN<T,N> &B)
     return *this;
 }
 
+template <typename T, uint8_t N>
+VectorN<T,N> &MatrixN<T,N>::operator *(const VectorN<T,N> &Vector)
+{
+    VectorN<T,N> result;
+    for (uint8_t i = 0; i < N; i++) {
+        for (uint8_t j = 0; j < N; j++) {
+            v[i][j] *= Vector[j];
+            result[i] += v[i][j];
+        }
+    }
+    return result;
+}
+
 // Matrix symmetry routine
 template <typename T, uint8_t N>
 void MatrixN<T,N>::force_symmetry(void)
@@ -62,6 +75,16 @@ void MatrixN<T,N>::eye_mult(const float d[N])
     v[i][i] *= d[i];
   }
 }
+
+template <typename T, uint8_t N>
+void MatrixN<T,N>::eye(const uint8_t row_count)
+{
+  memset(v, 0, sizeof(v)); 
+  for (uint8_t i = 0; i < row_count; i++) {
+    v[i][i] = 1.0f;
+  }
+}
+
 template void MatrixN<float,4>::mult(const VectorN<float,4> &A, const VectorN<float,4> &B);
 template MatrixN<float,4> &MatrixN<float,4>::operator -=(const MatrixN<float,4> &B);
 template MatrixN<float,4> &MatrixN<float,4>::operator +=(const MatrixN<float,4> &B);

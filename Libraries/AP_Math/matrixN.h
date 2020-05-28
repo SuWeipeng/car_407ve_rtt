@@ -31,6 +31,7 @@ public:
         }
     }
 
+    void eye(const uint8_t row_count);
     void eye_mult(const float d[N]);
     
     // multiply two vectors to give a matrix, in-place
@@ -41,6 +42,8 @@ public:
 
     // add B to the matrix
     MatrixN<T,N> &operator +=(const MatrixN<T,N> &B);
+    
+    VectorN<T,N> &operator *(const VectorN<T,N> &Vector);
     
     // Matrix symmetry routine
     void force_symmetry(void);
