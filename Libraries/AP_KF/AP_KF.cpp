@@ -36,7 +36,7 @@ AP_KF::set_var(const float &var_acc, const float &var_gyro)
   R.eye_mult(var_init);
 }
 
-void 
+_Vector4f 
 AP_KF::run(const Vector2f &att, const Vector2f &gyro)
 {
   float     measure[4] = {att.x, gyro.x, att.y, gyro.y};
@@ -82,4 +82,6 @@ AP_KF::run(const Vector2f &att, const Vector2f &gyro)
   
   _Matrix4f eye{_d};
   P = (eye - K * C) * P;
+  
+  return _state_estimate;
 }
