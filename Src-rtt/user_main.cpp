@@ -44,6 +44,7 @@ void setup(void)
   range_finder->init(RangeFinder::Type::VL53L0X);
   sensor_timer_create();
   kalman_filter = new AP_KF();
+  kalman_filter->set_var(1e-2, 6.75);
 #endif
   Log_Init();
 }
