@@ -4,6 +4,7 @@
 #include <mpu6xxx.h>
 #include <AP_KF.h>
 #include <vector3.h>
+#include <Logger.h>
 
 extern struct mpu6xxx_3axes accel, gyro;
 extern AP_KF *kalman_filter;
@@ -29,6 +30,8 @@ void attitude_thread_entry(void* parameter)
     dt = (HAL_GetTick() - time_last) / 1000.0f;
     kalman_filter->set_dt(dt);
     _Vector4f att_flt = kalman_filter->run(attitude, gyroscope);
+    
+    Write_Attitude(roll_acc, pitch_acc, gyro.x, gyro.y, att_flt[0], att_flt[2], att_flt[1], att_flt[3]);
     
     time_last = HAL_GetTick();
     rt_thread_mdelay(33);
