@@ -13,26 +13,34 @@ AP_KF::AP_KF()
 {  
   memset(_var_att_init  , 0, sizeof(_var_att_init));
   memset(_var_gyro_init , 0, sizeof(_var_gyro_init));
-  
-  float a[4][4] = { 1, _dt,   0,   0,
-                    0,   1,   0,   0,
-                    0,   0,   1, _dt,
-                    0,   0,   0,   1 };
-  A.set(a);  
 }
 
 AP_KF::~AP_KF()
 {}
 
+void      
+AP_KF::set_dt(const float &dt)
+{
+  _dt = dt;
+  
+  float a[4][4] = { 1, _dt,   0,   0,
+                    0,   1,   0,   0,
+                    0,   0,   1, _dt,
+                    0,   0,   0,   1 };
+  A.set(a); 
+}
+  
 void 
 AP_KF::set_var(const float &var_acc, const float &var_gyro)
 {
-  memcpy(_var_att_init, &var_acc, sizeof(_var_att_init));
-  memcpy(_var_gyro_init, &var_gyro, sizeof(_var_gyro_init));
-    
-  float var_init[4] = {_var_att_init[0], _var_gyro_init[0], _var_att_init[1], _var_gyro_init[1]};
+  _var_att_init[0]  = var_acc;
+  _var_att_init[1]  = var_acc;
+  _var_gyro_init[0] = var_gyro;
+  _var_gyro_init[1] = var_gyro;
+  
+  float var_init[4] = {_var_att_init[0], _var_gyro_init[0], _var_att_init[1], _var_gyro_init[1]};  
+  Q.eye();
   Q.eye_mult(var_init);
-  R.eye_mult(var_init);
 }
 
 _Vector4f 
@@ -74,7 +82,7 @@ AP_KF::run(const Vector2f &att, const Vector2f &gyro)
   _Matrix4f C_trans(C_transposed);
   
   _Matrix4f temp = R + C * P * C_trans;
-  temp.diagonal_array_inv();
+  temp.inv4();
   
   K = P * C_trans * temp;
   _state_estimate += K * (measurement - C * _state_estimate);

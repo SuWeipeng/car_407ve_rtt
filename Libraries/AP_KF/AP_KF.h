@@ -12,7 +12,7 @@ public:
   AP_KF();
   ~AP_KF();
   
-  void      set_dt(const float &dt) { _dt = dt; }
+  void      set_dt(const float &dt);
   void      set_var(const float &var_acc, const float &var_gyro);
   _Vector4f run(const Vector2f &att, const Vector2f &gyro);
   

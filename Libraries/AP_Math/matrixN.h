@@ -58,7 +58,7 @@ public:
     
     void set(const T d[N][N]);
     
-    void diagonal_array_inv(void);
+    void inv4(void);
     
     void eye(void);
     

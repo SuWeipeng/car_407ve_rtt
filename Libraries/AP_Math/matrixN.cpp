@@ -112,15 +112,27 @@ void MatrixN<T,N>::set(const T d[N][N])
 }
 
 template <typename T, uint8_t N>
-void MatrixN<T,N>::diagonal_array_inv(void)
+void MatrixN<T,N>::inv4(void)
 {
-    for (uint8_t i = 0; i < N; i++) {
-        if(::is_zero(v[i][i])) return; 
-    }
+    float temp1 = 1.0f / (v[0][0] * v[1][1] - v[0][1] * v[1][0]);
+    float temp2 = 1.0f / (v[2][2] * v[3][3] - v[2][3] * v[3][2]);
+    float temp;
     
-    for (uint8_t i = 0; i < N; i++) {
-        v[i][i] = 1 / v[i][i]; 
-    }
+    temp    = v[0][0];
+    v[0][0] = v[1][1];
+    v[0][0] *= temp1;
+    v[1][1] = temp;
+    v[1][1] *= temp1;
+    v[0][1] *= -temp1;
+    v[1][0] *= -temp1;
+    
+    temp    = v[2][2];
+    v[2][2] = v[3][3];
+    v[2][2] *= temp2;
+    v[3][3] = temp;
+    v[3][3] *= temp2;
+    v[2][3] *= -temp2;
+    v[3][2] *= -temp2;
 }
 
 template <typename T, uint8_t N>
@@ -149,6 +161,6 @@ template MatrixN<float,4> MatrixN<float,4>::operator +(const MatrixN<float,4> &B
 template MatrixN<float,4> MatrixN<float,4>::operator -(const MatrixN<float,4> &B);
 template void MatrixN<float,4>::force_symmetry(void);
 template void MatrixN<float,4>::set(const float d[4][4]);
-template void MatrixN<float,4>::diagonal_array_inv(void);
+template void MatrixN<float,4>::inv4(void);
 template void MatrixN<float,4>::eye(void);
 template void MatrixN<float,4>::eye_mult(const float d[4]);
