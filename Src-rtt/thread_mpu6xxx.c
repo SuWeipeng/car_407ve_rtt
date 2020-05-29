@@ -18,6 +18,7 @@
 
 extern UART_HandleTypeDef huart1;
 rt_thread_t mpu_thread = RT_NULL;
+rt_sem_t    mpu_sem    = RT_NULL;
 
 struct mpu6xxx_3axes accel, gyro;
 struct mpu6xxx_device *mpu6xxx_dev;
@@ -47,6 +48,7 @@ void mpu6xxx_thread_entry(void* parameter)
 
         mpu6xxx_get_accel(mpu6xxx_dev, &accel);
         mpu6xxx_get_gyro(mpu6xxx_dev, &gyro);
+        rt_sem_release(mpu_sem);
 
         //rt_kprintf("accel.x = %3d, accel.y = %3d, accel.z = %3d \r\n", accel.x, accel.y, accel.z);
         //rt_kprintf("gyro.x = %3d gyro.y = %3d, gyro.z = %3d\r\n", gyro.x, gyro.y, gyro.z);
