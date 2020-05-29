@@ -36,12 +36,15 @@ void attitude_thread_entry(void* parameter)
     float pitch_acc = atan2f(acc_norm.x, acc_norm.z);
     
     Vector2f attitude(roll_acc, pitch_acc), gyroscope(gyro.x, gyro.y);
+    gyroscope = gyroscope * M_PI / 18000;
     
     dt = (HAL_GetTick() - time_last) / 1000.0f;
     kalman_filter->set_dt(dt);
     _Vector4f att_flt = kalman_filter->run(attitude, gyroscope);
     
-    Write_Attitude(roll_acc, pitch_acc, gyro.x, gyro.y, att_flt[0], att_flt[2], att_flt[1], att_flt[3]);
+    Vector2f att_var  = kalman_filter->get_att_var();
+    Vector2f gyro_var = kalman_filter->get_gyro_var();
+    Write_Attitude(roll_acc, pitch_acc, gyroscope.x, gyroscope.y, att_flt[0], att_flt[2], att_flt[1], att_flt[3],att_var.x, att_var.y, gyro_var.x, gyro_var.y);
     
     time_last = HAL_GetTick();
     rt_thread_mdelay(33);

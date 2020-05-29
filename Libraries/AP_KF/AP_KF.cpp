@@ -45,15 +45,15 @@ AP_KF::run(const Vector2f &att, const Vector2f &gyro)
   Vector2f att_diff = (att - att_filt);
   att_diff.x *= att_diff.x;
   att_diff.y *= att_diff.y;
-  Vector2f att_var = _att_flt_2.apply(att_diff, _dt);
+  _att_var = _att_flt_2.apply(att_diff, _dt);
  
   Vector2f gyro_filt = _gyro_flt_1.apply(gyro, _dt);
   Vector2f gyro_diff = (gyro - gyro_filt);
   gyro_diff.x *= gyro_diff.x;
   gyro_diff.y *= gyro_diff.y;
-  Vector2f gyro_var = _gyro_flt_2.apply(gyro_diff, _dt);
+  _gyro_var = _gyro_flt_2.apply(gyro_diff, _dt);
   
-  float var[4] = {att_var.x, gyro_var.x, att_var.y, gyro_var.y};
+  float var[4] = {_att_var.x, _gyro_var.x, _att_var.y, _gyro_var.y};
   R.eye();
   R.eye_mult(var);
   

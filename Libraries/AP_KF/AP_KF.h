@@ -15,12 +15,17 @@ public:
   void      set_dt(const float &dt) { _dt = dt; }
   void      set_var(const float &var_acc, const float &var_gyro);
   _Vector4f run(const Vector2f &att, const Vector2f &gyro);
+  
+  Vector2f  get_att_var(void)  { return _att_var; }
+  Vector2f  get_gyro_var(void) { return _gyro_var; }
 
 private:  
   float _dt;
   float _var_att_init[2];  // 0-roll, 1-pitch
   float _var_gyro_init[2]; // 0-roll, 1-pitch
 
+  Vector2f  _att_var;
+  Vector2f  _gyro_var;
   _Vector4f _state_estimate;
   
   LowPassFilterVector2f  _att_flt_1{5.0f},  _att_flt_2{3.0f};
