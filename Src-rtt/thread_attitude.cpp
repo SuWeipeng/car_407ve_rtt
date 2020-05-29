@@ -17,8 +17,18 @@ void attitude_thread_entry(void* parameter)
   uint32_t time_last = 0;
   Vector3f acc, acc_norm;
   float    dt;
+  int16_t  temp;
   while(1) {
     rt_sem_take(mpu_sem, RT_WAITING_FOREVER);
+    
+    temp    = accel.x;
+    accel.x = -accel.y;
+    accel.y = -temp;
+    
+    temp    = gyro.x;
+    gyro.x  = -gyro.y;
+    gyro.y  = -temp;
+    
     acc(accel.x, accel.y, accel.z);
     acc_norm = acc / acc.length();
     

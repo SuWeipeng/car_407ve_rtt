@@ -56,6 +56,8 @@ public:
     // Matrix symmetry routine
     void force_symmetry(void);
     
+    void set(const T d[N][N]);
+    
     void diagonal_array_inv(void);
     
     void eye(void);
