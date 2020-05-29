@@ -18,7 +18,7 @@ public:
 
 private:  
   float _dt;
-  float _var_acc_init[2];  // 0-roll, 1-pitch
+  float _var_att_init[2];  // 0-roll, 1-pitch
   float _var_gyro_init[2]; // 0-roll, 1-pitch
   float _d[4] = {1.0f, 1.0f, 1.0f, 1.0f};
   

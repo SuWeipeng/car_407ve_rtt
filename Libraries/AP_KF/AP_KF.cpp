@@ -6,7 +6,7 @@ AP_KF::AP_KF()
 {
   _Matrix4f temp;
   
-  memset(_var_acc_init  , 0, sizeof(_var_acc_init));
+  memset(_var_att_init  , 0, sizeof(_var_att_init));
   memset(_var_gyro_init , 0, sizeof(_var_gyro_init));
   
   float v1[4] = {1,   0,   0,   0};
@@ -28,10 +28,10 @@ AP_KF::~AP_KF()
 void 
 AP_KF::set_var(const float &var_acc, const float &var_gyro)
 {
-  memcpy(_var_acc_init, &var_acc, sizeof(_var_acc_init));
-  memcpy(_var_gyro_init, &var_gyro, sizeof(_var_acc_init));
+  memcpy(_var_att_init, &var_acc, sizeof(_var_att_init));
+  memcpy(_var_gyro_init, &var_gyro, sizeof(_var_gyro_init));
     
-  float var_init[4] = {_var_acc_init[0], _var_gyro_init[0], _var_acc_init[1], _var_gyro_init[1]};
+  float var_init[4] = {_var_att_init[0], _var_gyro_init[0], _var_att_init[1], _var_gyro_init[1]};
   Q.eye_mult(var_init);
   R.eye_mult(var_init);
 }
