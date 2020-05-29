@@ -11,7 +11,6 @@
 template <typename T, uint8_t N>
 class VectorN;
 
-
 template <typename T, uint8_t N>
 class MatrixN {
   

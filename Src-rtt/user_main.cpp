@@ -8,6 +8,7 @@
 #include "AP_Buffer.h"
 #if defined(__ICCARM__) || defined(__GNUC__)
 #include "AP_RangeFinder.h"
+#include "AP_KF.h"
 #endif
 
 using namespace rtthread;
@@ -16,7 +17,7 @@ using namespace rtthread;
 static rt_timer_t vl53lxx_timer;
 #endif
 
-extern vel_target vel;
+extern vel_target  vel;
 extern rt_device_t vcom;
 
 Mecanum_4wd *base;
@@ -24,6 +25,7 @@ AP_Buffer *buffer;
 
 #if defined(__ICCARM__) || defined(__GNUC__)
 RangeFinder *range_finder;
+AP_KF *kalman_filter;
 #endif
 
 extern "C" {
@@ -41,6 +43,7 @@ void setup(void)
   range_finder =  new RangeFinder();
   range_finder->init(RangeFinder::Type::VL53L0X);
   sensor_timer_create();
+  kalman_filter = new AP_KF();
 #endif
   Log_Init();
 }

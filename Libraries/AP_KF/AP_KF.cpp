@@ -1,17 +1,23 @@
-
 #include "AP_KF.h"
 
+static float d[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+static _Matrix4f A(d);
+static _Matrix4f C(d);
+static _Matrix4f P(d);
+static _Matrix4f Q(d);
+static _Matrix4f R(d);
+static _Matrix4f K(d);
+  
 AP_KF::AP_KF()
 : _dt(0)
-{
-  _Matrix4f temp;
-  
+{  
   memset(_var_att_init  , 0, sizeof(_var_att_init));
   memset(_var_gyro_init , 0, sizeof(_var_gyro_init));
   
   float v1[4] = {1,   0,   0,   0};
   float v2[4] = {0, _dt,   0,   0};
   _Vector4f vector_1(v1), vector_2(v2);
+  _Matrix4f temp;
   temp.mult(vector_1, vector_2);
   A +=  temp;
   
@@ -80,7 +86,7 @@ AP_KF::run(const Vector2f &att, const Vector2f &gyro)
   K = P * C_trans * temp;
   _state_estimate += K * (measurement - C * _state_estimate);
   
-  _Matrix4f eye{_d};
+  _Matrix4f eye(d);
   P = (eye - K * C) * P;
   
   return _state_estimate;

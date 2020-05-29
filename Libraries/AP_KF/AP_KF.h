@@ -20,14 +20,7 @@ private:
   float _dt;
   float _var_att_init[2];  // 0-roll, 1-pitch
   float _var_gyro_init[2]; // 0-roll, 1-pitch
-  float _d[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-  
-  _Matrix4f A{_d};
-  _Matrix4f C{_d};
-  _Matrix4f P{_d};
-  _Matrix4f Q{_d};
-  _Matrix4f R{_d};
-  _Matrix4f K{_d};
+
   _Vector4f _state_estimate;
   
   LowPassFilterVector2f  _att_flt_1{5.0f},  _att_flt_2{3.0f};
