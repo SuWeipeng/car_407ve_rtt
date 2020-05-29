@@ -35,14 +35,6 @@ public:
         }
     }
 
-    void eye(void);
-    void eye_mult(const float d[N]);
-    
-    T get(uint8_t i, uint8_t j) { return v[i][j]; }
-    
-    // multiply two vectors to give a matrix, in-place
-    void mult(const VectorN<T,N> &A, const VectorN<T,N> &B);
-
     // subtract B from the matrix
     MatrixN<T,N> &operator -=(const MatrixN<T,N> &B);
 
@@ -57,10 +49,19 @@ public:
     
     MatrixN<T,N> &operator -(const MatrixN<T,N> &B);
     
+    T get(uint8_t i, uint8_t j) { return v[i][j]; }
+
+    // multiply two vectors to give a matrix, in-place
+    void mult(const VectorN<T,N> &A, const VectorN<T,N> &B);
+    
     // Matrix symmetry routine
     void force_symmetry(void);
     
     void diagonal_array_inv(void);
+    
+    void eye(void);
+    
+    void eye_mult(const float d[N]);
 
 private:
     T v[N][N];
