@@ -55,7 +55,7 @@ AP_KF::run(const Vector2f &att, const Vector2f &gyro)
   Vector2f gyro_var = _gyro_flt_2.apply(gyro_diff, _dt);
   
   float var[4] = {att_var.x, gyro_var.x, att_var.y, gyro_var.y};
-  R.eye(4);
+  R.eye();
   R.eye_mult(var);
   
   _state_estimate = A * _state_estimate;

@@ -31,7 +31,7 @@ public:
         }
     }
 
-    void eye(const uint8_t row_count);
+    void eye(void);
     void eye_mult(const float d[N]);
     
     // multiply two vectors to give a matrix, in-place
