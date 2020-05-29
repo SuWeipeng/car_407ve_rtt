@@ -23,6 +23,10 @@ public:
         memset(v, 0, sizeof(v));        
     }
 
+    MatrixN<T,N>(const T d[N][N]) {
+        memcpy(v, d, sizeof(v));        
+    }
+    
     // constructor from 4 diagonals
     MatrixN<T,N>(const float d[N]) {
         memset(v, 0, sizeof(v));
@@ -33,6 +37,8 @@ public:
 
     void eye(void);
     void eye_mult(const float d[N]);
+    
+    T get(uint8_t i, uint8_t j) { return v[i][j]; }
     
     // multiply two vectors to give a matrix, in-place
     void mult(const VectorN<T,N> &A, const VectorN<T,N> &B);
@@ -45,8 +51,16 @@ public:
     
     VectorN<T,N> &operator *(const VectorN<T,N> &Vector);
     
+    MatrixN<T,N> &operator *(const MatrixN<T,N> &B);
+    
+    MatrixN<T,N> &operator +(const MatrixN<T,N> &B);
+    
+    MatrixN<T,N> &operator -(const MatrixN<T,N> &B);
+    
     // Matrix symmetry routine
     void force_symmetry(void);
+    
+    void diagonal_array_inv(void);
 
 private:
     T v[N][N];

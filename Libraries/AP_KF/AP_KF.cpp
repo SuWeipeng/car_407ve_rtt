@@ -59,4 +59,27 @@ AP_KF::run(const Vector2f &att, const Vector2f &gyro)
   R.eye_mult(var);
   
   _state_estimate = A * _state_estimate;
+  
+  float A_transposed[4][4] = {A.get(0,0), A.get(1,0), A.get(2,0), A.get(3,0),
+                              A.get(0,1), A.get(1,1), A.get(2,1), A.get(3,1),
+                              A.get(0,2), A.get(1,2), A.get(2,2), A.get(3,2),
+                              A.get(0,3), A.get(1,3), A.get(2,3), A.get(3,3)};
+  _Matrix4f A_trans(A_transposed);
+  
+  P = A*P*A_trans + Q;
+  
+  float C_transposed[4][4] = {C.get(0,0), C.get(1,0), C.get(2,0), C.get(3,0),
+                              C.get(0,1), C.get(1,1), C.get(2,1), C.get(3,1),
+                              C.get(0,2), C.get(1,2), C.get(2,2), C.get(3,2),
+                              C.get(0,3), C.get(1,3), C.get(2,3), C.get(3,3)};
+  _Matrix4f C_trans(C_transposed);
+  
+  _Matrix4f temp = R + C * P * C_trans;
+  temp.diagonal_array_inv();
+  
+  K = P * C_trans * temp;
+  _state_estimate += K * (measurement - C * _state_estimate);
+  
+  _Matrix4f eye{_d};
+  P = (eye - K * C) * P;
 }

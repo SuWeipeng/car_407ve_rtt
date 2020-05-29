@@ -5,8 +5,8 @@
 #pragma GCC optimize("O3")
 #endif
 
+#include <AP_Math.h>
 #include "matrixN.h"
-
 
 // multiply two vectors to give a matrix, in-place
 template <typename T, uint8_t N>
@@ -55,6 +55,44 @@ VectorN<T,N> &MatrixN<T,N>::operator *(const VectorN<T,N> &Vector)
     return result;
 }
 
+template <typename T, uint8_t N>
+MatrixN<T,N> &MatrixN<T,N>::operator *(const MatrixN<T,N> &B)
+{
+    MatrixN<T,N> result;
+    for (uint8_t i = 0; i < N; i++) {
+        for (uint8_t j = 0; j < N; j++) {
+            for(uint8_t k = 0; k < N; k++) {
+                result.v[i][j] += v[i][k] * B.v[k][j];
+            }
+        }
+    }
+    return result;
+}
+
+template <typename T, uint8_t N>
+MatrixN<T,N> &MatrixN<T,N>::operator +(const MatrixN<T,N> &B)
+{
+    MatrixN<T,N> result;
+    for (uint8_t i = 0; i < N; i++) {
+        for (uint8_t j = 0; j < N; j++) {
+            result.v[i][j] = v[i][j] + B.v[i][j];
+        }
+    }
+    return result;
+}
+
+template <typename T, uint8_t N>
+MatrixN<T,N> &MatrixN<T,N>::operator -(const MatrixN<T,N> &B)
+{
+    MatrixN<T,N> result;
+    for (uint8_t i = 0; i < N; i++) {
+        for (uint8_t j = 0; j < N; j++) {
+            result.v[i][j] = v[i][j] - B.v[i][j];
+        }
+    }
+    return result;
+}
+
 // Matrix symmetry routine
 template <typename T, uint8_t N>
 void MatrixN<T,N>::force_symmetry(void)
@@ -64,6 +102,18 @@ void MatrixN<T,N>::force_symmetry(void)
             v[i][j] = (v[i][j] + v[j][i]) / 2;
             v[j][i] = v[i][j];
         }
+    }
+}
+
+template <typename T, uint8_t N>
+void MatrixN<T,N>::diagonal_array_inv(void)
+{
+    for (uint8_t i = 0; i < N; i++) {
+        if(::is_zero(v[i][i])) return; 
+    }
+    
+    for (uint8_t i = 0; i < N; i++) {
+        v[i][i] = 1 / v[i][i]; 
     }
 }
 

@@ -27,6 +27,7 @@ private:
   _Matrix4f P{_d};
   _Matrix4f Q{_d};
   _Matrix4f R{_d};
+  _Matrix4f K{_d};
   _Vector4f _state_estimate;
   
   LowPassFilterVector2f  _att_flt_1{5.0f},  _att_flt_2{3.0f};
