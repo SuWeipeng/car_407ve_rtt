@@ -40,13 +40,13 @@ public:
     // add B to the matrix
     MatrixN<T,N> &operator +=(const MatrixN<T,N> &B);
     
-    VectorN<T,N> &operator *(const VectorN<T,N> &Vector);
+    VectorN<T,N> operator *(const VectorN<T,N> &Vector);
     
-    MatrixN<T,N> &operator *(const MatrixN<T,N> &B);
+    MatrixN<T,N> operator *(const MatrixN<T,N> &B);
     
-    MatrixN<T,N> &operator +(const MatrixN<T,N> &B);
+    MatrixN<T,N> operator +(const MatrixN<T,N> &B);
     
-    MatrixN<T,N> &operator -(const MatrixN<T,N> &B);
+    MatrixN<T,N> operator -(const MatrixN<T,N> &B);
     
     T get(uint8_t i, uint8_t j) { return v[i][j]; }
 

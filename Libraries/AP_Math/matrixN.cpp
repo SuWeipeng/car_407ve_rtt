@@ -44,7 +44,7 @@ MatrixN<T,N> &MatrixN<T,N>::operator +=(const MatrixN<T,N> &B)
 }
 
 template <typename T, uint8_t N>
-VectorN<T,N> &MatrixN<T,N>::operator *(const VectorN<T,N> &Vector)
+VectorN<T,N> MatrixN<T,N>::operator *(const VectorN<T,N> &Vector)
 {
     VectorN<T,N> result;
     for (uint8_t i = 0; i < N; i++) {
@@ -56,7 +56,7 @@ VectorN<T,N> &MatrixN<T,N>::operator *(const VectorN<T,N> &Vector)
 }
 
 template <typename T, uint8_t N>
-MatrixN<T,N> &MatrixN<T,N>::operator *(const MatrixN<T,N> &B)
+MatrixN<T,N> MatrixN<T,N>::operator *(const MatrixN<T,N> &B)
 {
     MatrixN<T,N> result;
     for (uint8_t i = 0; i < N; i++) {
@@ -70,7 +70,7 @@ MatrixN<T,N> &MatrixN<T,N>::operator *(const MatrixN<T,N> &B)
 }
 
 template <typename T, uint8_t N>
-MatrixN<T,N> &MatrixN<T,N>::operator +(const MatrixN<T,N> &B)
+MatrixN<T,N> MatrixN<T,N>::operator +(const MatrixN<T,N> &B)
 {
     MatrixN<T,N> result;
     for (uint8_t i = 0; i < N; i++) {
@@ -82,7 +82,7 @@ MatrixN<T,N> &MatrixN<T,N>::operator +(const MatrixN<T,N> &B)
 }
 
 template <typename T, uint8_t N>
-MatrixN<T,N> &MatrixN<T,N>::operator -(const MatrixN<T,N> &B)
+MatrixN<T,N> MatrixN<T,N>::operator -(const MatrixN<T,N> &B)
 {
     MatrixN<T,N> result;
     for (uint8_t i = 0; i < N; i++) {
@@ -137,4 +137,11 @@ void MatrixN<T,N>::eye(void)
 template void MatrixN<float,4>::mult(const VectorN<float,4> &A, const VectorN<float,4> &B);
 template MatrixN<float,4> &MatrixN<float,4>::operator -=(const MatrixN<float,4> &B);
 template MatrixN<float,4> &MatrixN<float,4>::operator +=(const MatrixN<float,4> &B);
+template VectorN<float,4> MatrixN<float,4>::operator *(const VectorN<float,4> &Vector);
+template MatrixN<float,4> MatrixN<float,4>::operator *(const MatrixN<float,4> &B);
+template MatrixN<float,4> MatrixN<float,4>::operator +(const MatrixN<float,4> &B);
+template MatrixN<float,4> MatrixN<float,4>::operator -(const MatrixN<float,4> &B);
 template void MatrixN<float,4>::force_symmetry(void);
+template void MatrixN<float,4>::diagonal_array_inv(void);
+template void MatrixN<float,4>::eye(void);
+template void MatrixN<float,4>::eye_mult(const float d[4]);
