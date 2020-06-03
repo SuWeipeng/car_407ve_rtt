@@ -81,6 +81,12 @@ public:
   void stop();
   void vel2rpm(float& vel_x, float& vel_y, float& vel_z);
   void pct2rpm(float& pct_x, float& pct_y, float& pct_z);
+  void rpm2vel(const float &rpm1, const float &rpm2, const float &rpm4, 
+               float &vel_x, float &vel_y, float &vel_z);
+  
+  float get_vx(void) { return _vel_x; }
+  float get_vy(void) { return _vel_y; }
+  float get_vz(void) { return _vel_z; }
   
 #if defined(USE_RTTHREAD)
   void log_write_base();
@@ -97,6 +103,7 @@ private:
   AC_PID    _pid_4{P, I, D, FF, IMAX, FLTT, FLTE, FLTD, DT};
   
   float     _motor1_fr_rpm, _motor2_fl_rpm, _motor3_bl_rpm, _motor4_br_rpm;
+  float     _vel_x, _vel_y, _vel_z;
   
 #if defined(USE_RTTHREAD)
   Semaphore _log_sem;

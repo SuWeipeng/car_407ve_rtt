@@ -9,7 +9,7 @@
 extern UART_HandleTypeDef huart1;
 #endif
 
-#if MOTORS_VCOM_DEBUG == 2
+#if MOTORS_VCOM_DEBUG == 2 || MOTORS_VCOM_DEBUG == 3
 extern rt_device_t vcom;
 #endif
 
@@ -27,6 +27,9 @@ Mecanum_4wd::Mecanum_4wd()
 , _motor2_fl_rpm(0)
 , _motor3_bl_rpm(0)
 , _motor4_br_rpm(0)
+, _vel_x(0)
+, _vel_y(0)
+, _vel_z(0)
 #if defined(USE_RTTHREAD)
 , _log_sem("log",0)
 #endif
@@ -95,6 +98,20 @@ void Mecanum_4wd::run()
   _motor2_fl.set_rpm(_motor2_fl_rpm);
   _motor3_bl.set_rpm(_motor3_bl_rpm);
   _motor4_br.set_rpm(_motor4_br_rpm);
+
+  rpm2vel(_motor1_fr.get_rpm(), _motor3_bl.get_rpm(), _motor4_br.get_rpm(),
+          _vel_x, _vel_y, _vel_z);
+  
+#if MOTORS_VCOM_DEBUG == 3  
+  if(vcom != RT_NULL){
+    char buf[100];
+    sprintf(buf, "min: [vel_x: %.1f, vel_y: %.1f, vel_z: %.1f]\r\n", _vel_x, _vel_y, _vel_z);
+    rt_device_write(vcom, 0, buf, rt_strlen(buf));
+    sprintf(buf, "s  : [vel_x: %.1f, vel_y: %.1f, vel_z: %.1f]\r\n", _vel_x/60, _vel_y/60, _vel_z/60);
+    rt_device_write(vcom, 0, buf, rt_strlen(buf));
+  }
+#endif
+  
 #if defined(USE_RTTHREAD)
   _log_sem.release();
 #endif
@@ -120,6 +137,14 @@ void Mecanum_4wd::stop()
   _motor4_br.set_rpm(0);
 }
 
+void Mecanum_4wd::rpm2vel(const float &rpm1, const float &rpm3, const float &rpm4, 
+                          float &vel_x, float &vel_y, float &vel_z)
+{
+  vel_x = (rpm3 + rpm4) * WHEEL_RADIUS_M / 2;
+  vel_y = (rpm1 - rpm4) * WHEEL_RADIUS_M / 2;
+  vel_z = (rpm1 - rpm3) * WHEEL_RADIUS_M / (2 * (HALF_BASE_LENGTH_M+HALF_BASE_WIDTH_M));
+}
+  
 #if defined(USE_RTTHREAD)
 void Mecanum_4wd::log_write_base()
 {
