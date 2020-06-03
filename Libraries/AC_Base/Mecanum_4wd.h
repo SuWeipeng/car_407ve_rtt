@@ -23,6 +23,9 @@ using namespace rtthread;
 #define FLTE                10.0f
 #define FLTD                0.85f
 #define DT                  0.02f
+#define VEL_X_MAX_MPMIN     63      // m/min
+#define VEL_Y_MAX_MPMIN     63      // m/min
+#define VEL_Z_MAX_RPM       42      // RPM
 #elif BASE_TYPE == 1
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.120f
@@ -35,6 +38,9 @@ using namespace rtthread;
 #define FLTE                0.0f
 #define FLTD                0.85f
 #define DT                  0.02f
+#define VEL_X_MAX_MPMIN     63      // m/min
+#define VEL_Y_MAX_MPMIN     63      // m/min
+#define VEL_Z_MAX_RPM       42      // RPM
 #elif BASE_TYPE == 2
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.120f
@@ -47,6 +53,9 @@ using namespace rtthread;
 #define FLTE                0.0f
 #define FLTD                0.85f
 #define DT                  0.02f
+#define VEL_X_MAX_MPMIN     63      // m/min
+#define VEL_Y_MAX_MPMIN     63      // m/min
+#define VEL_Z_MAX_RPM       42      // RPM
 #endif
 
 #define WHEEL_DIAMETER_M    0.096f   
@@ -69,6 +78,7 @@ public:
   void run();
   void stop();
   void vel2rpm(float& vel_x, float& vel_y, float& vel_z);
+  void pct2rpm(float& pct_x, float& pct_y, float& pct_z);
   
 #if defined(USE_RTTHREAD)
   void log_write_base();

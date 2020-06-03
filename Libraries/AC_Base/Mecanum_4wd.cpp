@@ -62,6 +62,33 @@ void Mecanum_4wd::vel2rpm(float& vel_x, float& vel_y, float& vel_z)
   run();
 }
 
+void Mecanum_4wd::pct2rpm(float& pct_x, float& pct_y, float& pct_z)
+{
+  double scale = 1;
+  float  vel[3] = {pct_x * VEL_X_MAX_MPMIN, pct_y * VEL_Y_MAX_MPMIN, pct_z * VEL_Z_MAX_RPM}; // XY: m/s -> m/min, Z: Revolutions Per Second -> Revolutions Per Minute
+  _Vector3f _vel(vel);
+  
+  /* check rpm max  */
+  while(1)
+  {
+    _motor1_fr_rpm = (_r1 * _vel) / WHEEL_RADIUS_M;
+    _motor2_fl_rpm = (_r2 * _vel) / WHEEL_RADIUS_M;
+    _motor3_bl_rpm = (_r3 * _vel) / WHEEL_RADIUS_M;
+    _motor4_br_rpm = (_r4 * _vel) / WHEEL_RADIUS_M;
+    if(fabsf(_motor1_fr_rpm) <= MOTORS_MAX_RPM 
+    && fabsf(_motor2_fl_rpm) <= MOTORS_MAX_RPM
+    && fabsf(_motor3_bl_rpm) <= MOTORS_MAX_RPM
+    && fabsf(_motor4_br_rpm) <= MOTORS_MAX_RPM)
+    {
+      break;
+    }
+    scale -= 0.0333334;
+    _vel  *= scale;
+  }
+  
+  run();
+}
+
 void Mecanum_4wd::run()
 {
   _motor1_fr.set_rpm(_motor1_fr_rpm);

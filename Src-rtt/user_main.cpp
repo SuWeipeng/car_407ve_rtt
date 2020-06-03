@@ -53,11 +53,11 @@ void loop(void* parameter)
 {  
   while(1)
   {
-    float vel_x = vel.vel_x;  // x max 0.104f
-    float vel_y = vel.vel_y;  // y max 0.104f
-    float rad_z = vel.rad_z;  // z max 0.7f
+    float vel_x = vel.vel_x;
+    float vel_y = vel.vel_y;
+    float rad_z = vel.rad_z;
     
-    base->vel2rpm(vel_x, vel_y, rad_z);
+    base->pct2rpm(vel_x, vel_y, rad_z);
   
     rt_thread_delay(50);
   }
