@@ -14,6 +14,7 @@ using namespace rtthread;
 #if BASE_TYPE == 0
 #define HALF_BASE_LENGTH_M  0.075f
 #define HALF_BASE_WIDTH_M   0.080f
+#define WHEEL_DIAMETER_M    0.080f 
 #define P                   0.23f
 #define I                   3.3f
 #define D                   0.0f
@@ -29,6 +30,7 @@ using namespace rtthread;
 #elif BASE_TYPE == 1
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.120f
+#define WHEEL_DIAMETER_M    0.060f 
 #define P                   0.5f
 #define I                   5.0f
 #define D                   0.0f
@@ -44,6 +46,7 @@ using namespace rtthread;
 #elif BASE_TYPE == 2
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.120f
+#define WHEEL_DIAMETER_M    0.096f 
 #define P                   0.3f
 #define I                   5.0f
 #define D                   0.0f
@@ -57,8 +60,7 @@ using namespace rtthread;
 #define VEL_Y_MAX_M_MIN     63      // m/min
 #define VEL_Z_MAX_RPM       42      // RPM
 #endif
-
-#define WHEEL_DIAMETER_M    0.096f   
+  
 #define WHEEL_RADIUS_M      (WHEEL_DIAMETER_M / 2.0f)
 #define MECANUM_VCOM_DEBUG  0
 #define PWM_RPM_TEST_ENABLE 0
