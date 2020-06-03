@@ -35,10 +35,10 @@ Mecanum_4wd::Mecanum_4wd()
 Mecanum_4wd::~Mecanum_4wd()
 {}
 
-void Mecanum_4wd::vel2rpm(float& vel_x, float& vel_y, float& rad_z)
+void Mecanum_4wd::vel2rpm(float& vel_x, float& vel_y, float& vel_z)
 {
   double scale = 1;
-  float  vel[3] = {vel_x * 60, vel_y * 60, rad_z * 60}; // m/s -> m/min, rad/s -> rad/min
+  float  vel[3] = {vel_x * 60, vel_y * 60, vel_z * 60}; // XY: m/s -> m/min, Z: Revolutions Per Second -> Revolutions Per Minute
   _Vector3f _vel(vel);
   
   /* check rpm max  */

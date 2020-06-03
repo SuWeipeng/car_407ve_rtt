@@ -68,7 +68,7 @@ public:
   
   void run();
   void stop();
-  void vel2rpm(float& vel_x, float& vel_y, float& rad_z);
+  void vel2rpm(float& vel_x, float& vel_y, float& vel_z);
   
 #if defined(USE_RTTHREAD)
   void log_write_base();
