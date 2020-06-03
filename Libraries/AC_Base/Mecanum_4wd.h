@@ -23,8 +23,8 @@ using namespace rtthread;
 #define FLTE                10.0f
 #define FLTD                0.85f
 #define DT                  0.02f
-#define VEL_X_MAX_MPMIN     63      // m/min
-#define VEL_Y_MAX_MPMIN     63      // m/min
+#define VEL_X_MAX_M_MIN     63      // m/min
+#define VEL_Y_MAX_M_MIN     63      // m/min
 #define VEL_Z_MAX_RPM       42      // RPM
 #elif BASE_TYPE == 1
 #define HALF_BASE_LENGTH_M  0.122f
@@ -38,8 +38,8 @@ using namespace rtthread;
 #define FLTE                0.0f
 #define FLTD                0.85f
 #define DT                  0.02f
-#define VEL_X_MAX_MPMIN     63      // m/min
-#define VEL_Y_MAX_MPMIN     63      // m/min
+#define VEL_X_MAX_M_MIN     63      // m/min
+#define VEL_Y_MAX_M_MIN     63      // m/min
 #define VEL_Z_MAX_RPM       42      // RPM
 #elif BASE_TYPE == 2
 #define HALF_BASE_LENGTH_M  0.122f
@@ -53,8 +53,8 @@ using namespace rtthread;
 #define FLTE                0.0f
 #define FLTD                0.85f
 #define DT                  0.02f
-#define VEL_X_MAX_MPMIN     63      // m/min
-#define VEL_Y_MAX_MPMIN     63      // m/min
+#define VEL_X_MAX_M_MIN     63      // m/min
+#define VEL_Y_MAX_M_MIN     63      // m/min
 #define VEL_Z_MAX_RPM       42      // RPM
 #endif
 
