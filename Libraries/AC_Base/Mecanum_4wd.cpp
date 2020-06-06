@@ -41,16 +41,20 @@ Mecanum_4wd::~Mecanum_4wd()
 void Mecanum_4wd::vel2rpm(float& vel_x, float& vel_y, float& vel_z)
 {
   double scale = 1;
-  float  vel[3] = {vel_x * 60, vel_y * 60, vel_z * 60}; // XY: m/s -> m/min, Z: Revolutions Per Second -> Revolutions Per Minute
+  float  vel[3] = {vel_x, vel_y, vel_z};
   _Vector3f _vel(vel);
   
   /* check rpm max  */
   while(1)
   {
     _motor1_fr_rpm = (_r1 * _vel) / WHEEL_RADIUS_M;
+    _motor1_fr_rpm *= 9.55f; // rad/s -> rpm
     _motor2_fl_rpm = (_r2 * _vel) / WHEEL_RADIUS_M;
+    _motor2_fl_rpm *= 9.55f; // rad/s -> rpm
     _motor3_bl_rpm = (_r3 * _vel) / WHEEL_RADIUS_M;
+    _motor3_bl_rpm *= 9.55f; // rad/s -> rpm
     _motor4_br_rpm = (_r4 * _vel) / WHEEL_RADIUS_M;
+    _motor4_br_rpm *= 9.55f; // rad/s -> rpm
     if(fabsf(_motor1_fr_rpm) <= MOTORS_MAX_RPM 
     && fabsf(_motor2_fl_rpm) <= MOTORS_MAX_RPM
     && fabsf(_motor3_bl_rpm) <= MOTORS_MAX_RPM
@@ -68,7 +72,7 @@ void Mecanum_4wd::vel2rpm(float& vel_x, float& vel_y, float& vel_z)
 void Mecanum_4wd::pct2rpm(float& pct_x, float& pct_y, float& pct_z)
 {
   double scale = 1;
-  float  vel[3] = {pct_x * VEL_X_MAX_M_MIN, pct_y * VEL_Y_MAX_M_MIN, pct_z * VEL_Z_MAX_RPM};
+  float  vel[3] = {pct_x * VEL_X_MAX_M_S, pct_y * VEL_Y_MAX_M_S, pct_z * VEL_Z_MAX_RAD_S};
   _Vector3f _vel(vel);
   
   /* check rpm max  */
@@ -105,9 +109,7 @@ void Mecanum_4wd::run()
 #if MOTORS_VCOM_DEBUG == 3  
   if(vcom != RT_NULL){
     char buf[100];
-    sprintf(buf, "min: [vel_x: %.1f, vel_y: %.1f, vel_z: %.1f]\r\n", _vel_x, _vel_y, _vel_z);
-    rt_device_write(vcom, 0, buf, rt_strlen(buf));
-    sprintf(buf, "s  : [vel_x: %.1f, vel_y: %.1f, vel_z: %.1f]\r\n", _vel_x/60, _vel_y/60, _vel_z/60);
+    sprintf(buf, "s: [vel_x: %.2f, vel_y: %.2f, vel_z: %.5f, rpm: %.2f, pwm: %d]\r\n", _vel_x, _vel_y, _vel_z, _motor1_fr.get_rpm(), _motor1_fr.get_pwm());
     rt_device_write(vcom, 0, buf, rt_strlen(buf));
   }
 #endif
@@ -140,9 +142,13 @@ void Mecanum_4wd::stop()
 void Mecanum_4wd::rpm2vel(const float &rpm1, const float &rpm3, const float &rpm4, 
                           float &vel_x, float &vel_y, float &vel_z)
 {
-  vel_x = (rpm3 + rpm4) * WHEEL_RADIUS_M / 2;
-  vel_y = (rpm1 - rpm4) * WHEEL_RADIUS_M / 2;
-  vel_z = (rpm1 - rpm3) * WHEEL_RADIUS_M / (2 * (HALF_BASE_LENGTH_M+HALF_BASE_WIDTH_M));
+  vel_x = (rpm3 + rpm4) * 0.10472 * WHEEL_RADIUS_M / 2;
+  vel_y = (rpm1 - rpm4) * 0.10472 * WHEEL_RADIUS_M / 2;
+  vel_z = (rpm1 - rpm3) * 0.10472 * WHEEL_RADIUS_M / (2 * (HALF_BASE_LENGTH_M+HALF_BASE_WIDTH_M));
+  
+  if(fabsf(vel_x) < 0.015f) vel_x = 0.0f;
+  if(fabsf(vel_y) < 0.015f) vel_y = 0.0f;
+  if(fabsf(vel_z) < 0.05f) vel_z = 0.0f;
 }
   
 #if defined(USE_RTTHREAD)
