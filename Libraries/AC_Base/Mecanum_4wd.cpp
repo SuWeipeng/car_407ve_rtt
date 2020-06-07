@@ -79,9 +79,13 @@ void Mecanum_4wd::pct2rpm(float& pct_x, float& pct_y, float& pct_z)
   while(1)
   {
     _motor1_fr_rpm = (_r1 * _vel) / WHEEL_RADIUS_M;
+    _motor1_fr_rpm *= 9.55f; // rad/s -> rpm
     _motor2_fl_rpm = (_r2 * _vel) / WHEEL_RADIUS_M;
+    _motor2_fl_rpm *= 9.55f; // rad/s -> rpm
     _motor3_bl_rpm = (_r3 * _vel) / WHEEL_RADIUS_M;
+    _motor3_bl_rpm *= 9.55f; // rad/s -> rpm
     _motor4_br_rpm = (_r4 * _vel) / WHEEL_RADIUS_M;
+    _motor4_br_rpm *= 9.55f; // rad/s -> rpm
     if(fabsf(_motor1_fr_rpm) <= MOTORS_MAX_RPM 
     && fabsf(_motor2_fl_rpm) <= MOTORS_MAX_RPM
     && fabsf(_motor3_bl_rpm) <= MOTORS_MAX_RPM

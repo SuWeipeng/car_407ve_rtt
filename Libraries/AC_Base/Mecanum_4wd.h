@@ -40,9 +40,9 @@ using namespace rtthread;
 #define FLTE                0.0f
 #define FLTD                0.85f
 #define DT                  0.02f
-#define VEL_X_MAX_M_S       0.85f     // m/min
-#define VEL_Y_MAX_M_S       0.85f     // m/min
-#define VEL_Z_MAX_RAD_S     3.5f      // RPM
+#define VEL_X_MAX_M_S       0.85f     // m/s
+#define VEL_Y_MAX_M_S       0.85f     // m/s
+#define VEL_Z_MAX_RAD_S     3.5f      // rad/s
 #elif BASE_TYPE == 2
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.120f
