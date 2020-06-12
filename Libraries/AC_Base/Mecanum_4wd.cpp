@@ -150,9 +150,9 @@ void Mecanum_4wd::rpm2vel(const float &rpm1, const float &rpm3, const float &rpm
   vel_y = (rpm1 - rpm4) * 0.10472 * WHEEL_RADIUS_M / 2;
   vel_z = (rpm1 - rpm3) * 0.10472 * WHEEL_RADIUS_M / (2 * (HALF_BASE_LENGTH_M+HALF_BASE_WIDTH_M));
   
-  if(fabsf(vel_x) < 0.015f) vel_x = 0.0f;
-  if(fabsf(vel_y) < 0.015f) vel_y = 0.0f;
-  if(fabsf(vel_z) < 0.05f) vel_z = 0.0f;
+  if(fabsf(vel_x) < VEL_XY_NOISE) vel_x = 0.0f;
+  if(fabsf(vel_y) < VEL_XY_NOISE) vel_y = 0.0f;
+  if(fabsf(vel_z) < VEL_Z_NOISE) vel_z = 0.0f;
 }
   
 #if defined(USE_RTTHREAD)

@@ -10,11 +10,11 @@
 using namespace rtthread;
 #endif
 
-#define BASE_TYPE           1 // 0-Small, 1-Middle, 2-Test
+#define BASE_TYPE           0 // 0-Small, 1-Middle, 2-Test
 #if BASE_TYPE == 0
-#define HALF_BASE_LENGTH_M  0.075f
+#define HALF_BASE_LENGTH_M  0.065f
 #define HALF_BASE_WIDTH_M   0.080f
-#define WHEEL_DIAMETER_M    0.080f 
+#define WHEEL_DIAMETER_M    0.097f 
 #define P                   0.23f
 #define I                   3.3f
 #define D                   0.0f
@@ -24,9 +24,11 @@ using namespace rtthread;
 #define FLTE                10.0f
 #define FLTD                0.85f
 #define DT                  0.02f
-#define VEL_X_MAX_M_S       0.7f      // m/min
-#define VEL_Y_MAX_M_S       0.7f      // m/min
-#define VEL_Z_MAX_RAD_S     3.5f      // RPM
+#define VEL_X_MAX_M_S       0.75f     // m/s
+#define VEL_Y_MAX_M_S       0.75f     // m/s
+#define VEL_Z_MAX_RAD_S     5.3f      // rad/s
+#define VEL_XY_NOISE        0.025f    // m/s 
+#define VEL_Z_NOISE         0.075f    // rad/s
 #elif BASE_TYPE == 1
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.120f
@@ -43,6 +45,8 @@ using namespace rtthread;
 #define VEL_X_MAX_M_S       0.85f     // m/s
 #define VEL_Y_MAX_M_S       0.85f     // m/s
 #define VEL_Z_MAX_RAD_S     3.5f      // rad/s
+#define VEL_XY_NOISE        0.015f    // m/s 
+#define VEL_Z_NOISE         0.05f     // rad/s
 #elif BASE_TYPE == 2
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.120f
