@@ -81,6 +81,8 @@ static void vl53lxx_timeout(void *parameter)
   //char buf[100];
   //sprintf(buf, "dist_cm: %d\r\n", range_finder->distance_cm());
   //rt_kputs(buf);
+  
+  Write_RangeFinder(range_finder->distance_cm());
 }
 #endif //#if defined(__ICCARM__) || defined(__GNUC__)
 } // extern "C"
