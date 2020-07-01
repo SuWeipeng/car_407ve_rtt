@@ -10,27 +10,25 @@ extern Mode::ModeReason mode_reason;
 
 static Mode* mode_from_mode_num(const Mode::Number mode);
 static void  notify_mode(const Mode::Number mode);
+static Mode::Number num2mode(uint8_t num);
 
 Mode*  mode_from_mode_num(const Mode::Number mode)
 {
   Mode* ret = nullptr;
   
   switch ( mode ) {
-  case Mode::Number::MAN:
-    {
-      ret = mode_manual;
-      break;
-    }
-  case Mode::Number::AUTO:
-    {
-      ret = mode_auto;
-      break;
-    }
-  case Mode::Number::ROS:
-    {
-      ret = mode_ros;
-      break;
-    }
+  case Mode::Number::MAN:{
+    ret = mode_manual;
+    break;
+  }
+  case Mode::Number::AUTO:{
+    ret = mode_auto;
+    break;
+  }
+  case Mode::Number::ROS:{
+    ret = mode_ros;
+    break;
+  }
   default:
     break;
   }
@@ -41,21 +39,40 @@ Mode*  mode_from_mode_num(const Mode::Number mode)
 void notify_mode(const Mode::Number mode)
 {
   switch (mode) {
-  case Mode::Number::MAN:
-    {
-      break;
-    }
-  case Mode::Number::AUTO:
-    {
-      break;
-    }
-  case Mode::Number::ROS:
-    {
-      break;
-    }
+  case Mode::Number::MAN:{
+    break;
+  }
+  case Mode::Number::AUTO:{
+    break;
+  }
+  case Mode::Number::ROS:{
+    break;
+  }
   default:
     break;
   }
+}
+
+Mode::Number num2mode(uint8_t num)
+{
+  Mode::Number ret = Mode::Number::MAN;
+  
+  switch (num) {
+  case 0:{
+    ret = Mode::Number::MAN;
+    break;
+  }
+  case 1:{
+    ret = Mode::Number::AUTO;
+    break;
+  }
+  case 2:{
+    ret = Mode::Number::ROS;
+    break;
+  }
+  }
+  
+  return ret;
 }
 
 void update_mode()
