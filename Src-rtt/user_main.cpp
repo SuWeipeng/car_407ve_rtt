@@ -6,6 +6,7 @@
 #include "AC_Base.h"
 #include "Logger.h"
 #include "AP_Buffer.h"
+#include "mode.h"
 #if defined(__ICCARM__) || defined(__GNUC__)
 #include "AP_RangeFinder.h"
 #include "AP_KF.h"
@@ -17,11 +18,18 @@ using namespace rtthread;
 static rt_timer_t vl53lxx_timer;
 #endif
 
-extern vel_target  vel;
 extern rt_device_t vcom;
 
-Mecanum_4wd *base;
-AP_Buffer *buffer;
+Mecanum_4wd  *base;
+AP_Buffer    *buffer;
+Mode         *car_mode;
+ModeManual   *mode_manual;
+ModeAuto     *mode_auto;
+ModeROS      *mode_ros;
+
+Mode::Number     current_mode = Mode::Number::MAN;
+Mode::Number     prev_mode    = Mode::Number::MAN;
+Mode::ModeReason mode_reason  = Mode::ModeReason::UNKNOWN;
 
 #if defined(__ICCARM__) || defined(__GNUC__)
 RangeFinder *range_finder;
@@ -36,8 +44,13 @@ static void vl53lxx_timeout(void *parameter);
 
 void setup(void)
 {
-  base = new Mecanum_4wd();
-  buffer = new AP_Buffer();
+  base        = new Mecanum_4wd();
+  buffer      = new AP_Buffer();
+  mode_manual = new ModeManual();
+  mode_auto   = new ModeAuto();
+  mode_ros    = new ModeROS();
+  car_mode    = mode_manual;
+  
   buffer->init(AP_Buffer::RING);
 #if defined(__ICCARM__) || defined(__GNUC__)
   range_finder =  new RangeFinder();
@@ -53,11 +66,7 @@ void loop(void* parameter)
 {  
   while(1)
   {
-    float vel_x = vel.vel_x;
-    float vel_y = vel.vel_y;
-    float rad_z = vel.rad_z;
-    
-    base->pct2rpm(vel_x, vel_y, rad_z);
+    update_mode();
   
     rt_thread_delay(50);
   }
