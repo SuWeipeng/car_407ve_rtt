@@ -96,12 +96,11 @@ bool set_mode(Mode::Number mode, Mode::ModeReason reason)
   if (mode_from_mode_num(prev_mode)->exit()){
     if (new_mode->init()) {
       notify_mode(mode);
+      car_mode     = new_mode;
+      current_mode = mode;
+      mode_reason  = reason;
     }  
   }
-  
-  car_mode     = new_mode;
-  current_mode = mode;
-  mode_reason  = reason;
   
   return true;
 }
