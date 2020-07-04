@@ -139,12 +139,16 @@ int main(void)
   mpu6xxx_initialize();
 
   RTT_SEM_CREATE(mpu,0,RT_IPC_FLAG_FIFO)
+  RTT_SEM_CREATE(mode,0,RT_IPC_FLAG_FIFO)
+    
+  RTT_MQ_CREATE(mode,2,5,RT_IPC_FLAG_FIFO)
     
   RTT_CREATE(file,file_log_entry,RT_NULL,4096,RT_THREAD_PRIORITY_MAX-2,20);
   RTT_CREATE(led,led_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-2,20);
   RTT_CREATE(log,log_thread_entry,RT_NULL,1024,7,20);
   RTT_CREATE(mpu,mpu6xxx_thread_entry,RT_NULL,1280,6,20);
   RTT_CREATE(attitude,attitude_thread_entry,RT_NULL,4096,6,20);
+  RTT_CREATE(mode,mode_thread_entry,RT_NULL,512,RT_THREAD_PRIORITY_MAX-1,20);
 
   vcom = rt_device_find("vcom");
 

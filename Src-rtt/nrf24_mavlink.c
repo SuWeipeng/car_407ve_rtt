@@ -25,6 +25,7 @@ static void _nrf24_param_set(nrf24_cfg_t *pt);
 
 ap_t       mav_data;
 vel_target vel={.vel_x = 0.0f, .vel_y = 0.0f, .rad_z = 0.0f};
+uint8_t    mode_mav;
 
 void nrf24l01_mavlink_entry(void *param)
 {
@@ -48,7 +49,7 @@ void nrf24l01_mavlink_entry(void *param)
   nrf24_init(&cfg);
 
   while (1) {    
-    mav_data.mode = 0;
+    mav_data.mode = mode_mav;
     timestamp = HAL_GetTick();
     if(abs(timestamp - last_timestamp) > 1000){
       memset(&vel, 0, sizeof(vel_target));
@@ -90,6 +91,28 @@ void nrf24l01_mavlink_entry(void *param)
             uint8_t myTxData[32];
             uint8_t len = mavlink_msg_to_send_buffer( myTxData, &msg_receive );
             HAL_UART_Transmit(&huart1,myTxData,len,10);
+            break;
+          }
+          case MAVLINK_MSG_ID_MODE: {
+            mavlink_mode_t packet;
+            mavlink_msg_mode_decode(&msg_receive, &packet);
+            
+            uint8_t mode_msg[2];
+            mode_msg[0] = packet.mode;
+            mode_msg[1] = packet.reason;
+            
+            rt_err_t uwRet = RT_EOK;
+            
+            uwRet = rt_mq_send(mode_mq,
+                               mode_msg,
+                               sizeof(mode_msg));
+            
+            if(RT_EOK != uwRet) {
+              rt_kprintf("data can not send to message queue, code: %lx\n", uwRet);
+            }
+            
+            rt_sem_release(mode_sem);
+            break;
           }
           }
         }

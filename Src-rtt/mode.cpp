@@ -1,3 +1,4 @@
+#include <entry.h>
 #include "mode.h"
 
 extern Mode             *car_mode;
@@ -7,6 +8,7 @@ extern ModeROS          *mode_ros;
 extern Mode::Number     current_mode;
 extern Mode::Number     prev_mode;
 extern Mode::ModeReason mode_reason;
+extern uint8_t          mode_mav;
 
 static Mode* mode_from_mode_num(const Mode::Number mode);
 static void  notify_mode(const Mode::Number mode);
@@ -75,8 +77,31 @@ Mode::Number num2mode(uint8_t num)
   return ret;
 }
 
+Mode::ModeReason num2reason(uint8_t reason)
+{
+  Mode::ModeReason ret = Mode::ModeReason::UNKNOWN;
+  
+  switch (reason) {
+  case 0:{
+    ret = Mode::ModeReason::UNKNOWN;
+    break;
+  }
+  case 1:{
+    ret = Mode::ModeReason::RC_SW;
+    break;
+  }
+  case 2:{
+    ret = Mode::ModeReason::ROS_COMMAND;
+    break;
+  }
+  }
+  
+  return ret;
+}
+
 void update_mode()
 {
+  mode_mav = (uint8_t)current_mode;
   car_mode->run();
 }
 
@@ -103,4 +128,32 @@ bool set_mode(Mode::Number mode, Mode::ModeReason reason)
   }
   
   return true;
+}
+
+rt_sem_t    mode_sem    = RT_NULL;
+rt_mq_t     mode_mq     = RT_NULL;
+rt_thread_t mode_thread = RT_NULL;
+
+static uint8_t mode_msg[2];
+
+extern "C"
+void mode_thread_entry(void* parameter)
+{
+  rt_err_t uwRet = RT_EOK;
+  while(1) {
+    rt_sem_take(mode_sem, RT_WAITING_FOREVER);
+    
+    uwRet = rt_mq_recv(mode_mq,
+                       mode_msg,
+                       sizeof(mode_msg),
+                       RT_WAITING_FOREVER);
+    
+    if(RT_EOK != uwRet) {
+      rt_kprintf("mq recv error, code: 0x%lx\n", uwRet);
+    } else {
+      set_mode(num2mode(mode_msg[0]), num2reason(mode_msg[1]));
+    }
+    
+    rt_thread_mdelay(1);
+  }
 }
