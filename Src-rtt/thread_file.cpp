@@ -12,6 +12,8 @@ extern "C"{
 extern "C" int rt_hw_sdio_init(void);
 extern AP_Buffer *buffer;
 
+static uint8_t retry_max = 2;
+
 uint8_t     mount_success = 0;
 rt_thread_t file_thread = RT_NULL;
 
@@ -28,6 +30,7 @@ void file_log_entry (void* parameter){
   int fd, mout_result = -1;
   uint16_t read_size;
   uint8_t* pos;
+  uint8_t  retry_cnt = 0;
   
   while(1){
     /* Open file to write */
@@ -60,9 +63,15 @@ void file_log_entry (void* parameter){
           mout_result = dfs_mount("sd1", "/", "elm", 0, 0);
           if(mout_result != RT_EOK && rt_device_find("sd0") != RT_NULL){
             mout_result = dfs_mount("sd0", "/", "elm", 0, 0);
-            if(mout_result != RT_EOK){
-              rt_thread_delay(300);
-              rt_hw_sdio_init();
+          } else if(mout_result != RT_EOK){
+            rt_thread_delay(300);
+            rt_hw_sdio_init();
+            retry_cnt++;
+            if(retry_cnt > retry_max){
+              rt_thread_delete(file_thread);
+              
+              rt_pin_write(LED_PIN, 0);
+              rt_thread_delete(led_thread);
             }
           }
         }

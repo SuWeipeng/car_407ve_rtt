@@ -148,7 +148,7 @@ int main(void)
   RTT_CREATE(log,log_thread_entry,RT_NULL,1024,7,20);
   RTT_CREATE(mpu,mpu6xxx_thread_entry,RT_NULL,1280,6,20);
   RTT_CREATE(attitude,attitude_thread_entry,RT_NULL,4096,6,20);
-  RTT_CREATE(mode,mode_thread_entry,RT_NULL,1024,RT_THREAD_PRIORITY_MAX-3,20);
+  RTT_CREATE(mode,mode_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-3,20);
 
   vcom = rt_device_find("vcom");
 
