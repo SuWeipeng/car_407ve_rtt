@@ -66,7 +66,7 @@ void Mecanum_4wd::vel2rpm(float& vel_x, float& vel_y, float& vel_z)
     _vel  *= scale;
   }
   
-  run();
+  _run();
 }
 
 void Mecanum_4wd::pct2rpm(float& pct_x, float& pct_y, float& pct_z)
@@ -97,10 +97,10 @@ void Mecanum_4wd::pct2rpm(float& pct_x, float& pct_y, float& pct_z)
     _vel  *= scale;
   }
   
-  run();
+  _run();
 }
 
-void Mecanum_4wd::run()
+void Mecanum_4wd::_run()
 {
   _motor1_fr.set_rpm(_motor1_fr_rpm);
   _motor2_fl.set_rpm(_motor2_fl_rpm);
@@ -133,14 +133,6 @@ void Mecanum_4wd::run()
     rt_device_write(vcom, 0, buf, rt_strlen(buf));
   }
 #endif
-}
-
-void Mecanum_4wd::stop()
-{
-  _motor1_fr.set_rpm(0);
-  _motor2_fl.set_rpm(0);
-  _motor3_bl.set_rpm(0);
-  _motor4_br.set_rpm(0);
 }
 
 void Mecanum_4wd::rpm2vel(const float &rpm1, const float &rpm3, const float &rpm4, 

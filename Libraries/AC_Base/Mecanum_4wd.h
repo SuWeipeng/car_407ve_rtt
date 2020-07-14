@@ -81,8 +81,6 @@ public:
   Mecanum_4wd();
   ~Mecanum_4wd();
   
-  void run();
-  void stop();
   void vel2rpm(float& vel_x, float& vel_y, float& vel_z);
   void pct2rpm(float& pct_x, float& pct_y, float& pct_z);
   void rpm2vel(const float &rpm1, const float &rpm2, const float &rpm4, 
@@ -108,6 +106,8 @@ private:
   
   float     _motor1_fr_rpm, _motor2_fl_rpm, _motor3_bl_rpm, _motor4_br_rpm;
   float     _vel_x, _vel_y, _vel_z;
+  
+  void _run();
   
 #if defined(USE_RTTHREAD)
   Semaphore _log_sem;
