@@ -20,7 +20,7 @@ static rt_timer_t vl53lxx_timer;
 
 extern rt_device_t vcom;
 
-Mecanum_4wd  *base;
+AC_Base      *base;
 AP_Buffer    *buffer;
 Mode         *car_mode;
 ModeManual   *mode_manual;
@@ -44,13 +44,14 @@ static void vl53lxx_timeout(void *parameter);
 
 void setup(void)
 {
-  base        = new Mecanum_4wd();
+  base        = new AC_Base(AC_Base::Type::MECANUM_4WD);
   buffer      = new AP_Buffer();
   mode_manual = new ModeManual();
   mode_auto   = new ModeAuto();
   mode_ros    = new ModeROS();
   car_mode    = mode_manual;
   
+  base->init();
   buffer->init(AP_Buffer::RING);
 #if defined(__ICCARM__) || defined(__GNUC__)
   range_finder =  new RangeFinder();

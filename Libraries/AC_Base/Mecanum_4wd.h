@@ -4,6 +4,7 @@
 #include <stm32f4xx_hal.h>
 #include <AP_Motors.h>
 #include <AC_PID.h>
+#include "AC_Base_Backend.h"
 
 #if defined(USE_RTTHREAD)
 #include "Semaphore.h"
@@ -75,10 +76,10 @@ extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim8;
 
-class Mecanum_4wd
+class Mecanum_4wd : public AC_Base_Backend
 {
 public:
-  Mecanum_4wd();
+  Mecanum_4wd(AC_Base &instance);
   ~Mecanum_4wd();
   
   void vel2rpm(float& vel_x, float& vel_y, float& vel_z);
@@ -95,10 +96,10 @@ public:
 #endif
 
 private:
-  AP_Motors _motor1_fr{&htim3, 1, GPIOC, GPIO_PIN_1, GPIO_PIN_3, &htim5, TIM_CHANNEL_4, 99, &_pid_1};
-  AP_Motors _motor2_fl{&htim1, 1, GPIOE, GPIO_PIN_2, GPIO_PIN_4, &htim5, TIM_CHANNEL_1, 99, &_pid_2};
-  AP_Motors _motor3_bl{&htim4, 1, GPIOE, GPIO_PIN_3, GPIO_PIN_5, &htim5, TIM_CHANNEL_2, 99, &_pid_3};
-  AP_Motors _motor4_br{&htim8, 1, GPIOC, GPIO_PIN_0, GPIO_PIN_2, &htim5, TIM_CHANNEL_3, 99, &_pid_4};
+  AP_Motors _motor1_fr;
+  AP_Motors _motor2_fl;
+  AP_Motors _motor3_bl;
+  AP_Motors _motor4_br;
   AC_PID    _pid_1{P, I, D, FF, IMAX, FLTT, FLTE, FLTD, DT};
   AC_PID    _pid_2{P, I, D, FF, IMAX, FLTT, FLTE, FLTD, DT};
   AC_PID    _pid_3{P, I, D, FF, IMAX, FLTT, FLTE, FLTD, DT};

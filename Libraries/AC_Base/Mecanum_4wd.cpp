@@ -22,8 +22,9 @@ static float r4[3] = { 1, -1,  (HALF_BASE_LENGTH_M+HALF_BASE_WIDTH_M)};
 
 static _Vector3f _r1(r1),_r2(r2),_r3(r3),_r4(r4);
 
-Mecanum_4wd::Mecanum_4wd()
-: _motor1_fr_rpm(0)
+Mecanum_4wd::Mecanum_4wd(AC_Base &instance)
+: AC_Base_Backend(instance)
+, _motor1_fr_rpm(0)
 , _motor2_fl_rpm(0)
 , _motor3_bl_rpm(0)
 , _motor4_br_rpm(0)
@@ -33,7 +34,12 @@ Mecanum_4wd::Mecanum_4wd()
 #if defined(USE_RTTHREAD)
 , _log_sem("log",0)
 #endif
-{}
+{
+  _motor1_fr.init(&htim3, 1, GPIOC, GPIO_PIN_1, GPIO_PIN_3, &htim5, TIM_CHANNEL_4, 99, &_pid_1);
+  _motor2_fl.init(&htim1, 1, GPIOE, GPIO_PIN_2, GPIO_PIN_4, &htim5, TIM_CHANNEL_1, 99, &_pid_2);
+  _motor3_bl.init(&htim4, 1, GPIOE, GPIO_PIN_3, GPIO_PIN_5, &htim5, TIM_CHANNEL_2, 99, &_pid_3);
+  _motor4_br.init(&htim8, 1, GPIOC, GPIO_PIN_0, GPIO_PIN_2, &htim5, TIM_CHANNEL_3, 99, &_pid_4);
+}
 
 Mecanum_4wd::~Mecanum_4wd()
 {}

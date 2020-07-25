@@ -29,62 +29,50 @@
 
 #define MOTORS_VCOM_DEBUG      3
 
+class AP_Motors_Backend;
 class AC_PID;
 
 class AP_Motors
 {
-public:
-  AP_Motors(TIM_HandleTypeDef* enc_tim,  // encoder timer
-            int8_t             enc_dir,  // encoder direction
-            GPIO_TypeDef*      dir_port, // L298N GPIO port
-            uint16_t           pin_1,    // L298N in1
-            uint16_t           pin_2,    // L298N in2
-            TIM_HandleTypeDef* pwm_tim,  // pwm timer
-            uint8_t            channel,  // pwm channel
-            uint16_t           pwm_max,
-            AC_PID*            pid);
-  ~AP_Motors(){}
+  friend class AP_Motors_Backend;
+  friend class AP_Motors_L298N_3Wire_ABEncoder;
+public:  
+  AP_Motors();
+  
+    // get singleton
+  static AP_Motors *get_instance(void) {
+    return _instance;
+  }
+  
+  /* Do not allow copies */
+  AP_Motors(const AP_Motors &other) = delete;
+  AP_Motors &operator=(const AP_Motors&) = delete;
+  
+  /* L298N_3Wrie_ABEncoder */
+  void     init(TIM_HandleTypeDef* enc_tim,  // encoder timer
+                int8_t             enc_dir,  // encoder direction
+                GPIO_TypeDef*      dir_port, // L298N GPIO port
+                uint16_t           pin_1,    // L298N in1
+                uint16_t           pin_2,    // L298N in2
+                TIM_HandleTypeDef* pwm_tim,  // pwm timer
+                uint8_t            channel,  // pwm channel
+                uint16_t           pwm_max,
+                AC_PID*            pid);
   
   void     set_rpm(float rpm);
-  AC_PID*  get_pid()        { return _pid; }
-  int32_t  get_delta_tick() { return _delta_tick; }
-  int32_t  get_tick()       { return _tick; }
-  double   get_delta_min()  { return _delta_min; }
-  int16_t  get_pwm()        { return _pwm; }
-  uint16_t get_delta_ms()   { return _delta_ms; }
-  float    get_rpm()        { return _rpm; }
-  float    get_rpm_target() { return _rpm_target; }
-  float    get_rpm_encoder(){ return _rpm_encoder; }
+  AC_PID*  get_pid() { return _pid; }
+  int32_t  get_delta_tick();
+  int32_t  get_tick();
+  double   get_delta_min();
+  int16_t  get_pwm();
+  uint16_t get_delta_ms();
+  float    get_rpm();
+  float    get_rpm_target();
+  float    get_rpm_encoder();
 
 private:
-  /* encoder */
-  TIM_HandleTypeDef* _enc_tim;
-  int8_t             _enc_dir;
-  int32_t            _tick;
-  int32_t            _tick_last;
-  uint32_t           _last_millisecond;
-  float              _rpm;
-  float              _rpm_target;
-  float              _rpm_last;
-  float              _rpm_encoder;
-  int32_t            _delta_tick;
-  double             _delta_min;
-  uint16_t           _delta_ms;
-  
-  /* L298N */
-  TIM_HandleTypeDef* _pwm_tim;
-  uint8_t            _channel;
-  uint16_t           _pwm_max;
-  GPIO_TypeDef*      _dir_port;
-  uint16_t           _pin_1;
-  uint16_t           _pin_2;
-  int16_t            _pwm;
-  
-  /* pid control */
-  AC_PID*            _pid;
-  
-  void     _spin(int16_t pwm);
-  float    _read_rpm();
-  int32_t  _get_delta_tick();
+  static AP_Motors*       _instance;
+  AP_Motors_Backend*      _backend;
+  AC_PID*                 _pid;
 };
 #endif /* __AP_MOTORS_H__ */

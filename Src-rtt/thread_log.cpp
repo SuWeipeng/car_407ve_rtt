@@ -1,7 +1,8 @@
 #if defined(USE_RTTHREAD)
+#include <entry.h>
 #include "AC_Base.h"
 
-extern Mecanum_4wd *base;
+extern AC_Base *base;
 
 rt_thread_t log_thread = RT_NULL;
 

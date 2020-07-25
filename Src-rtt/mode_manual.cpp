@@ -3,7 +3,7 @@
 #include "mode.h"
 
 extern vel_target  vel;
-extern Mecanum_4wd *base;
+extern AC_Base     *base;
 
 void
 ModeManual::run()
