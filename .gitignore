@@ -1,5 +1,7 @@
-MDK-ARM/*
-EWARM/*
+STM32F407/MDK-ARM/*
+STM32F407/EWARM/*
+STM32F103/MDK-ARM/*
+STM32F103/EWARM/*
 generate_project/*
 *.udb
 .cproject
