@@ -406,13 +406,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, NRF_CE_Pin|NRF_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, NRF_CE_Pin|GPIO_PIN_2|NRF_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_15, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : NRF_CE_Pin NRF_CS_Pin */
-  GPIO_InitStruct.Pin = NRF_CE_Pin|NRF_CS_Pin;
+  /*Configure GPIO pins : NRF_CE_Pin PB2 NRF_CS_Pin */
+  GPIO_InitStruct.Pin = NRF_CE_Pin|GPIO_PIN_2|NRF_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

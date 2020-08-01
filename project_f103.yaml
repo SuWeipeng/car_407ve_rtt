@@ -19,24 +19,83 @@ common:
   - Libraries
   - Libraries/mavlink
   - Libraries/mavlink/car
+  - Libraries/rt-thread
+  - Libraries/rt-thread/board-f103c8
+  - Libraries/rt-thread/components
+  - Libraries/rt-thread/components/cplusplus
+  - Libraries/rt-thread/components/drivers
+  - Libraries/rt-thread/components/drivers/include
+  - Libraries/rt-thread/components/drivers/include/drivers/pin.h
+  - Libraries/rt-thread/components/drivers/include/drivers/serial.h
+  - Libraries/rt-thread/components/drivers/include/drivers/spi.h
+  - Libraries/rt-thread/components/drivers/include/ipc/ringbuffer.h
+  - Libraries/rt-thread/components/finsh
+  - Libraries/rt-thread/components/libc
+  - Libraries/rt-thread/components/libc/compilers
+  - Libraries/rt-thread/components/libc/compilers/common
+  - Libraries/rt-thread/components/libc/compilers/common/sys
+  - Libraries/rt-thread/HAL_Drivers
+  - Libraries/rt-thread/HAL_Drivers/config
+  - Libraries/rt-thread/HAL_Drivers/config/f1
+  - Libraries/rt-thread/include
+  - Libraries/rt-thread/include/libc
+  - packages/nrf24l01-latest/src
+  - packages/nrf24l01-latest/examples
   sources:
     Drivers:
     - STM32F103/Drivers/STM32F1xx_HAL_Driver/Src
     - STM32F103/Drivers/nRF24L01_Driver/Src
+    RTThread:
+    - Libraries/rt-thread/board-f103c8
+    - Libraries/rt-thread/components/cplusplus/cxx_Mutex.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_Semaphore.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_Thread.cpp
+    - Libraries/rt-thread/components/cplusplus/cxx_crt.cpp
+    - Libraries/rt-thread/components/cplusplus/crt_init.c
+    - Libraries/rt-thread/components/drivers/misc/pin.c
+    - Libraries/rt-thread/components/drivers/serial/serial.c
+    - Libraries/rt-thread/components/drivers/spi/spi_core.c
+    - Libraries/rt-thread/components/drivers/spi/spi_dev.c
+    - Libraries/rt-thread/components/drivers/src/completion.c
+    - Libraries/rt-thread/components/drivers/src/dataqueue.c
+    - Libraries/rt-thread/components/drivers/src/ringbuffer.c
+    - Libraries/rt-thread/components/finsh/cmd.c
+    - Libraries/rt-thread/components/finsh/msh.c
+    - Libraries/rt-thread/components/finsh/msh_file.c
+    - Libraries/rt-thread/components/finsh/shell.c
+    - Libraries/rt-thread/components/finsh/symbol.c
+    - Libraries/rt-thread/HAL_Drivers/drv_common.c
+    - Libraries/rt-thread/HAL_Drivers/drv_gpio.c
+    - Libraries/rt-thread/HAL_Drivers/drv_spi.c
+    - Libraries/rt-thread/HAL_Drivers/drv_usart.c
+    #- Libraries/rt-thread/HAL_Drivers/drv_usbd.c
+    - Libraries/rt-thread/libcpu/arm/cortex-m3/cpuport.c
+    - Libraries/rt-thread/src
     Src:
     - STM32F103/Src-rtt
+    - packages/nrf24l01-latest/src
   target:
   - stm32f103cb
 tool_specific:
-  uvision5:
-    sources:
-      StartUp:
-      - STM32F103/IDE/MDK5
-    linker_file:
-    - STM32F103/IDE/MDK5/2wd.sct
   iar_arm:
     sources:
       StartUp:
       - STM32F103/IDE/IAR
+      dlib:
+      - Libraries/rt-thread/components/libc/compilers/dlib/environ.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/rmtx.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/stdio.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_close.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_lseek.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_mem.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_open.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_read.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_remove.c
+      - Libraries/rt-thread/components/libc/compilers/dlib/syscall_write.c
+      libc:
+      - Libraries/rt-thread/components/libc/compilers/armlibc/libc.c
+      - Libraries/rt-thread/components/libc/compilers/common/time.c
+      RTThread:
+      - Libraries/rt-thread/libcpu/arm/cortex-m3/context_iar.S
     linker_file:
     - STM32F103/IDE/IAR/stm32f103xb_flash.icf

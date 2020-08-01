@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "rtt_interface.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,13 +100,15 @@ int main(void)
   MX_TIM4_Init();
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
-
+  rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
+  RTT_CREATE(led,led_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-2,20);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    return 0;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
