@@ -60,7 +60,7 @@ void setup(void)
   kalman_filter = new AP_KF();
   kalman_filter->set_var(1e-2, 6.75);
 #endif
-  Log_Init();
+  //Log_Init();
 }
 
 void loop(void* parameter)
@@ -92,7 +92,7 @@ static void vl53lxx_timeout(void *parameter)
   //sprintf(buf, "dist_cm: %d\r\n", range_finder->distance_cm());
   //rt_kputs(buf);
   
-  Write_RangeFinder(range_finder->distance_cm());
+  //Write_RangeFinder(range_finder->distance_cm());
 }
 #endif //#if defined(__ICCARM__) || defined(__GNUC__)
 } // extern "C"

@@ -2,6 +2,7 @@
 #define __AC_BASE_BACKEND_H__
 
 #include "AC_Base.h"
+#include "AC_Base_Conf.h"
 
 class AC_Base_Backend{
 public:
