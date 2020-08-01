@@ -1,6 +1,8 @@
 projects:
   car407:
   - project_f407.yaml
+  car103:
+  - project_f103.yaml
 settings:
   export_dir:
   - generate_project

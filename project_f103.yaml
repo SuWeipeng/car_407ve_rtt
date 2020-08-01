@@ -1,0 +1,42 @@
+common:
+  macros:
+  - USE_HAL_DRIVER
+  - STM32F103xB
+  includes:
+  - STM32F103
+  - STM32F103/Drivers
+  - STM32F103/Drivers/CMSIS
+  - STM32F103/Drivers/CMSIS/Device
+  - STM32F103/Drivers/CMSIS/Device/ST
+  - STM32F103/Drivers/CMSIS/Device/ST/STM32F1xx
+  - STM32F103/Drivers/CMSIS/Device/ST/STM32F1xx/Include
+  - STM32F103/Drivers/CMSIS/Include
+  - STM32F103/Drivers/STM32F1xx_HAL_Driver
+  - STM32F103/Drivers/STM32F1xx_HAL_Driver/Inc
+  - STM32F103/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
+  - STM32F103/Drivers/nRF24L01_Driver/Inc
+  - STM32F103/Inc
+  - Libraries
+  - Libraries/mavlink
+  - Libraries/mavlink/car
+  sources:
+    Drivers:
+    - STM32F103/Drivers/STM32F1xx_HAL_Driver/Src
+    - STM32F103/Drivers/nRF24L01_Driver/Src
+    Src:
+    - STM32F103/Src-rtt
+  target:
+  - stm32f103cb
+tool_specific:
+  uvision5:
+    sources:
+      StartUp:
+      - STM32F103/IDE/MDK5
+    linker_file:
+    - STM32F103/IDE/MDK5/2wd.sct
+  iar_arm:
+    sources:
+      StartUp:
+      - STM32F103/IDE/IAR
+    linker_file:
+    - STM32F103/IDE/IAR/stm32f103xb_flash.icf

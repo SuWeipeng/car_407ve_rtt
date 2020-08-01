@@ -6,6 +6,10 @@ progen generate -f projects.yaml -p car407 -t iar_arm
 progen generate -f projects.yaml -p car407 -t uvision5
 progen generate -f projects.yaml -p car407 -t make_gcc_arm
 
+progen generate -f projects.yaml -p car103 -t iar_arm
+progen generate -f projects.yaml -p car103 -t uvision5
+progen generate -f projects.yaml -p car103 -t make_gcc_arm
+
 加入 mavlink
 git submodule add https://github.com/SuWeipeng/car_mavlink.git Libraries/mavlink
 
