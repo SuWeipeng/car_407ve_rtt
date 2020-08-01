@@ -1,6 +1,6 @@
 projects:
-  stm32f407ve-rtt:
-  - project_rtthread.yaml
+  car407:
+  - project_f407.yaml
 settings:
   export_dir:
   - generate_project
