@@ -14,7 +14,6 @@ common:
   - STM32F103/Drivers/STM32F1xx_HAL_Driver
   - STM32F103/Drivers/STM32F1xx_HAL_Driver/Inc
   - STM32F103/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
-  - STM32F103/Drivers/nRF24L01_Driver/Inc
   - STM32F103/Inc
   - Libraries
   - Libraries/mavlink
@@ -44,7 +43,6 @@ common:
   sources:
     Drivers:
     - STM32F103/Drivers/STM32F1xx_HAL_Driver/Src
-    - STM32F103/Drivers/nRF24L01_Driver/Src
     RTThread:
     - Libraries/rt-thread/board-f103c8
     - Libraries/rt-thread/components/cplusplus/cxx_Mutex.cpp
