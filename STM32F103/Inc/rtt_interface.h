@@ -7,7 +7,7 @@ extern "C" {
 
 #include <entry.h>
 
-#define LED_PIN             GET_PIN(E, 0)
+#define LED_PIN             GET_PIN(B, 7)
 
 extern rt_thread_t led_thread;
 
