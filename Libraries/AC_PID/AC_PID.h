@@ -5,7 +5,9 @@
 
 #include <stdlib.h>
 #include <AP_Math.h>
+#if defined(STM32F407xx)
 #include <Logger.h>
+#endif
 
 #define AC_PID_TFILT_HZ_DEFAULT  0.0f   // default input filter frequency
 #define AC_PID_EFILT_HZ_DEFAULT  0.0f   // default input filter frequency
@@ -86,17 +88,19 @@ public:
     void filt_E_hz(const float v);
     void filt_D_hz(const float v);
 
+#if defined(STM32F407xx)
     // set the desired and actual rates (for logging purposes)
     void set_target_rate(float target) { _pid_info.target = target; }
     void set_actual_rate(float actual) { _pid_info.actual = actual; }
-
+#endif 
+    
     // integrator setting functions
     void set_integrator(float target, float measurement, float i);
     void set_integrator(float error, float i);
     void set_integrator(float i) { _integrator = constrain_float(i, -_kimax, _kimax); }
-
+#if defined(STM32F407xx)
     const PID_Info& get_pid_info(void) const { return _pid_info; }
-
+#endif
 protected:
 
     // parameters
@@ -120,6 +124,7 @@ protected:
     float _target;            // target value to enable filtering
     float _error;             // error value to enable filtering
     float _derivative;        // derivative value to enable filtering
-
+#if defined(STM32F407xx)
     PID_Info _pid_info;
+#endif
 };

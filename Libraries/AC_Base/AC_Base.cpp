@@ -1,4 +1,6 @@
+#if defined(STM32F407xx)
 #include "AP_Buffer.h"
+#endif
 #include "Mecanum_4wd.h"
 
 AC_Base *AC_Base::_instance;
@@ -32,7 +34,7 @@ AC_Base::pct2rpm(float& pct_x, float& pct_y, float& pct_z)
   }
 }
 
-#if defined(USE_RTTHREAD)
+#if defined(USE_RTTHREAD) && defined(STM32F407xx)
 void 
 AC_Base::log_write_base()
 {

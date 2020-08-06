@@ -2,6 +2,7 @@ common:
   macros:
   - USE_HAL_DRIVER
   - STM32F103xB
+  - USE_RTTHREAD
   includes:
   - STM32F103
   - STM32F103/Drivers
@@ -16,6 +17,8 @@ common:
   - STM32F103/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
   - STM32F103/Inc
   - Libraries
+  - Libraries/AC_PID
+  - Libraries/AP_Motors
   - Libraries/mavlink
   - Libraries/mavlink/car
   - Libraries/rt-thread
@@ -69,6 +72,10 @@ common:
     #- Libraries/rt-thread/HAL_Drivers/drv_usbd.c
     - Libraries/rt-thread/libcpu/arm/cortex-m3/cpuport.c
     - Libraries/rt-thread/src
+    Libraries:
+    - Libraries/AC_PID
+    - Libraries/AP_Buffer
+    - Libraries/AP_Motors
     Src:
     - STM32F103/Src-rtt
     - packages/nrf24l01-latest/src
@@ -76,7 +83,17 @@ common:
   - stm32f103cb
 tool_specific:
   iar_arm:
+    includes:
+    - Libraries/AC_Base
+    - Libraries/AP_Math
+    - Libraries/rt-thread/components/libc
+    - Libraries/rt-thread/components/libc/compilers
+    - Libraries/rt-thread/components/libc/compilers/armlibc
+    - Libraries/utility
     sources:
+      IAR:
+      - Libraries/AC_Base
+      - Libraries/AP_Math
       StartUp:
       - STM32F103/IDE/IAR
       dlib:

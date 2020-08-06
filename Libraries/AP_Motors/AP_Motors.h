@@ -1,7 +1,12 @@
 #ifndef __AP_MOTORS_H__
 #define __AP_MOTORS_H__
 
+#if defined(STM32F407xx)
 #include <stm32f4xx_hal.h>
+#endif
+#if defined(STM32F103xB)
+#include <stm32f1xx_hal.h>
+#endif
 #include "AP_Motors_Conf.h"
 
 #define MOTORS_VCOM_DEBUG      3

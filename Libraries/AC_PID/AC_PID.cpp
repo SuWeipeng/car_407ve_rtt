@@ -21,8 +21,9 @@ AC_PID::AC_PID(float initial_p, float initial_i, float initial_d, float initial_
 
     // reset input filter to first value received
     _flags._reset_filter = true;
-
+#if defined(STM32F407xx)
     memset(&_pid_info, 0, sizeof(_pid_info));
+#endif
 }
 
 // set_dt - set time step in seconds
@@ -71,12 +72,15 @@ float AC_PID::update_all(float target, float measurement, bool limit)
         float error_last = _error;
         _target += get_filt_T_alpha() * (target - _target);
         _error += get_filt_E_alpha() * ((_target - measurement) - _error);
+#if defined(STM32F407xx)
         _pid_info.ER   = _target - measurement;
-
+#endif
         // calculate and filter derivative
         if (_dt > 0.0f) {
             float derivative = (_error - error_last) / _dt;
+#if defined(STM32F407xx)
             _pid_info.DR = (derivative * _kd);
+#endif
             _derivative += get_filt_D_alpha() * (derivative - _derivative);
         }
     }
@@ -86,14 +90,14 @@ float AC_PID::update_all(float target, float measurement, bool limit)
 
     float P_out = (_error * _kp);
     float D_out = (_derivative * _kd);
-
+#if defined(STM32F407xx)
     _pid_info.TR = target;
     _pid_info.target = _target;
     _pid_info.actual = measurement;
     _pid_info.error = _error;
     _pid_info.P = P_out;
     _pid_info.D = D_out;
-
+#endif
     return P_out + _integrator + D_out;
 }
 
@@ -133,13 +137,13 @@ float AC_PID::update_error(float error, bool limit)
 
     float P_out = (_error * _kp);
     float D_out = (_derivative * _kd);
-
+#if defined(STM32F407xx)
     _pid_info.target = 0.0f;
     _pid_info.actual = 0.0f;
     _pid_info.error = _error;
     _pid_info.P = P_out;
     _pid_info.D = D_out;
-
+#endif
     return P_out + _integrator + D_out;
 }
 
@@ -156,7 +160,9 @@ void AC_PID::update_i(bool limit)
     } else {
         _integrator = 0.0f;
     }
+#if defined(STM32F407xx)
     _pid_info.I = _integrator;
+#endif
 }
 
 float AC_PID::get_p() const
@@ -176,7 +182,9 @@ float AC_PID::get_d() const
 
 float AC_PID::get_ff()
 {
+#if defined(STM32F407xx)
     _pid_info.FF = _target * _kff;
+#endif
     return _target * _kff;
 }
 
@@ -184,7 +192,9 @@ float AC_PID::get_ff()
 float AC_PID::get_ff(float target)
 {
     float FF_out = (target * _kff);
+#if defined(STM32F407xx)
     _pid_info.FF = FF_out;
+#endif
     return FF_out;
 }
 

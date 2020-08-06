@@ -93,27 +93,27 @@ void nrf24l01_mavlink_entry(void *param)
 //            HAL_UART_Transmit(&huart1,myTxData,len,10);
             break;
           }
-//          case MAVLINK_MSG_ID_MODE: {
-//            mavlink_mode_t packet;
-//            mavlink_msg_mode_decode(&msg_receive, &packet);
-//            
-//            uint8_t mode_msg[2];
-//            mode_msg[0] = packet.mode;
-//            mode_msg[1] = packet.reason;
-//            
-//            rt_err_t uwRet = RT_EOK;
-//            
-//            uwRet = rt_mq_send(mode_mq,
-//                               mode_msg,
-//                               sizeof(mode_msg));
-//            
-//            if(RT_EOK != uwRet) {
-//              rt_kprintf("data can not send to message queue, code: %lx\n", uwRet);
-//            }
-//            
-//            rt_sem_release(mode_sem);
-//            break;
-//          }
+          case MAVLINK_MSG_ID_MODE: {
+            mavlink_mode_t packet;
+            mavlink_msg_mode_decode(&msg_receive, &packet);
+            
+            uint8_t mode_msg[2];
+            mode_msg[0] = packet.mode;
+            mode_msg[1] = packet.reason;
+            
+            rt_err_t uwRet = RT_EOK;
+            
+            uwRet = rt_mq_send(mode_mq,
+                               mode_msg,
+                               sizeof(mode_msg));
+            
+            if(RT_EOK != uwRet) {
+              rt_kprintf("data can not send to message queue, code: %lx\n", uwRet);
+            }
+            
+            rt_sem_release(mode_sem);
+            break;
+          }
           }
         }
       }

@@ -1,7 +1,9 @@
 #ifndef __MECANUM_4WD_H__
 #define __MECANUM_4WD_H__
 
+#if defined(STM32F407xx)
 #include <stm32f4xx_hal.h>
+#endif
 #include <AP_Motors.h>
 #include <AC_PID.h>
 #include "AC_Base_Backend.h"
@@ -11,11 +13,13 @@
 using namespace rtthread;
 #endif
 
+#if defined(STM32F407xx)
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim8;
+#endif
 
 class Mecanum_4wd : public AC_Base_Backend
 {

@@ -108,8 +108,19 @@ int main(void)
   MX_SPI2_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+#if defined(USE_RTTHREAD)
+  setup();
+  loop_start();
+  
   rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
+
+  RTT_SEM_CREATE(mode,0,RT_IPC_FLAG_FIFO)
+    
+  RTT_MQ_CREATE(mode,2,5,RT_IPC_FLAG_FIFO)
+  
   RTT_CREATE(led,led_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-2,20);
+  RTT_CREATE(mode,mode_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-3,20);
+#endif
   /* USER CODE END 2 */
 
   /* Infinite loop */

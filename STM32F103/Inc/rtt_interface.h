@@ -28,9 +28,17 @@ typedef struct vel_target {
   float rad_z; // rad/s
 } vel_target;
 
+extern rt_sem_t    mode_sem;
+
+extern rt_mq_t     mode_mq;
+
 extern rt_thread_t led_thread;
+extern rt_thread_t mode_thread;
 
 void led_thread_entry(void* parameter);
+void mode_thread_entry(void* parameter);
+
+int loop_start(void);
 
 #ifdef __cplusplus
 } // extern "C"
