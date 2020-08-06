@@ -8,10 +8,12 @@ class AC_Base_Backend;
 class AC_Base{
   friend class AC_Base_Backend;
   friend class Mecanum_4wd;
+  friend class Diff_2wd;
 public:
   enum class Type : uint8_t {
     NONE         = 0,
     MECANUM_4WD  = 1, 
+    DIFF_2WD     = 2,
   };
   
   AC_Base(Type type);

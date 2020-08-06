@@ -21,7 +21,7 @@ Mode::ModeReason mode_reason  = Mode::ModeReason::UNKNOWN;
 extern "C" {
 void setup(void)
 {
-  base        = new AC_Base(AC_Base::Type::MECANUM_4WD);
+  base        = new AC_Base(AC_Base::Type::DIFF_2WD);
   mode_manual = new ModeManual();
   mode_auto   = new ModeAuto();
   mode_ros    = new ModeROS();

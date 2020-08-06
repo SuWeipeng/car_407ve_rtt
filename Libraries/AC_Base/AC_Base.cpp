@@ -2,6 +2,7 @@
 #include "AP_Buffer.h"
 #endif
 #include "Mecanum_4wd.h"
+#include "Diff_2wd.h"
 
 AC_Base *AC_Base::_instance;
 
@@ -18,6 +19,10 @@ AC_Base::init()
   switch(_type){
     case AC_Base::Type::MECANUM_4WD:{
       _backend = new Mecanum_4wd(*this);
+      break;
+    }
+    case AC_Base::Type::DIFF_2WD:{
+      _backend = new Diff_2wd(*this);
       break;
     }
     default:{
