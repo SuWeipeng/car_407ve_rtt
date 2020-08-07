@@ -28,7 +28,8 @@ public:
   ~Mecanum_4wd();
   
   void vel2rpm(float& vel_x, float& vel_y, float& vel_z);
-  void pct2rpm(float& pct_x, float& pct_y, float& pct_z);
+  void pct2rpm(float& pct_x, float& pct_y, float& pct_z) override;
+  void pct2rpm(float& pct_x, float& pct_z) override {}
   void rpm2vel(const float &rpm1, const float &rpm2, const float &rpm4, 
                float &vel_x, float &vel_y, float &vel_z);
   
@@ -55,7 +56,7 @@ private:
   
   void _run();
   
-#if defined(USE_RTTHREAD)
+#if defined(USE_RTTHREAD) && defined(STM32F407xx)
   Semaphore _log_sem;
 #endif
  

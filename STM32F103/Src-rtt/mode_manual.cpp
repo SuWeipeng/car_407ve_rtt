@@ -9,8 +9,7 @@ void
 ModeManual::run()
 {
     float vel_x = vel.vel_x;
-    float vel_y = vel.vel_y;
     float rad_z = vel.rad_z;
     
-    base->pct2rpm(vel_x, vel_y, rad_z);
+    base->pct2rpm(vel_x, rad_z);
 }

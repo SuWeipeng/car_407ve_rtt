@@ -18,6 +18,6 @@
 #endif
 
 #if CAR_TYPE == 5
-#define BASE_TYPE              0
+#define BASE_TYPE              3
 #define MOTOR_TYPE             0
 #endif

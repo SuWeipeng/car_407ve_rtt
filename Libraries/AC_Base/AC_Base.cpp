@@ -39,6 +39,14 @@ AC_Base::pct2rpm(float& pct_x, float& pct_y, float& pct_z)
   }
 }
 
+void 
+AC_Base::pct2rpm(float& pct_x, float& pct_z)
+{
+  if(_backend != nullptr){
+    _backend->pct2rpm(pct_x, pct_z);
+  }
+}
+
 #if defined(USE_RTTHREAD) && defined(STM32F407xx)
 void 
 AC_Base::log_write_base()

@@ -33,7 +33,7 @@ Mecanum_4wd::Mecanum_4wd(AC_Base &instance)
 , _vel_x(0)
 , _vel_y(0)
 , _vel_z(0)
-#if defined(USE_RTTHREAD)
+#if defined(USE_RTTHREAD) && defined(STM32F407xx)
 , _log_sem("log",0)
 #endif
 {
@@ -128,7 +128,7 @@ void Mecanum_4wd::_run()
   }
 #endif
   
-#if defined(USE_RTTHREAD)
+#if defined(USE_RTTHREAD) && defined(STM32F407xx)
   _log_sem.release();
 #endif
 #if PWM_RPM_TEST_ENABLE == 1

@@ -9,6 +9,7 @@ public:
   AC_Base_Backend(AC_Base &instance);
   
   virtual void pct2rpm(float& pct_x, float& pct_y, float& pct_z) = 0;
+  virtual void pct2rpm(float& pct_x, float& pct_z) = 0;
   
 #if defined(USE_RTTHREAD)
   virtual void log_write_base() {}
