@@ -1,5 +1,5 @@
 #include "AP_Motors.h"
-#include "AP_Motors_L298N_3Wire_ABEncoder.h"
+#include "AP_Motors_L298N_3Wire_SingleEncoder.h"
 
 AP_Motors *AP_Motors::_instance;
 
@@ -21,7 +21,7 @@ AP_Motors::init(TIM_HandleTypeDef* enc_tim,  // encoder timer
                 uint16_t           pwm_max,
                 AC_PID*            pid)
 {
-  _backend = new AP_Motors_L298N_3Wire_ABEncoder(*this,
+  _backend = new AP_Motors_L298N_3Wire_SingleEncoder(*this,
                                                  enc_tim,
                                                  enc_dir,
                                                  dir_port,
@@ -113,3 +113,10 @@ AP_Motors::get_rpm_encoder()
   return 0.0f;
 }
   
+void    
+AP_Motors::set_enc_dir(int dir)
+{
+  if(_backend != nullptr){
+    _backend->set_enc_dir(dir);
+  }
+}

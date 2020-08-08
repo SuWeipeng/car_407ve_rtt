@@ -18,6 +18,7 @@ class AP_Motors
 {
   friend class AP_Motors_Backend;
   friend class AP_Motors_L298N_3Wire_ABEncoder;
+  friend class AP_Motors_L298N_SingleWire_ABEncoder;
 public:  
   AP_Motors();
   
@@ -51,6 +52,7 @@ public:
   float    get_rpm();
   float    get_rpm_target();
   float    get_rpm_encoder();
+  void     set_enc_dir(int dir);
 
 private:
   static AP_Motors*       _instance;

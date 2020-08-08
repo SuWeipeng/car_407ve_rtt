@@ -29,6 +29,7 @@ public:
   float    get_rpm()          override        { return _rpm; }
   float    get_rpm_target()   override        { return _rpm_target; }
   float    get_rpm_encoder()  override        { return _rpm_encoder; }
+  void     set_enc_dir(int8_t dir) override   { _enc_dir = dir;}
 
 private:
   /* encoder */
