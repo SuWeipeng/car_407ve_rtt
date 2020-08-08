@@ -114,9 +114,9 @@ AP_Motors::get_rpm_encoder()
 }
   
 void    
-AP_Motors::set_enc_dir(int dir)
+AP_Motors::set_target_dir(int dir)
 {
   if(_backend != nullptr){
-    _backend->set_enc_dir(dir);
+    _backend->set_target_dir(dir);
   }
 }

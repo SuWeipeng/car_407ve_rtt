@@ -87,16 +87,20 @@ void Diff_2wd::pct2rpm(float& pct_x, float& pct_z)
     _vel  *= scale;
   }
   
-  if(_motor1_r_rpm > 0.0f){
-    _motor1_r.set_enc_dir(1);
+  if(is_zero(_motor1_r_rpm)){
+    _motor1_r.set_target_dir(0);
+  } else if (_motor1_r_rpm > 0.0f){
+    _motor1_r.set_target_dir(1);
   } else {
-    _motor1_r.set_enc_dir(-1);
+    _motor1_r.set_target_dir(-1);
   }
   
-  if(_motor2_l_rpm > 0.0f){
-    _motor2_l.set_enc_dir(1);
+  if(is_zero(_motor2_l_rpm)){
+    _motor2_l.set_target_dir(0);
+  } else if(_motor2_l_rpm > 0.0f){
+    _motor2_l.set_target_dir(1);
   } else {
-    _motor2_l.set_enc_dir(-1);
+    _motor2_l.set_target_dir(-1);
   }
   
   _run();

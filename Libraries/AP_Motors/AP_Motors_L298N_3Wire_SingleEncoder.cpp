@@ -22,6 +22,9 @@ AP_Motors_L298N_3Wire_SingleEncoder::AP_Motors_L298N_3Wire_SingleEncoder(AP_Moto
 : AP_Motors_Backend(instance)
 , _enc_tim(enc_tim)
 , _enc_dir(enc_dir)
+, _target_dir(0)
+, _last_target_dir(0)
+, _delta_tick_last(0)
 , _tick(0)
 , _tick_last(0)
 , _last_millisecond(0)
@@ -139,6 +142,17 @@ int32_t AP_Motors_L298N_3Wire_SingleEncoder::_get_delta_tick()
     delta_tick = _tick - _tick_last;
   }
   _tick_last = _tick;
+  
+  if(_target_dir != 0){
+    if(_target_dir != _last_target_dir){
+      if( delta_tick - _delta_tick_last > 0){
+        (_target_dir > 0) ? _enc_dir = 1 : _enc_dir = -1;
+        _last_target_dir = _target_dir;
+      }
+    }
+  }else{
+    _last_target_dir = _target_dir;
+  }
   
   delta_tick *= _enc_dir;
  

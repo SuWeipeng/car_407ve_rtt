@@ -52,7 +52,7 @@ public:
   float    get_rpm();
   float    get_rpm_target();
   float    get_rpm_encoder();
-  void     set_enc_dir(int dir);
+  void     set_target_dir(int dir);
 
 private:
   static AP_Motors*       _instance;

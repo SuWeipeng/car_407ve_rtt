@@ -29,12 +29,15 @@ public:
   float    get_rpm()          override        { return _rpm; }
   float    get_rpm_target()   override        { return _rpm_target; }
   float    get_rpm_encoder()  override        { return _rpm_encoder; }
-  void     set_enc_dir(int8_t dir) override   { _enc_dir = dir;}
+  void     set_target_dir(int8_t dir) override   { _target_dir = dir;}
 
 private:
   /* encoder */
   TIM_HandleTypeDef* _enc_tim;
   int8_t             _enc_dir;
+  int8_t             _target_dir;
+  int8_t             _last_target_dir;
+  int8_t             _delta_tick_last;
   int32_t            _tick;
   int32_t            _tick_last;
   uint32_t           _last_millisecond;

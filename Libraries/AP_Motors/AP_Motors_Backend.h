@@ -18,7 +18,7 @@ public:
   virtual float    get_rpm()        { return 0.0f; }
   virtual float    get_rpm_target() { return 0.0f; }
   virtual float    get_rpm_encoder(){ return 0.0f; }
-  virtual void     set_enc_dir(int8_t dir) {}
+  virtual void     set_target_dir(int8_t dir) {}
   
 protected:
   AP_Motors &_frontend;
