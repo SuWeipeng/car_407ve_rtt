@@ -59,13 +59,13 @@
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.0775f
 #define WHEEL_DIAMETER_M    0.063f 
-#define P                   0.3f
-#define I                   5.0f
+#define P                   0.73f
+#define I                   1.3f
 #define D                   0.0f
 #define FF                  0.0f
 #define IMAX                200.0f
-#define FLTT                0.0f
-#define FLTE                0.0f
+#define FLTT                10.0f
+#define FLTE                10.0f
 #define FLTD                0.85f
 #define DT                  0.02f
 #define VEL_X_MAX_M_S       2.0f      // m/s
