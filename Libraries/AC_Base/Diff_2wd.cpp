@@ -33,10 +33,8 @@ Diff_2wd::Diff_2wd(AC_Base &instance)
 , _log_sem("log",0)
 #endif
 {
-#if defined(STM32F407xx)
-  _motor1_r.init(&htim3, 1, GPIOC, GPIO_PIN_1, GPIO_PIN_3, &htim5, TIM_CHANNEL_4, 99, &_pid_1);
-  _motor2_l.init(&htim1, 1, GPIOE, GPIO_PIN_2, GPIO_PIN_4, &htim5, TIM_CHANNEL_1, 99, &_pid_2);
-#endif
+  _motor1_r.init(&htim3, 1, GPIOA, GPIO_PIN_11, GPIO_PIN_10, &htim1, TIM_CHANNEL_1, 99, &_pid_1);
+  _motor2_l.init(&htim4, 1, GPIOA, GPIO_PIN_15, GPIO_PIN_12, &htim1, TIM_CHANNEL_2, 99, &_pid_2);
 }
 
 Diff_2wd::~Diff_2wd()
