@@ -59,8 +59,8 @@
 #define HALF_BASE_LENGTH_M  0.122f
 #define HALF_BASE_WIDTH_M   0.0775f
 #define WHEEL_DIAMETER_M    0.063f 
-#define P                   0.53f
-#define I                   1.3f
+#define P                   0.33f
+#define I                   3.3f
 #define D                   0.0f
 #define FF                  0.0f
 #define IMAX                200.0f
