@@ -5,10 +5,10 @@
 #include "Logger.h"
 #endif
 #if (PWM_RPM_TEST_ENABLE == 1) || (MOTORS_VCOM_DEBUG == 2)
-#include <stm32f4xx_hal.h>
+#include <stm32f1xx_hal.h>
 #include "mavlink.h"
 
-extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart3;
 #endif
 
 #if MOTORS_VCOM_DEBUG == 2 || MOTORS_VCOM_DEBUG == 3
@@ -179,7 +179,7 @@ void Diff_2wd::_pwm_rpm_test()
   
   mavlink_msg_pwm_rpm_pack(0, 0, &msg, _motor1_fr.get_pwm(), _motor1_fr.get_rpm_encoder());
   len = mavlink_msg_to_send_buffer( myTxData, &msg );
-  HAL_UART_Transmit(&huart1,myTxData,len,10);
+  HAL_UART_Transmit(&huart3,myTxData,len,10);
 }
 #endif
 
@@ -192,6 +192,6 @@ void Diff_2wd::_rpm_test()
 
   mavlink_msg_rpm_pack(0, 0, &msg,  HAL_GetTick(), _motor2_fl.get_rpm_target(), _motor2_fl.get_rpm());
   len = mavlink_msg_to_send_buffer( myTxData, &msg );
-  HAL_UART_Transmit(&huart1,myTxData,len,10);
+  HAL_UART_Transmit(&huart3,myTxData,len,10);
 }
 #endif

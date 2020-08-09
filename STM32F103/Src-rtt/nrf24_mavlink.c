@@ -10,7 +10,7 @@
 #define MAVLINK_VCOM_DEBUG 0
 #define GET_BIT(value, i) ((value)>>i)
 
-//extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart3;
 
 #if MAVLINK_VCOM_DEBUG == 1
 extern rt_device_t vcom;
@@ -90,7 +90,7 @@ void nrf24l01_mavlink_entry(void *param)
           case MAVLINK_MSG_ID_CMD: {
             uint8_t myTxData[32];
             uint8_t len = mavlink_msg_to_send_buffer( myTxData, &msg_receive );
-//            HAL_UART_Transmit(&huart1,myTxData,len,10);
+            HAL_UART_Transmit(&huart3,myTxData,len,10);
             break;
           }
           case MAVLINK_MSG_ID_MODE: {
