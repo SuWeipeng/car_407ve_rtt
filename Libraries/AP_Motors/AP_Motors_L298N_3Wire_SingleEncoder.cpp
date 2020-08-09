@@ -52,7 +52,7 @@ AP_Motors_L298N_3Wire_SingleEncoder::AP_Motors_L298N_3Wire_SingleEncoder(AP_Moto
   HAL_GPIO_WritePin(_dir_port, _pin_2, GPIO_PIN_RESET);
   
   /* encoder */
-  HAL_TIM_Encoder_Start(_enc_tim, TIM_CHANNEL_ALL);
+  HAL_TIM_Base_Start(_enc_tim);
 }
 
 void AP_Motors_L298N_3Wire_SingleEncoder::set_rpm(float rpm)
