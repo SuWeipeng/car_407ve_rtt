@@ -70,6 +70,8 @@ void AP_Motors_L298N_3Wire_SingleEncoder::set_rpm(float rpm)
   
   /* The motor does not rotate when pwm lower than MOTORS_PWM_MIN*/
   if(abs(_pwm) < MOTORS_PWM_MIN) _pwm = 0;
+  /* L298N deadzone */
+  if((_rpm > 0 && _pwm < 0) || (_rpm < 0 && _pwm > 0)) _pwm = 0;
   
   /* spin */
   _spin(_pwm);
@@ -83,11 +85,6 @@ void AP_Motors_L298N_3Wire_SingleEncoder::set_rpm(float rpm)
 
 void AP_Motors_L298N_3Wire_SingleEncoder::_spin(int16_t pwm)
 {
-  /* deadzone */
-  if((_rpm > 0 && pwm < 0) || (_rpm < 0 && pwm > 0))
-  {
-    __HAL_TIM_SET_COMPARE(_pwm_tim,_channel, 0);
-  }
   if(pwm > 0)
   {
     HAL_GPIO_WritePin(_dir_port, _pin_2, GPIO_PIN_RESET);
