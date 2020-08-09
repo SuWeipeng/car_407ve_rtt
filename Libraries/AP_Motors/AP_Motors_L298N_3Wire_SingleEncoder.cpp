@@ -146,7 +146,7 @@ int32_t AP_Motors_L298N_3Wire_SingleEncoder::_get_delta_tick()
   if(_target_dir != 0){
     if(_target_dir != _last_target_dir){
       if( delta_tick - _delta_tick_last > 0){
-        (_target_dir > 0) ? _enc_dir = 1 : _enc_dir = -1;
+        _enc_dir = (_target_dir > 0) ? 1 : -1;
         _last_target_dir = _target_dir;
       }
     }
