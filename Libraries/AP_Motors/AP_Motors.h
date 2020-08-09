@@ -9,7 +9,7 @@
 #endif
 #include "AP_Motors_Conf.h"
 
-#define MOTORS_VCOM_DEBUG      3
+#define MOTORS_VCOM_DEBUG      0
 
 class AP_Motors_Backend;
 class AC_PID;

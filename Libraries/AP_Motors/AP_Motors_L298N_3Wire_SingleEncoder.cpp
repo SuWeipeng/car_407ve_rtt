@@ -5,9 +5,9 @@
 #include <string.h>
 #include <entry.h>
 
-#if MOTORS_L298N_3WIRE_ABENCODER_VCOM_DEBUG != 0
-extern rt_device_t vcom;
-#endif
+//#if MOTORS_L298N_3WIRE_ABENCODER_VCOM_DEBUG != 0
+//extern rt_device_t vcom;
+//#endif
 
 AP_Motors_L298N_3Wire_SingleEncoder::AP_Motors_L298N_3Wire_SingleEncoder(AP_Motors          &instance,
                                                                  TIM_HandleTypeDef* enc_tim,  // encoder timer
@@ -75,11 +75,9 @@ void AP_Motors_L298N_3Wire_SingleEncoder::set_rpm(float rpm)
   _spin(_pwm);
   
 #if MOTORS_L298N_3WIRE_ABENCODER_VCOM_DEBUG == 1
-  if(vcom != RT_NULL){
-    char buf[100];
-    sprintf(buf, "[p:%.2f | i:%.2f | d:%.2f | pwm:%d | trpm:%.2f | rpm: %.2f] \r\n", _pid->get_p(), _pid->get_i(), _pid->get_d(), _pwm, rpm, _rpm);
-    rt_device_write(vcom, 0, buf, rt_strlen(buf));
-  }
+  char buf[100];
+  sprintf(buf, "[p:%.2f | i:%.2f | d:%.2f | pwm:%d | trpm:%.2f | rpm: %.2f] \r\n", _pid->get_p(), _pid->get_i(), _pid->get_d(), _pwm, rpm, _rpm);
+  rt_kputs(buf);
 #endif
 }
 
@@ -157,11 +155,9 @@ int32_t AP_Motors_L298N_3Wire_SingleEncoder::_get_delta_tick()
   delta_tick *= _enc_dir;
  
 #if MOTORS_L298N_3WIRE_ABENCODER_VCOM_DEBUG == 1
-  if(vcom != RT_NULL){
-    char buf[100];
-    sprintf(buf, "[%4d|%4d]\r\n", delta_tick, _tick);
-    rt_device_write(vcom, 0, buf, rt_strlen(buf));
-  }
+  char buf[100];
+  sprintf(buf, "[%4d|%4d]\r\n", delta_tick, _tick);
+  rt_kputs(buf);
 #endif
   
   return delta_tick;

@@ -11,9 +11,9 @@
 extern UART_HandleTypeDef huart3;
 #endif
 
-#if (MOTORS_VCOM_DEBUG == 2 || MOTORS_VCOM_DEBUG == 3) && defined(STM32F407xx)
-extern rt_device_t vcom;
-#endif
+//#if (MOTORS_VCOM_DEBUG == 2 || MOTORS_VCOM_DEBUG == 3)
+//extern rt_device_t vcom;
+//#endif
 
 typedef VectorN<float,2> _Vector2f;
 
@@ -60,6 +60,22 @@ void Diff_2wd::vel2rpm(float& vel_x, float& vel_z)
     }
     scale -= 0.0333334;
     _vel  *= scale;
+  }
+
+  if(is_zero(_motor1_r_rpm)){
+    _motor1_r.set_target_dir(0);
+  } else if (_motor1_r_rpm > 0.0f){
+    _motor1_r.set_target_dir(1);
+  } else {
+    _motor1_r.set_target_dir(-1);
+  }
+  
+  if(is_zero(_motor2_l_rpm)){
+    _motor2_l.set_target_dir(0);
+  } else if(_motor2_l_rpm > 0.0f){
+    _motor2_l.set_target_dir(1);
+  } else {
+    _motor2_l.set_target_dir(-1);
   }
   
   _run();
@@ -130,7 +146,7 @@ void Diff_2wd::_run()
 #if MOTORS_VCOM_DEBUG == 2
   _rpm_test();
   char buf[100];
-  sprintf(buf, "[rpm: %.1f]\r\n", _motor2_fl.get_rpm());
+  sprintf(buf, "[rpm: %.1f]\r\n", _motor2_l.get_rpm());
   rt_kputs(buf);
 #endif
 }

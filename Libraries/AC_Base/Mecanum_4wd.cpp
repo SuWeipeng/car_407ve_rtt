@@ -11,9 +11,9 @@
 extern UART_HandleTypeDef huart3;
 #endif
 
-#if MOTORS_VCOM_DEBUG == 2 || MOTORS_VCOM_DEBUG == 3
-extern rt_device_t vcom;
-#endif
+//#if MOTORS_VCOM_DEBUG == 2 || MOTORS_VCOM_DEBUG == 3
+//extern rt_device_t vcom;
+//#endif
 
 typedef VectorN<float,3> _Vector3f;
 
@@ -120,12 +120,10 @@ void Mecanum_4wd::_run()
   rpm2vel(_motor1_fr.get_rpm(), _motor3_bl.get_rpm(), _motor4_br.get_rpm(),
           _vel_x, _vel_y, _vel_z);
   
-#if MOTORS_VCOM_DEBUG == 3 && defined(STM32F407xx)
-  if(vcom != RT_NULL){
-    char buf[100];
-    sprintf(buf, "s: [vel_x: %.2f, vel_y: %.2f, vel_z: %.5f, rpm: %.2f, pwm: %d]\r\n", _vel_x, _vel_y, _vel_z, _motor1_fr.get_rpm(), _motor1_fr.get_pwm());
-    rt_device_write(vcom, 0, buf, rt_strlen(buf));
-  }
+#if MOTORS_VCOM_DEBUG == 3
+  char buf[100];
+  sprintf(buf, "s: [vel_x: %.2f, vel_y: %.2f, vel_z: %.5f, rpm: %.2f, pwm: %d]\r\n", _vel_x, _vel_y, _vel_z, _motor1_fr.get_rpm(), _motor1_fr.get_pwm());
+  rt_kputs(buf);
 #endif
   
 #if defined(USE_RTTHREAD) && defined(STM32F407xx)
@@ -135,13 +133,11 @@ void Mecanum_4wd::_run()
   _pwm_rpm_test();
 #endif
 
-#if MOTORS_VCOM_DEBUG == 2 && defined(STM32F407xx)
+#if MOTORS_VCOM_DEBUG == 2
   _rpm_test();
-  if(vcom != RT_NULL){
-    char buf[100];
-    sprintf(buf, "[rpm: %.1f]\r\n", _motor2_fl.get_rpm());
-    rt_device_write(vcom, 0, buf, rt_strlen(buf));
-  }
+  char buf[100];
+  sprintf(buf, "[rpm: %.1f]\r\n", _motor2_fl.get_rpm());
+  rt_kputs(buf);
 #endif
 }
 
