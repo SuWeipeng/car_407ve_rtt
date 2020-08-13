@@ -47,7 +47,6 @@ common:
   - Libraries/mavlink
   - Libraries/mavlink/car
   - packages/nrf24l01-latest/src
-  - packages/nrf24l01-latest/examples
   - packages/mpu6xxx-latest/inc
   sources:
     Drivers:
