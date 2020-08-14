@@ -42,7 +42,6 @@ common:
   - Libraries/rt-thread/include
   - Libraries/rt-thread/include/libc
   - packages/nrf24l01-latest/src
-  - packages/nrf24l01-latest/examples
   sources:
     Drivers:
     - STM32F103/Drivers/STM32F1xx_HAL_Driver/Src
