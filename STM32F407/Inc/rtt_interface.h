@@ -46,6 +46,7 @@ extern rt_thread_t log_thread;
 extern rt_thread_t mpu_thread;
 extern rt_thread_t attitude_thread;
 extern rt_thread_t mode_thread;
+extern rt_thread_t srv_thread;
 
 void file_log_entry (void* parameter);
 void led_thread_entry(void* parameter);
@@ -53,6 +54,7 @@ void log_thread_entry(void* parameter);
 void mpu6xxx_thread_entry(void* parameter);
 void attitude_thread_entry(void* parameter);
 void mode_thread_entry(void* parameter);
+void srv_thread_entry(void* parameter);
 
 int loop_start(void);
 

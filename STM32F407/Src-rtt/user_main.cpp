@@ -6,6 +6,7 @@
 #include "AC_Base.h"
 #include "Logger.h"
 #include "AP_Buffer.h"
+#include "SRV_Channel.h"
 #include "mode.h"
 #if defined(__ICCARM__) || defined(__GNUC__)
 #include "AP_RangeFinder.h"
@@ -18,6 +19,8 @@ using namespace rtthread;
 static rt_timer_t vl53lxx_timer;
 #endif
 
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim11;
 extern rt_device_t vcom;
 
 AC_Base      *base;
@@ -26,6 +29,8 @@ Mode         *car_mode;
 ModeManual   *mode_manual;
 ModeAuto     *mode_auto;
 ModeROS      *mode_ros;
+SRV_Channel  *servo_bottom;
+SRV_Channel  *servo_top;
 
 Mode::Number     current_mode = Mode::Number::MAN;
 Mode::Number     prev_mode    = Mode::Number::MAN;
@@ -44,12 +49,14 @@ static void vl53lxx_timeout(void *parameter);
 
 void setup(void)
 {
-  base        = new AC_Base(AC_Base::Type::MECANUM_4WD);
-  buffer      = new AP_Buffer();
-  mode_manual = new ModeManual();
-  mode_auto   = new ModeAuto();
-  mode_ros    = new ModeROS();
-  car_mode    = mode_manual;
+  base         = new AC_Base(AC_Base::Type::MECANUM_4WD);
+  buffer       = new AP_Buffer();
+  servo_bottom = new SRV_Channel(&htim2 , TIM_CHANNEL_1, SERVO_MAX_PWM, SERVO_MIN_PWM);
+  servo_top    = new SRV_Channel(&htim11, TIM_CHANNEL_1, SERVO_MAX_PWM, SERVO_MIN_PWM);
+  mode_manual  = new ModeManual();
+  mode_auto    = new ModeAuto();
+  mode_ros     = new ModeROS();
+  car_mode     = mode_manual;
   
   base->init();
   buffer->init(AP_Buffer::RING);

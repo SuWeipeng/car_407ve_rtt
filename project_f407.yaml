@@ -19,6 +19,8 @@ common:
   - Libraries/AC_PID
   - Libraries/AP_Buffer
   - Libraries/AP_Motors
+  - Libraries/Logger
+  - Libraries/SRV_Channel
   - Libraries/rt-thread
   - Libraries/rt-thread/board-F407xE
   - Libraries/rt-thread/components
@@ -43,7 +45,6 @@ common:
   - Libraries/rt-thread/HAL_Drivers/config/f4
   - Libraries/rt-thread/include
   - Libraries/rt-thread/include/libc
-  - Libraries/Logger
   - Libraries/mavlink
   - Libraries/mavlink/car
   - packages/nrf24l01-latest/src
@@ -99,6 +100,7 @@ common:
     - Libraries/AP_Buffer
     - Libraries/AP_Motors
     - Libraries/Logger
+    - Libraries/SRV_Channel
     #VCom:
     #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/core.c
     #- Libraries/rt-thread/components/drivers/usb/usbdevice/core/usbdevice.c
