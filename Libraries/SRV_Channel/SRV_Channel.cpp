@@ -24,7 +24,7 @@ SRV_Channel::set_position(float value)
     _got_cmd = 1;
   }
   if(_got_cmd == 1){
-    _pwm = constrain_int16((int16_t)((_pwm_max - _pwm_min) * value) + _pwm_min, _pwm_min, _pwm_max);
+    _pwm = constrain_int16((int16_t)(((_pwm_max - _pwm_min) * (value + 1.0f)) / 2.0f) + _pwm_min, _pwm_min, _pwm_max);
     __HAL_TIM_SET_COMPARE(_pwm_tim,_channel, _pwm);
   }
 }

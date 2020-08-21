@@ -3,7 +3,7 @@
 
 #include <stm32f4xx_hal.h>
 
-#define SERVO_MAX_PWM (20000-1)
+#define SERVO_MAX_PWM (2500)
 #define SERVO_MIN_PWM (500)
 
 class SRV_Channel{

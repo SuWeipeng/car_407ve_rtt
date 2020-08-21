@@ -20,7 +20,7 @@ static void _waitirq(void);
 static void _nrf24_param_set(nrf24_cfg_t *pt);
 
 ap_t       mav_data;
-vel_target vel={.vel_x = 0.0f, .vel_y = 0.0f, .rad_z = 0.0f};
+vel_target vel={.vel_x = 0.0f, .vel_y = 0.0f, .rad_z = 0.0f, .ext_1 = 0.0f, .ext_2 = 0.0f, .ext_3 = 0};
 uint8_t    mode_mav;
 
 void nrf24l01_mavlink_entry(void *param)
@@ -80,6 +80,9 @@ void nrf24l01_mavlink_entry(void *param)
             vel.vel_x = packet.vel_x;
             vel.vel_y = packet.vel_y;
             vel.rad_z = packet.rad_z;
+            vel.ext_1 = packet.ext_1;
+            vel.ext_2 = packet.ext_2;
+            vel.ext_3 = packet.ext_3;
 
             break;
           }

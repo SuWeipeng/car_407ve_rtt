@@ -27,9 +27,12 @@ typedef union{
 }ap_t;
 
 typedef struct vel_target {
-  float vel_x; // m/s
-  float vel_y; // m/s
-  float rad_z; // rad/s
+  float    vel_x; // m/s
+  float    vel_y; // m/s
+  float    rad_z; // rad/s
+  float    ext_1;
+  float    ext_2;
+  uint32_t ext_3;
 } vel_target;
 
 extern struct      mpu6xxx_3axes accel, gyro;

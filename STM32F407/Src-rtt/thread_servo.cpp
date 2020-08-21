@@ -13,8 +13,8 @@ extern "C"
 void srv_thread_entry(void* parameter)
 {
   while(1) {
-    servo_bottom->set_position(vel.vel_x);
-    servo_top->set_position(vel.rad_z);
+    servo_top->set_position(vel.ext_1);
+    servo_bottom->set_position(vel.ext_2);
     rt_thread_delay(1);
   }
 }
