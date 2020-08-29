@@ -112,34 +112,6 @@ common:
   target:
   - stm32f407ve
 tool_specific:
-  uvision5:
-    includes:
-    - Libraries/AC_Base_mdk5
-    - Libraries/AP_Math_mdk5
-    - Libraries/rt-thread/components/libc
-    - Libraries/rt-thread/components/libc/compilers
-    - Libraries/rt-thread/components/libc/compilers/armlibc
-    macros:
-    - USE_HAL_DRIVER
-    - STM32F407xx
-    - __ARMCOMPILER_LIBCXX
-    misc:
-      cxx_flags:
-      - -Otime
-    sources:
-      MDK5:
-      - Libraries/AC_Base_mdk5
-      - Libraries/AP_Math_mdk5
-      StartUp:
-      - STM32F407/IDE/MDK5
-      libc:
-      - Libraries/rt-thread/components/libc/compilers/armlibc/mem_std.c
-      - Libraries/rt-thread/components/libc/compilers/armlibc/stubs.c
-      - Libraries/rt-thread/components/libc/compilers/common/time.c
-      RTThread:
-      - Libraries/rt-thread/libcpu/arm/cortex-m4/context_rvds.S
-    linker_file:
-    - STM32F407/IDE/MDK5/car_407ve.sct
   iar_arm:
     includes:
     - Libraries/AC_Base
