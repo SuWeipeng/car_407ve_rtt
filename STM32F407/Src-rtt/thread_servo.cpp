@@ -15,6 +15,11 @@ void srv_thread_entry(void* parameter)
   while(1) {
     servo_top->set_position(vel.ext_1 > -0.235f ? vel.ext_1 : -0.235f);
     servo_bottom->set_position(vel.ext_2);
+    if(vel.ext_3 == 1){
+      rt_pin_write(SHOOT_PIN, PIN_HIGH);
+    }else{
+      rt_pin_write(SHOOT_PIN, PIN_LOW);
+    }
     rt_thread_delay(1);
   }
 }

@@ -3,6 +3,7 @@ STM32F407/EWARM/*
 STM32F103/MDK-ARM/*
 STM32F103/EWARM/*
 generate_project/*
+.idea/*
 *.udb
 .cproject
 .project
