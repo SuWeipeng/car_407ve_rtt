@@ -20,44 +20,25 @@
 
 #define I2C_BUS    "i2c1"
 
-static rt_thread_t tid1 = RT_NULL;
+rt_thread_t pca9685_thread = RT_NULL;
 
-static void pca9685_sample_entry(void *parameter)
+void pca9685_thread_entry(void *parameter)
 {
-    rt_uint32_t count = 500;
     pca9685_device_t dev = RT_NULL;
 
     dev = pca9685_init(I2C_BUS, RT_NULL);
 
-    if (dev == RT_NULL)
-        goto _exit;
+    if (dev == RT_NULL){
+      pca9685_deinit(dev);
+      return;
+    }
 
     pca9685_set_pwm(dev, 0, 0, 306);
     pca9685_set_pwm(dev, 1, 0, 500);
     pca9685_set_pwm(dev, 2, 0, 1000);
 
-    while (count > 0)
+    while (1)
     {
-        count--;
-        rt_thread_mdelay(10);
+      rt_thread_mdelay(1);
     }
-
-_exit:    
-    pca9685_deinit(dev);
-
 }
-
-int pca9685_sample(void)
-{
-    tid1 = rt_thread_create("pca9685_sample",
-                            pca9685_sample_entry, RT_NULL,
-                            512, 25, 10);
-
-    if (tid1 != RT_NULL)
-        rt_thread_startup(tid1);
-
-		return 0;
-}
-#ifdef FINSH_USING_MSH
-MSH_CMD_EXPORT(pca9685_sample, a pca9685 sample);
-#endif

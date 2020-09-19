@@ -135,13 +135,13 @@ void pca9685_set_pwm_freq(pca9685_device_t dev, float freq)
         freq = 24;
     }
 
-    freq *= (float)0.982; // Correct for overshoot in the frequency setting
+    freq *= (float)0.965; // Correct for overshoot in the frequency setting
     float prescaleval = 25000000;
     prescaleval /= 4096;
     prescaleval /= freq;
     prescaleval -= 1;
 
-    rt_uint8_t prescale = (rt_uint8_t)(prescaleval + (float)0.5);
+    rt_uint8_t prescale = (rt_uint8_t)(prescaleval + 0.5f);
     LOG_D("prescale:%d",prescale);
     // https://cdn-shop.adafruit.com/datasheets/PCA9685.pdf page 25
     // prescale value = round(osc_clock/(4096 * frequency) ) - 1
@@ -276,7 +276,7 @@ __exit:
 
 void pca9685_deinit(pca9685_device_t dev)
 {
-    RT_ASSERT(dev);
+    //RT_ASSERT(dev);
 
     rt_free(dev);
 }

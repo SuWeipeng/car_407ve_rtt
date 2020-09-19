@@ -49,6 +49,7 @@ common:
   - Libraries/mavlink/car
   - packages/nrf24l01-latest/src
   - packages/mpu6xxx-latest/inc
+  - packages/pca9685-latest
   sources:
     Drivers:
     - STM32F407/Drivers/STM32F4xx_HAL_Driver/Src
@@ -108,6 +109,7 @@ common:
     Src:
     - packages/nrf24l01-latest/src
     - packages/mpu6xxx-latest/src
+    - packages/pca9685-latest
     - STM32F407/Src-rtt
   target:
   - stm32f407ve

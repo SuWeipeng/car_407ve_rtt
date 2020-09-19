@@ -7,9 +7,7 @@ extern "C" {
 
 #include <entry.h>
 #include <mpu6xxx.h>
-  
-#define I2C2_SCL_PIN        GET_PIN(B, 10)
-#define I2C2_SDA_PIN        GET_PIN(B, 11)
+
 #define LED_PIN             GET_PIN(E, 0)
 #define SHOOT_PIN           GET_PIN(A, 8)
 #define AP_BUFFER_MAX_SIZE  (1024 * 30)
@@ -51,6 +49,7 @@ extern rt_thread_t mpu_thread;
 extern rt_thread_t attitude_thread;
 extern rt_thread_t mode_thread;
 extern rt_thread_t srv_thread;
+extern rt_thread_t pca9685_thread;
 
 void file_log_entry (void* parameter);
 void led_thread_entry(void* parameter);
@@ -59,6 +58,7 @@ void mpu6xxx_thread_entry(void* parameter);
 void attitude_thread_entry(void* parameter);
 void mode_thread_entry(void* parameter);
 void srv_thread_entry(void* parameter);
+void pca9685_thread_entry(void* parameter);
 
 int loop_start(void);
 

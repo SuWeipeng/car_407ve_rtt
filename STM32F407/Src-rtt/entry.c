@@ -164,6 +164,7 @@ int main(void)
   RTT_CREATE(attitude,attitude_thread_entry,RT_NULL,4096,6,20);
   RTT_CREATE(mode,mode_thread_entry,RT_NULL,256,RT_THREAD_PRIORITY_MAX-3,20);
   RTT_CREATE(srv,srv_thread_entry,RT_NULL,512,RT_THREAD_PRIORITY_MAX-3,20);
+  RTT_CREATE(pca9685,pca9685_thread_entry,RT_NULL,512,8,20);
 
   vcom = rt_device_find("vcom");
 

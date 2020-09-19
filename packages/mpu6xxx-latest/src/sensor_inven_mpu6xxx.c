@@ -187,7 +187,7 @@ static rt_err_t mpu6xxx_control(struct rt_sensor_device *sensor, int cmd, void *
     return result;
 }
 
-static struct rt_sensor_ops sensor_ops =
+static struct rt_sensor_ops sensor_ops __attribute__((unused)) =
 {
     mpu6xxx_fetch_data,
     mpu6xxx_control
