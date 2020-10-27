@@ -39,6 +39,6 @@ void pca9685_thread_entry(void *parameter)
 
     while (1)
     {
-      rt_thread_mdelay(1);
+      rt_thread_mdelay(50);
     }
 }
