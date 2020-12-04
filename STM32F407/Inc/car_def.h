@@ -6,6 +6,8 @@
  *  5 -
  */
 #define CAR_TYPE 0 
+#define MAV_SYSID              1 
+#define MVA_COMPID             1
 
 #if CAR_TYPE == 0
 #define BASE_TYPE              0 // 0-Small, 1-Middle, 2-Test
